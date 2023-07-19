@@ -71,7 +71,7 @@ class KColor {
   static Color black54 = Colors.black54;
   static const Color white38 = Color.fromARGB(255, 254, 254, 254);
   static Color white54 = Colors.white54;
-  static Color white = Colors.white;
+  static Color white = Color(0xffffffff);
   static const Color grey = Colors.grey;
   static Color? grey50 = Colors.grey[50];
   static Color? grey100 = Colors.grey[100];

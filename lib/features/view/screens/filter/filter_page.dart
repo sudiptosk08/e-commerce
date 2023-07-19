@@ -4,6 +4,7 @@ import 'package:another_xlider/models/handler.dart';
 import 'package:another_xlider/models/slider_step.dart';
 import 'package:another_xlider/models/tooltip/tooltip.dart';
 import 'package:another_xlider/models/trackbar.dart';
+import 'package:ecommerce_app/features/view/global_component/buttons/Kdrop_down_field.dart';
 import 'package:ecommerce_app/utils/extension/extension.dart';
 import 'package:ecommerce_app/utils/size/k_size.dart';
 import 'package:flutter/material.dart';
@@ -293,6 +294,32 @@ class _KFilterState extends State<KFilter> {
                   ),
                 ],
               ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                      child: KButton(
+                    title: "Reset",
+                    radius: 8,
+                    textColor: KColor.black,
+                    height: 45,
+                    onPressedCallback: () {},
+                  )),
+                  const SizedBox(
+                    width: 4,
+                  ),
+                  Expanded(
+                      child: KButton(
+                    title: "Apply",
+                    radius: 8,
+                    height: 45,
+                    textColor: KColor.black,
+                    onPressedCallback: () {},
+                  ))
+                ],
+              )
             ],
           ),
         ),

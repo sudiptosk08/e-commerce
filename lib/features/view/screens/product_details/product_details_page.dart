@@ -37,11 +37,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: KColor.background,
+      backgroundColor: KColor.white,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50),
         child: KAppBar(
           checkTitle: true,
+          color: KColor.white,
           title: "Product Details",
           leading: IconButton(
               onPressed: () {
@@ -68,32 +69,35 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           ],
         ),
       ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            ProductInfo(
-              productName: widget.productName,
-              productGroup: widget.productGroup,
-              price: widget.price,
-              description: widget.description,
-              id: widget.id.toString(),
-              userId: "12",
-              quantity: 1,
-              add: () {
-                setState(() {
-                  quantity++;
-                });
-              },
-              remove: () {
-                setState(() {
-                  quantity--;
-                  if (quantity < 0) {
-                    quantity = 0;
-                  }
-                });
-              },
-            ),
-          ],
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: SafeArea(
+          child: Column(
+            children: [
+              ProductInfo(
+                productName: widget.productName,
+                productGroup: widget.productGroup,
+                price: widget.price,
+                description: widget.description,
+                id: widget.id.toString(),
+                userId: "12",
+                quantity: 1,
+                add: () {
+                  setState(() {
+                    quantity++;
+                  });
+                },
+                remove: () {
+                  setState(() {
+                    quantity--;
+                    if (quantity < 0) {
+                      quantity = 0;
+                    }
+                  });
+                },
+              ),
+            ],
+          ),
         ),
       ),
       floatingActionButton: Padding(

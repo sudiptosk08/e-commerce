@@ -79,6 +79,9 @@ class _ReportViewCardState extends State<ReportViewCard> {
                           Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                const SizedBox(
+                                  height: 4,
+                                ),
                                 Row(
                                   children: [
                                     Text(
@@ -148,7 +151,7 @@ class _ReportViewCardState extends State<ReportViewCard> {
                                   image: AssetImage(widget.image.toString())),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 3,
                           ),
                           Expanded(

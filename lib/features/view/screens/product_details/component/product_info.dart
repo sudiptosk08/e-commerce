@@ -68,7 +68,7 @@ class _ProductInfoState extends State<ProductInfo> {
           height: KSize.getHeight(context, 380),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            color: Colors.grey[200],
+            color: KColor.white,
           ),
           padding: const EdgeInsets.only(left: 8, right: 12, bottom: 15),
           child: Row(
@@ -84,6 +84,7 @@ class _ProductInfoState extends State<ProductInfo> {
                       height: 250,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: KColor.gray.withOpacity(0.5)),
                         color: KColor.white,
                       ),
                       padding: const EdgeInsets.all(8),
@@ -131,156 +132,204 @@ class _ProductInfoState extends State<ProductInfo> {
           ),
         ),
         SizedBox(
-          height: KSize.getHeight(context, 350),
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 12, right: 12, bottom: 5),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: KSize.getWidth(context, 260),
-                        child: Text(
-                          "Essentials Men's Short-Sleeve Crewneck T-Shirt",
-                          style: TextStyles.headline6,
-                        ),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 12, right: 12, bottom: 5),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: KSize.getWidth(context, 260),
+                      child: Text(
+                        "Essentials Men's Short-Sleeve Crewneck T-Shirt",
+                        style: TextStyles.headline6,
                       ),
-                      Container(
-                        alignment: Alignment.centerRight,
-                        width: KSize.getWidth(context, 90),
-                        child: Text(
-                          "৳195.00",
-                          style: TextStyles.headline3
-                              .copyWith(color: KColor.errorRedText),
-                          textAlign: TextAlign.end,
-                        ),
+                    ),
+                    Container(
+                      alignment: Alignment.centerRight,
+                      width: KSize.getWidth(context, 90),
+                      child: Text(
+                        "৳195.00",
+                        style: TextStyles.headline3
+                            .copyWith(color: KColor.errorRedText),
+                        textAlign: TextAlign.end,
                       ),
-                    ],
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: KSize.getWidth(context, 200),
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 10.0, bottom: 19),
-                              child: IgnorePointer(
-                                  child: Row(
-                                children: [
-                                  const Icon(
-                                    Icons.star,
-                                    size: 25,
-                                    color: KColor.primary,
-                                  ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(
-                                    "4.9 ",
-                                    style: TextStyles.bodyText1
-                                        .copyWith(color: KColor.gray223),
-                                  )
-                                ],
-                              )),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 10.0, bottom: 19),
-                              child: IgnorePointer(
-                                  child: Row(
-                                children: [
-                                  const Icon(
-                                    Icons.brightness_1_sharp,
-                                    size: 15,
-                                    color: KColor.primary,
-                                  ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(
-                                    "100+ Reviews",
-                                    style: TextStyles.bodyText1
-                                        .copyWith(color: KColor.gray223),
-                                  )
-                                ],
-                              )),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        alignment: Alignment.centerRight,
-                        width: KSize.getWidth(context, 150),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            InkWell(
-                              onTap: widget.add,
-                              child: const CircleAvatar(
-                                backgroundColor: KColor.primary,
-                                child: Center(
-                                  child: Icon(
-                                    Icons.remove,
-                                    size: 25,
-                                    color: KColor.black,
-                                  ),
+                    ),
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: KSize.getWidth(context, 200),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(top: 10.0, bottom: 19),
+                            child: IgnorePointer(
+                                child: Row(
+                              children: [
+                                const Icon(
+                                  Icons.star,
+                                  size: 25,
+                                  color: KColor.primary,
                                 ),
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 22.0),
-                              child: Text(
-                                widget.quantity.toString(),
-                                style: TextStyles.headline6.copyWith(
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  "4.9 ",
+                                  style: TextStyles.bodyText1
+                                      .copyWith(color: KColor.gray223),
+                                )
+                              ],
+                            )),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(top: 10.0, bottom: 19),
+                            child: IgnorePointer(
+                                child: Row(
+                              children: [
+                                const Icon(
+                                  Icons.brightness_1_sharp,
+                                  size: 15,
+                                  color: KColor.primary,
+                                ),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  "100+ Reviews",
+                                  style: TextStyles.bodyText1
+                                      .copyWith(color: KColor.gray223),
+                                )
+                              ],
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.centerRight,
+                      width: KSize.getWidth(context, 150),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                            onTap: widget.add,
+                            child: const CircleAvatar(
+                              backgroundColor: KColor.primary,
+                              child: Center(
+                                child: Icon(
+                                  Icons.remove,
+                                  size: 25,
                                   color: KColor.black,
                                 ),
                               ),
                             ),
-                            InkWell(
-                              // When using InkWell check the spalsh effect if its radius matches the container
-                              borderRadius: BorderRadius.circular(8),
-                              onTap: widget.remove,
-                              child: const CircleAvatar(
-                                backgroundColor: KColor.primary,
-                                child: Center(
-                                  child: Icon(
-                                    Icons.add,
-                                    size: 25,
-                                    color: KColor.black,
-                                  ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 22.0),
+                            child: Text(
+                              widget.quantity.toString(),
+                              style: TextStyles.headline6.copyWith(
+                                color: KColor.black,
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            // When using InkWell check the spalsh effect if its radius matches the container
+                            borderRadius: BorderRadius.circular(8),
+                            onTap: widget.remove,
+                            child: const CircleAvatar(
+                              backgroundColor: KColor.primary,
+                              child: Center(
+                                child: Icon(
+                                  Icons.add,
+                                  size: 25,
+                                  color: KColor.black,
                                 ),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
+                  ],
+                ),
+                Text(
+                  'Variation',
+                  style: TextStyles.subTitle.copyWith(color: Colors.black),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  height: 55,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: productImageList.length,
+                    itemBuilder: (context, int index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(3.0),
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              selectIndex = index;
+                              _controller.animateToPage(
+                                selectIndex,
+                                duration: const Duration(seconds: 1),
+                                curve: Curves.easeInOut,
+                              );
+                            });
+                          },
+                          child: Container(
+                            height: 54,
+                            width: 54,
+                            margin: const EdgeInsets.only(bottom: 5),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 2, horizontal: 2),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(
+                                    width: 1,
+                                    color: selectIndex == index
+                                        ? KColor.primary
+                                        : KColor.gray)),
+                            child: Center(
+                              child: CachedNetworkImage(
+                                fit: BoxFit.cover,
+                                imageUrl:
+                                    productImageList[index]['url'].toString(),
+                                errorWidget: (context, url, error) =>
+                                    const Icon(Icons.error),
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 55,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: productImageList.length,
-                      itemBuilder: (context, int index) {
-                        return Padding(
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  height: 55,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: productSizeList.length,
+                    itemBuilder: (context, int index) {
+                      return Padding(
                           padding: const EdgeInsets.all(3.0),
                           child: InkWell(
                             onTap: () {
                               setState(() {
-                                selectIndex = index;
-                                _controller.animateToPage(
-                                  selectIndex,
-                                  duration: const Duration(seconds: 1),
-                                  curve: Curves.easeInOut,
-                                );
+                                selectSize = index;
                               });
                             },
                             child: Container(
@@ -288,104 +337,83 @@ class _ProductInfoState extends State<ProductInfo> {
                               width: 54,
                               margin: const EdgeInsets.only(bottom: 5),
                               padding: const EdgeInsets.symmetric(
-                                  vertical: 2, horizontal: 2),
+                                  vertical: 3, horizontal: 2),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8),
                                   border: Border.all(
-                                      width: 2,
-                                      color: selectIndex == index
+                                      width: 1,
+                                      color: selectSize == index
                                           ? KColor.primary
-                                          : KColor.white)),
+                                          : KColor.gray)),
                               child: Center(
-                                child: CachedNetworkImage(
-                                  fit: BoxFit.cover,
-                                  imageUrl:
-                                      productImageList[index]['url'].toString(),
-                                  errorWidget: (context, url, error) =>
-                                      const Icon(Icons.error),
+                                child: Text(
+                                  productSizeList[index]['size'].toString(),
+                                  style: TextStyles.headline6,
                                 ),
                               ),
                             ),
-                          ),
-                        );
-                      },
+                          ));
+                    },
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Description',
+                      style: TextStyles.subTitle.copyWith(color: Colors.black),
                     ),
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 55,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: productSizeList.length,
-                      itemBuilder: (context, int index) {
-                        return Padding(
-                            padding: const EdgeInsets.all(3.0),
-                            child: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  selectSize = index;
-                                });
-                              },
-                              child: Container(
-                                height: 54,
-                                width: 54,
-                                margin: const EdgeInsets.only(bottom: 5),
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 3, horizontal: 2),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    border: Border.all(
-                                        width: 2,
-                                        color: selectSize == index
-                                            ? KColor.primary
-                                            : KColor.white)),
-                                child: Center(
-                                  child: Text(
-                                    productSizeList[index]['size'].toString(),
-                                    style: TextStyles.headline6,
-                                  ),
-                                ),
-                              ),
-                            ));
-                      },
+                    const SizedBox(
+                      height: 8,
                     ),
-                  ),
-                  const SizedBox(height: 2),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Description',
-                        style:
-                            TextStyles.subTitle.copyWith(color: Colors.black),
-                      ),
-
-                      Text(
-                        "The Tech Hera is here to fulfil all of your chunky sneakers wishes. The wavy lifted midsole and suede accents level up your look while keeping you comfortable. And its durable design holds up beautifully to everyday wear—which is perfect, because you'll definitely want to wear these every day. holds up beautifully to everyday wear—which is perfect, because you'll definitely want",
-                        textAlign: TextAlign.justify,
-                        style: TextStyles.bodyText1
-                            .copyWith(color: KColor.gray223),
-                      ),
-                      Text(
-                        "The Tech Hera is here to fulfil all of your chunky sneakers wishes. The wavy lifted midsole and suede accents level up your look while keeping you comfortable. And its durable design holds up beautifully to everyday wear—which is perfect, because you'll definitely want to wear these every day. holds up beautifully to everyday wear—which is perfect, because you'll definitely want",
-                        textAlign: TextAlign.justify,
-                        style: TextStyles.bodyText1
-                            .copyWith(color: KColor.gray223),
-                      ),
-
-                      // } else ...{
-                      //   const Center(child: CupertinoActivityIndicator()),
-                      // }
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 60,
-                  ),
-                ],
-              ),
+                    Text(
+                      "The Tech Hera is here to fulfil all of your chunky sneakers wishes. The wavy lifted midsole and suede accents level up your look while keeping you comfortable. And its durable design holds up beautifully to everyday wear—which is perfect, because you'll definitely want to wear these every day. holds up beautifully to everyday wear—which is perfect, because you'll definitely want",
+                      textAlign: TextAlign.justify,
+                      style:
+                          TextStyles.bodyText1.copyWith(color: KColor.gray223),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      'Specification',
+                      style: TextStyles.subTitle.copyWith(color: Colors.black),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    _specification("Brand", "Upma"),
+                    _specification("Product Type", "T-Shirt"),
+                    _specification("Material", "Cotton 98%"),
+                    _specification("Gender", "Men"),
+                  ],
+                ),
+                const SizedBox(
+                  height: 80,
+                ),
+              ],
             ),
           ),
         ),
+      ],
+    );
+  }
+
+  Row _specification(title, description) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        SizedBox(
+          width: KSize.getWidth(context, 130),
+          child: Text(title,
+              style: TextStyles.bodyText1.copyWith(color: KColor.black54)),
+        ),
+        Text(":  ",
+            style: TextStyles.bodyText1.copyWith(color: KColor.black54)),
+        Expanded(
+            child: Text(description,
+                style: TextStyles.bodyText1.copyWith(color: KColor.black54))),
       ],
     );
   }
