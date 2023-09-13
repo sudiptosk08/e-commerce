@@ -52,7 +52,7 @@ class _SelectedItemsState extends State<SelectedItems> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
+                          SizedBox(
                             width: context.screenWidth * .50,
                             child: Text(
                               overflow: TextOverflow.ellipsis,

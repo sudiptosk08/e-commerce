@@ -130,14 +130,13 @@ class _ProfilePageState extends State<ProfilePage> {
                   isOutlineButton: false,
                   radius: 8,
                   color: KColor.primary,
-                  textStyle: TextStyles.subTitle.copyWith(
-                    color: KColor.black,
-                  ),
+                  textStyle: TextStyles.bodyText1.copyWith(
+                      color: KColor.white, fontWeight: FontWeight.w500),
                   onPressedCallback: () {},
                   title: "Log Out",
-                  trailingTitleIcon: const Icon(
+                  trailingTitleIcon: Icon(
                     Icons.logout,
-                    color: KColor.black,
+                    color: KColor.white,
                   ),
                 ),
               ],

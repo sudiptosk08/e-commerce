@@ -64,7 +64,7 @@ class _ShippingAddressCardState extends State<ShippingAddressCard> {
         decoration: const BoxDecoration(
           color: KColor.primary,
         ),
-        child: Row(
+        child:const Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [Icon(Icons.delete)],
         ),

@@ -50,7 +50,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                 ],
               ),
               const SizedBox(height: 5),
-              OrderItemCard(),
+              const OrderItemCard(),
               const SizedBox(height: 25),
               Container(
                 padding: const EdgeInsets.all(10),
@@ -97,21 +97,19 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                     radius: 8,
                     title: 'Write Review',
                     textStyle: TextStyles.bodyText1.copyWith(
-                      color: KColor.black,
-                    ),
+                        color: KColor.white, fontWeight: FontWeight.w500),
                     onPressedCallback: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => WriteReview()));
+                              builder: (context) => const WriteReview()));
                     },
                   ),
                   KButton(
                     width: context.screenWidth * 0.4,
                     height: 40,
                     textStyle: TextStyles.bodyText1.copyWith(
-                      color: KColor.black,
-                    ),
+                        color: KColor.white, fontWeight: FontWeight.w500),
                     onPressedCallback: () {
                       Navigator.push(
                           context,

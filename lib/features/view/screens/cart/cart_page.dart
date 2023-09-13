@@ -1,7 +1,7 @@
 import 'package:ecommerce_app/utils/colors/app_colors.dart';
 import 'package:ecommerce_app/utils/text_styles/text_styles.dart';
 import 'package:flutter/material.dart';
-import '../../../../main_screen.dart';
+import '../../../../navigation_bar.dart';
 import '../../../../utils/size/k_size.dart';
 import '../../global_component/appBar/app_bar.dart';
 import '../../global_component/buttons/Kdrop_down_field.dart';
@@ -28,8 +28,8 @@ class _CartPageState extends State<CartPage> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const HomeScreen(
-                                page: 0,
+                          builder: (context) => const NavigationBarScreen(
+                                page: "0",
                               )));
                 },
                 icon: const Icon(Icons.arrow_back_ios)),
@@ -85,9 +85,8 @@ class _CartPageState extends State<CartPage> {
                   isOutlineButton: false,
                   radius: 8,
                   color: KColor.primary,
-                  textStyle: TextStyles.subTitle.copyWith(
-                    color: KColor.black,
-                  ),
+                  textStyle: TextStyles.bodyText1.copyWith(
+                      color: KColor.white, fontWeight: FontWeight.w500),
                   onPressedCallback: () {
                     Navigator.push(
                         context,

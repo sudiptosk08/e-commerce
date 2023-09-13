@@ -241,9 +241,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
           isOutlineButton: false,
           radius: 8,
           color: KColor.primary,
-          textStyle: TextStyles.subTitle.copyWith(
-            color: KColor.black,
-          ),
+          textStyle: TextStyles.bodyText1
+              .copyWith(color: KColor.white, fontWeight: FontWeight.w500),
           onPressedCallback: () {},
           title: "Place to Order",
         ),

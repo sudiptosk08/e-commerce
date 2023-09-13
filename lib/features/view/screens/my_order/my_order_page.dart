@@ -35,8 +35,8 @@ class _MyOrderPageState extends State<MyOrderPage>
             Container(
               width: KSize.getWidth(context, 350),
               color: KColor.white,
-              child: Column(
-                children: const [
+              child:const Column(
+                children:  [
                   SizedBox(
                     height: 40,
                     child: TabBar(
@@ -74,9 +74,9 @@ class _MyOrderPageState extends State<MyOrderPage>
             const Expanded(
               child: TabBarView(
                 children: [
-                  SpecificOrder(OrderStatus: "Delivered"),
-                  SpecificOrder(OrderStatus: "Processing"),
-                  SpecificOrder(OrderStatus: "Canceled"),
+                  SpecificOrder(orderStatus: "Delivered"),
+                  SpecificOrder(orderStatus: "Processing"),
+                  SpecificOrder(orderStatus: "Canceled"),
                 ],
               ),
             ),

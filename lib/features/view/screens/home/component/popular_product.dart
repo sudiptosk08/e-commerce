@@ -1,4 +1,4 @@
-import 'package:ecommerce_app/features/view/screens/shop/shop_page.dart';
+import 'package:ecommerce_app/features/view/screens/shop/view/shop_page.dart';
 import 'package:ecommerce_app/utils/assets/app_assets.dart';
 import 'package:flutter/material.dart';
 import '../../../../../utils/colors/app_colors.dart';
@@ -66,18 +66,21 @@ class _NewArrivalsProductState extends State<NewArrivalsProduct> {
             GestureDetector(
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ShopPage()));
+                    MaterialPageRoute(builder: (context) => const ShopPage()));
               },
               child: Text(
-                "View all",
-                style: TextStyles.bodyText3.copyWith(color: KColor.secondary),
+                "view all",
+                style: TextStyles.bodyText1.copyWith(color: KColor.secondary),
               ),
             )
           ],
         ),
+        const SizedBox(
+          height: 8,
+        ),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          physics:const BouncingScrollPhysics(
+          physics: const BouncingScrollPhysics(
               decelerationRate: ScrollDecelerationRate.fast),
           child: Row(
             children: [

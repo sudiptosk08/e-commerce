@@ -22,7 +22,7 @@ class _ReportListState extends State<ReportList> {
         return Scaffold(
           backgroundColor: KColor.background,
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(50),
+            preferredSize:const Size.fromHeight(50),
             child: KAppBar(
               checkTitle: true,
               title: 'Report List',

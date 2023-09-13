@@ -16,6 +16,9 @@ class WishListCard extends StatefulWidget {
   final String? productName;
   final String? group;
   final int? price;
+  final int? disprice;
+  final int? appDiscount;
+
   int? total;
   final VoidCallback? cancel;
   final VoidCallback? delete;
@@ -30,6 +33,8 @@ class WishListCard extends StatefulWidget {
     this.group,
     this.price,
     this.cancel,
+    this.appDiscount,
+    this.disprice,
     this.delete,
     this.add,
     this.total,
@@ -65,14 +70,14 @@ class _WishListCardState extends State<WishListCard> {
         );
       },
       background: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-        margin: const EdgeInsets.only(bottom: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+        margin: const EdgeInsets.only(bottom: 4),
         decoration: const BoxDecoration(
-          color: KColor.primary,
+          color: KColor.errorRedText,
         ),
-        child: Row(
+        child: const Row(
           mainAxisAlignment: MainAxisAlignment.end,
-          children: const [Icon(Icons.delete)],
+          children: [Icon(Icons.delete)],
         ),
       ),
       child: Stack(
@@ -97,7 +102,7 @@ class _WishListCardState extends State<WishListCard> {
                       borderRadius: const BorderRadius.all(
                         Radius.circular(4),
                       ),
-                      child: Image.asset(
+                      child: Image.network(
                         '${widget.img}',
                         fit: BoxFit.fill,
                       ),
@@ -132,15 +137,49 @@ class _WishListCardState extends State<WishListCard> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(
-                              "৳${widget.price.toString()}",
-                              style: TextStyles.headline4
-                                  .copyWith(color: KColor.errorRedText),
+                            // Text(
+                            //   "৳${widget.price.toString()}",
+                            //   style: TextStyles.headline4
+                            //       .copyWith(color: KColor.errorRedText),
+                            // ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: widget.appDiscount! > 0 ? 3.5 : 0),
+                              child: Text.rich(TextSpan(
+                                  text: widget.appDiscount! > 0
+                                      ? "৳ ${widget.disprice} "
+                                      : null,
+                                  style: TextStyles.subTitle.copyWith(
+                                    color: KColor.errorRedText,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                  children: [
+                                    widget.appDiscount! > 0
+                                        ? TextSpan(
+                                            text:
+                                                " ৳ ${widget.price.toString()}",
+                                            style: TextStyles.subTitle.copyWith(
+                                              color: KColor.primary,
+                                              fontWeight: FontWeight.w600,
+                                              decoration:
+                                                  TextDecoration.lineThrough,
+                                            ),
+                                          )
+                                        : TextSpan(
+                                            text: " ৳ ${widget.price}",
+                                            style: TextStyles.subTitle.copyWith(
+                                              fontWeight: FontWeight.w600,
+                                              color: KColor.errorRedText,
+                                              letterSpacing: 0.3,
+                                            ),
+                                          )
+                                  ])),
                             ),
                             widget.isChecked == true
                                 ? InkWell(
                                     onTap: widget.add,
                                     child: CustomButton(
+                                      textColor: KColor.white,
                                       width: 80,
                                       height: 35,
                                       color: KColor.primary,

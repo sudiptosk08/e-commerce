@@ -52,9 +52,8 @@ class CouponCodeCard extends StatelessWidget {
                 isOutlineButton: false,
                 radius: 5,
                 color: KColor.primary,
-                textStyle: TextStyles.subTitle.copyWith(
-                  color: KColor.black,
-                ),
+                textStyle: TextStyles.bodyText1
+                    .copyWith(color: KColor.white, fontWeight: FontWeight.w500),
                 title: buttonText,
                 onPressedCallback: tap,
               ),

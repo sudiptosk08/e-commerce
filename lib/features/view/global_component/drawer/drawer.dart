@@ -1,8 +1,9 @@
-import 'package:ecommerce_app/features/view/screens/auth/login_page.dart';
+import 'package:ecommerce_app/features/view/screens/auth/login/login_page.dart';
 import 'package:ecommerce_app/utils/extension/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -19,7 +20,6 @@ class KDrawer extends ConsumerWidget {
         color: KColor.background,
         width: context.screenWidth * 0.75,
         height: context.screenHeight * 1,
-        padding: const EdgeInsets.symmetric(vertical: 25.0, horizontal: 30),
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -28,79 +28,42 @@ class KDrawer extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Center(
-                    child: Text(
-                      'E-commerce',
-                      style:
-                          TextStyles.headline1.copyWith(color: KColor.primary),
+                  Container(
+                    height: 180,
+                    width: double.infinity,
+                    color: KColor.primary,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.shopify,
+                          size: 90,
+                          color: KColor.secondary,
+                        ),
+                        Text(
+                          'E-commerce',
+                          style: TextStyles.headline1
+                              .copyWith(color: KColor.white),
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 40),
-                  Divider(color: KColor.black54.withOpacity(0.2), thickness: 1),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/mainScreen');
-                    },
-                    child: Text(
-                      'Home',
-                      style:
-                          TextStyles.subTitle.copyWith(color: KColor.black54),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/contact');
-                    },
-                    child: Text(
-                      'Contact Us',
-                      style:
-                          TextStyles.subTitle.copyWith(color: KColor.black54),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/about');
-                    },
-                    child: Text(
-                      'About Us',
-                      style:
-                          TextStyles.subTitle.copyWith(color: KColor.black54),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/about');
-                    },
-                    child: Text(
-                      'Shop ',
-                      style:
-                          TextStyles.subTitle.copyWith(color: KColor.black54),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => LoginPage(),
-                          ));
-                    },
-                    child: Text(
-                      'Login ',
-                      style:
-                          TextStyles.subTitle.copyWith(color: KColor.black54),
-                    ),
-                  ),
+                  drawerItem(() => Navigator.pushNamed(context, '/mainScreen'),
+                      Icons.home, "Home"),
+                  drawerItem(() => Navigator.pushNamed(context, '/contact'),
+                      Icons.shop, "Shop"),
+                  drawerItem(() => Navigator.pushNamed(context, '/about'),
+                      Icons.notification_important_rounded, "Notifications"),
+                  drawerItem(() => Navigator.pushNamed(context, '/about'),
+                      Icons.category, "Categories"),
+                  drawerItem(() => Navigator.pushNamed(context, '/contact'),
+                      Icons.contact_page, "Contact Us"),
+                  drawerItem(() => Navigator.pushNamed(context, '/about'),
+                      Icons.error_rounded, "About Us"),
+                  drawerItem(() => Navigator.pushNamed(context, '/about'),
+                      Icons.rule_folder_sharp, "Terms & Condition"),
                 ],
               ),
-              const SizedBox(height: 40),
               Center(
                 child: Column(
                   children: [
@@ -145,7 +108,7 @@ class KDrawer extends ConsumerWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 0),
+                    const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -154,24 +117,47 @@ class KDrawer extends ConsumerWidget {
                             launchUrlString(
                                 'https://www.facebook.com/finesselifestyleofficial');
                           },
-                          icon: SvgPicture.asset('assets/svg/facebookIcon.svg',
-                              color: KColor.facebookLogoColor),
+                          icon: const FaIcon(
+                            FontAwesomeIcons.facebook,
+                            color: KColor.facebookLogoColor,
+                            size: 35,
+                          ),
                         ),
+                        const SizedBox(width: 10),
                         IconButton(
                           onPressed: () {
                             launchUrlString(
                                 'https://www.instagram.com/finesse_lifestyle_bd/');
                           },
-                          icon: SvgPicture.asset('assets/svg/instaIcon.svg',
-                              color: KColor.instagramLogoColor),
+                          icon: const FaIcon(
+                            FontAwesomeIcons.instagram,
+                            color: KColor.redDamask,
+                            size: 35,
+                          ),
                         ),
+                        const SizedBox(width: 10),
+                        IconButton(
+                          onPressed: () {
+                            launchUrlString(
+                                'https://www.instagram.com/finesse_lifestyle_bd/');
+                          },
+                          icon: const FaIcon(
+                            FontAwesomeIcons.twitter,
+                            color: KColor.twitterLogoColor,
+                            size: 35,
+                          ),
+                        ),
+                        const SizedBox(width: 10),
                         IconButton(
                           onPressed: () {
                             launchUrlString(
                                 'https://www.youtube.com/channel/UCSUcQ8_MuhFzNh4E5BlTR-g');
                           },
-                          icon: SvgPicture.asset('assets/svg/youtubeIcon.svg',
-                              color: KColor.red),
+                          icon: FaIcon(
+                            FontAwesomeIcons.youtube,
+                            color: KColor.red,
+                            size: 35,
+                          ),
                         ),
                       ],
                     )
@@ -180,6 +166,34 @@ class KDrawer extends ConsumerWidget {
               )
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget drawerItem(Function onTap, IconData icon, String text) {
+    return InkWell(
+      onTap: () {
+        onTap;
+      },
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        child: Row(
+          children: [
+            Icon(
+              icon,
+              color: KColor.black54.withOpacity(0.8),
+            ),
+            const SizedBox(
+              width: 15,
+            ),
+            Text(
+              text,
+              style: TextStyles.subTitle.copyWith(
+                color: KColor.black54.withOpacity(0.8),
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -16,7 +16,7 @@ class OrderItemCard extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 2.3),
           child: Container(
             width: double.infinity,
-            padding: EdgeInsets.all(5),
+            padding:const EdgeInsets.all(5),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               border:

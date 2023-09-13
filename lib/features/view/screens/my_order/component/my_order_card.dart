@@ -114,14 +114,13 @@ class MyOrderCard extends StatelessWidget {
                 isOutlineButton: false,
                 radius: 8,
                 color: KColor.primary,
-                textStyle: TextStyles.bodyText1.copyWith(
-                  color: KColor.black,
-                ),
+                textStyle: TextStyles.bodyText1
+                    .copyWith(color: KColor.white, fontWeight: FontWeight.w500),
                 onPressedCallback: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => OrderDetailsPage(
+                          builder: (context) => const OrderDetailsPage(
                                 orderData: "laksjdf",
                               )));
                 },

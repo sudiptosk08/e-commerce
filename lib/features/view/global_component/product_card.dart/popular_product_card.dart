@@ -78,7 +78,7 @@ class PopularProductCard extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(6.0),
-                child: Container(
+                child: SizedBox(
                   width: KSize.getWidth(context, 124),
                   height: KSize.getWidth(context, 122),
                   child: Column(
@@ -132,7 +132,7 @@ class PopularProductCard extends StatelessWidget {
                       Text(
                         productName,
                         textAlign: TextAlign.justify,
-                        maxLines: 3,
+                        maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyles.bodyText1,
                       ),

@@ -1,8 +1,5 @@
-import 'package:ecommerce_app/utils/extension/extension.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../../utils/assets/app_assets.dart';
 import '../../../../../utils/colors/app_colors.dart';
 import '../../../../../utils/text_styles/text_styles.dart';
 import '../../../global_component/appBar/app_bar.dart';
@@ -34,7 +31,7 @@ class _TrackOrderState extends State<TrackOrder> {
     return Scaffold(
       backgroundColor: KColor.background,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(50),
+        preferredSize:const Size.fromHeight(50),
         child: KAppBar(
           checkTitle: true,
           title: 'Track Order',

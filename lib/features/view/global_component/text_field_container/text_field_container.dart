@@ -6,25 +6,25 @@ class TextFieldContainer extends StatelessWidget {
     super.key,
     this.label,
     required this.hint,
-    this.keyboardType = TextInputType.name,
-    // required this.controller,
+    this.keyboardType ,
+    required this.controller,
     this.obscureText = false,
     this.suffixIcon,
     this.padding = 12,
     this.radius = 12,
-    // this.onValidate,
+    this.onValidate,
   });
 
   final String? label;
   final String hint;
-  final TextInputType keyboardType;
-  // final TextEditingController controller;
+  final TextInputType? keyboardType;
+  final TextEditingController controller;
   final bool obscureText;
   final Widget? suffixIcon;
   final double padding;
   final double radius;
 
-  // final Function? onValidate;
+  final Function? onValidate;
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +33,11 @@ class TextFieldContainer extends StatelessWidget {
         borderRadius: BorderRadius.circular(radius),
         color: KColor.white,
       ),
+      
       margin: EdgeInsets.symmetric(horizontal: padding),
       child: TextFormField(
         obscureText: obscureText,
+        keyboardType: keyboardType,
         decoration: InputDecoration(
           suffixIcon: suffixIcon,
           labelText: label,
@@ -46,18 +48,20 @@ class TextFieldContainer extends StatelessWidget {
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               width: 1,
-              color: KColor.primary.withOpacity(0.25),
+              color: KColor.black54.withOpacity(0.25),
             ),
             borderRadius: BorderRadius.circular(radius),
           ),
+          
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
               width: 1,
-              color: KColor.primary.withOpacity(0.25),
+              color: KColor.black54.withOpacity(0.25),
             ),
             borderRadius: BorderRadius.circular(radius),
           ),
         ),
+        controller: controller,
         autovalidateMode: AutovalidateMode.onUserInteraction,
       ),
     );

@@ -145,7 +145,7 @@ class _ReportIssueState extends State<ReportIssue> {
                 children: [
                   KButton(
                     title: 'Add Reports',
-                    textColor: KColor.black,
+                    textColor: KColor.white,
                     onPressedCallback: () {},
                     width: context.screenWidth * 0.45,
                     height: 40,
@@ -158,7 +158,7 @@ class _ReportIssueState extends State<ReportIssue> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ReportList()));
+                              builder: (context) => const ReportList()));
                     },
                     width: context.screenWidth * 0.45,
                     height: 40,

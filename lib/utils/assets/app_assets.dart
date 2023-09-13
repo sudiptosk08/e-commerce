@@ -16,11 +16,6 @@ class AppAssets {
   static const String menus = 'assets/icons/menus.png';
   static const String shopfy = 'assets/icons/Shopify.png';
 
-  static const String allProduct = 'assets/icons/add-product.png';
-  static const String shoes = 'assets/icons/shoe.png';
-  static const String women = 'assets/icons/women.png';
-  static const String men = 'assets/icons/men.png';
-  static const String electronics = 'assets/icons/electronics.png';
   static const String banner = 'assets/icons/banner.png';
   static const String off60 = 'assets/icons/off.png';
 

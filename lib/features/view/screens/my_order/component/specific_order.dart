@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'my_order_card.dart';
 
 class SpecificOrder extends StatefulWidget {
-  final String OrderStatus;
-  const SpecificOrder({Key? key, required this.OrderStatus}) : super(key: key);
+  final String orderStatus;
+  const SpecificOrder({Key? key, required this.orderStatus}) : super(key: key);
 
   @override
   State<SpecificOrder> createState() => _SpecificOrderState();

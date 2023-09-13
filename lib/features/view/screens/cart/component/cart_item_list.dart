@@ -47,9 +47,9 @@ class CartItemList extends StatelessWidget {
               decoration: const BoxDecoration(
                 color: KColor.errorRedText,
               ),
-              child: Row(
+              child:const Row(
                 mainAxisAlignment: MainAxisAlignment.end,
-                children: const [Icon(Icons.delete)],
+                children:  [Icon(Icons.delete)],
               ),
             ),
             child: Padding(

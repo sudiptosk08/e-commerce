@@ -21,7 +21,6 @@ class WriteReview extends StatefulWidget {
 
 class _WriteReviewState extends State<WriteReview> {
   TextEditingController message = TextEditingController();
-  String? _selectedReason;
   var rating = 0.0;
   int selectIndex = 0;
   int selectedRatting = 0;
@@ -61,7 +60,7 @@ class _WriteReviewState extends State<WriteReview> {
     return Scaffold(
       backgroundColor: KColor.background,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(50),
+        preferredSize: const Size.fromHeight(50),
         child: KAppBar(
           checkTitle: true,
           title: 'Write Review',
@@ -164,9 +163,8 @@ class _WriteReviewState extends State<WriteReview> {
                 title: 'Submit Review',
                 radius: 8,
                 height: 40,
-                textStyle: TextStyles.bodyText1.copyWith(
-                  color: KColor.black,
-                ),
+                textStyle: TextStyles.bodyText1
+                    .copyWith(color: KColor.white, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 30),
             ],

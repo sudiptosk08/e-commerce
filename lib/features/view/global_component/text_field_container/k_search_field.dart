@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 import '../../../../utils/colors/app_colors.dart';
 
@@ -55,7 +54,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
             ),
           ),
           hintText: widget.hintText,
-          hintStyle: TextStyle(color: KColor.textgrey),
+          hintStyle:const TextStyle(color: KColor.textgrey),
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12),
           border: const UnderlineInputBorder(

@@ -20,13 +20,14 @@ class KButton extends StatefulWidget {
   final TextOverflow textOverflow;
   final TextStyle? textStyle;
   KButton({
+    super.key,
     this.width,
     this.height,
     this.title,
     this.onPressedCallback,
     this.innerPadding = 0,
     this.color = KColor.primary,
-    this.textColor = KColor.black,
+    this.textColor = Colors.white,
     this.borderColor = KColor.grey,
     this.isOutlineButton = false,
     this.radius = 8.0,
@@ -79,7 +80,7 @@ class _KButtonState extends State<KButton> {
                 overflow: widget.textOverflow,
                 style: widget.textStyle ??
                     TextStyles.bodyText1.copyWith(
-                        fontWeight: FontWeight.w500, color: widget.textColor),
+                        fontWeight: FontWeight.w500, color: KColor.white),
               ),
             ),
             if (widget.trailingTitleIcon != null)

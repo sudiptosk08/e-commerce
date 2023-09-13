@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/features/view/global_component/drawer/drawer.dart';
 import 'package:ecommerce_app/features/view/screens/all_categories/all_categories_page.dart';
+import 'package:ecommerce_app/features/view/screens/home/component/brand_list.dart';
 import 'package:ecommerce_app/utils/assets/app_assets.dart';
 import 'package:ecommerce_app/utils/colors/app_colors.dart';
 import 'package:ecommerce_app/utils/helper/helper.dart';
@@ -61,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                         MaterialPageRoute(
                             builder: ((context) => const NotificationPage())));
                   },
-                  padding: EdgeInsets.all(12),
+                  padding: const EdgeInsets.all(12),
                   icon: const Image(
                     image: AssetImage(AppAssets.notification),
                   ),
@@ -99,7 +100,10 @@ class _HomePageState extends State<HomePage> {
                         decoration: BoxDecoration(
                             color: KColor.primary,
                             borderRadius: BorderRadius.circular(8)),
-                        child: Icon(Icons.category_outlined)),
+                        child: Icon(
+                          Icons.category_outlined,
+                          color: KColor.white,
+                        )),
                   ),
                 ],
               ),
@@ -108,13 +112,16 @@ class _HomePageState extends State<HomePage> {
               ),
               const CategorySection(),
               const SizedBox(
-                height: 10,
+                height: 15,
               ),
               const ImageSlider(),
               const SizedBox(
-                height: 10,
+                height: 15,
               ),
-              PopularProduct(),
+              const PopularProduct(),
+              const SizedBox(
+                height: 5,
+              ),
               const NewArrivalsProduct(),
               const SizedBox(
                 height: 30,

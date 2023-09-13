@@ -148,9 +148,9 @@ class _NotificationCardState extends State<NotificationCard> {
           bottomRight: Radius.circular(4.0),
         ),
       ),
-      child: Row(
+      child:const Row(
         mainAxisAlignment: MainAxisAlignment.end,
-        children: const [Icon(Icons.delete)],
+        children:  [Icon(Icons.delete)],
       ),
     );
   }

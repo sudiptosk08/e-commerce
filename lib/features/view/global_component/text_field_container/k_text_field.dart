@@ -27,7 +27,6 @@ class KFillNormal extends StatefulWidget {
 
 class _KFillNormalState extends State<KFillNormal> {
   final FocusNode _focusNode = FocusNode();
-  Color _color = KColor.background.withOpacity(0.8);
 
   @override
   // ignore: must_call_super
@@ -35,11 +34,9 @@ class _KFillNormalState extends State<KFillNormal> {
     _focusNode.addListener(() {
       if (_focusNode.hasFocus) {
         setState(() {
-          _color = Colors.transparent;
         });
       } else {
         setState(() {
-          _color = KColor.white;
         });
       }
     });
