@@ -7,12 +7,14 @@ class KFillNormal extends StatefulWidget {
   final String label;
   final String hintText;
   final bool readOnly;
+  final TextInputType inputType;
   int? maxline;
   int? minline;
 
   KFillNormal({
     Key? key,
     required this.label,
+    required this.inputType,
     required this.controller,
     required this.hintText,
     required this.readOnly,
@@ -33,11 +35,9 @@ class _KFillNormalState extends State<KFillNormal> {
   void initState() {
     _focusNode.addListener(() {
       if (_focusNode.hasFocus) {
-        setState(() {
-        });
+        setState(() {});
       } else {
-        setState(() {
-        });
+        setState(() {});
       }
     });
   }
@@ -59,6 +59,7 @@ class _KFillNormalState extends State<KFillNormal> {
       },
       readOnly: widget.readOnly,
       controller: widget.controller,
+      keyboardType: widget.inputType,
       decoration: InputDecoration(
         hintText: widget.hintText,
         hintStyle: _focusNode.hasFocus

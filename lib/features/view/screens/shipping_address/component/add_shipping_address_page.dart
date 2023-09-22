@@ -1,5 +1,9 @@
+import 'package:ecommerce_app/constant/shared_preference_constant.dart';
+import 'package:ecommerce_app/features/view/screens/shipping_address/controller/add_new_shippingAddress.dart';
 import 'package:ecommerce_app/utils/extension/extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nb_utils/nb_utils.dart';
 import '../../../../../utils/colors/app_colors.dart';
 import '../../../../../utils/text_styles/text_styles.dart';
 import '../../../global_component/appBar/app_bar.dart';
@@ -14,10 +18,18 @@ class AddShippingAddressPage extends StatefulWidget {
 }
 
 class AddShippingAddressPageState extends State<AddShippingAddressPage> {
-  TextEditingController name = TextEditingController();
-  TextEditingController email = TextEditingController();
   TextEditingController phone = TextEditingController();
-  TextEditingController address = TextEditingController();
+  TextEditingController city = TextEditingController();
+  TextEditingController region = TextEditingController();
+  TextEditingController area = TextEditingController();
+  TextEditingController house = TextEditingController();
+  int _selectedValue = 0;
+
+  // Create a list of radio button values and labels
+  final List radioOptions = [
+    'Home Address',
+    'Office Address',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -47,37 +59,38 @@ class AddShippingAddressPageState extends State<AddShippingAddressPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _editInformation(
-                      'Name',
-                      KFillNormal(
-                        controller: name,
-                        hintText: 'Enter your name here...',
-                        label: '',
-                        readOnly: false,
-                      ),
-                    ),
+                        'Delivery Addres Type',
+                        Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: List<Widget>.generate(
+                              radioOptions.length,
+                              (int index) {
+                                return Row(
+                                  children: [
+                                    Radio(
+                                      value: index,
+                                      activeColor: KColor.primary,
+                                      groupValue: _selectedValue,
+                                      onChanged: (int? value) {
+                                        setState(() {
+                                          _selectedValue = value!;
+                                        });
+                                      },
+                                    ),
+                                    Text(radioOptions[index].toString()),
+                                  ],
+                                );
+                              },
+                            ),
+                          ),
+                        )),
                     _editInformation(
-                      'Email',
+                      'Phone',
                       KFillNormal(
-                        controller: email,
-                        hintText: 'Enter your email here...',
-                        label: '',
-                        readOnly: false,
-                      ),
-                    ),
-                    _editInformation(
-                      'Phone Number',
-                      KFillNormal(
-                        controller: phone,
-                        hintText: 'Enter your phone number here...',
-                        label: '',
-                        readOnly: true,
-                      ),
-                    ),
-                    _editInformation(
-                      'Address',
-                      KFillNormal(
-                        controller: address,
-                        hintText: 'Enter your address here...',
+                        inputType: TextInputType.phone,
+                        controller: phone..text = getStringAsync(userContact),
+                        hintText: 'Enter your phone here...',
                         label: '',
                         readOnly: false,
                       ),
@@ -85,8 +98,39 @@ class AddShippingAddressPageState extends State<AddShippingAddressPage> {
                     _editInformation(
                       'City',
                       KFillNormal(
-                        controller: address,
-                        hintText: 'Enter your address here...',
+                        inputType: TextInputType.streetAddress,
+                        controller: city,
+                        hintText: 'Enter your city here...',
+                        label: '',
+                        readOnly: false,
+                      ),
+                    ),
+                    _editInformation(
+                      'Region',
+                      KFillNormal(
+                        inputType: TextInputType.streetAddress,
+                        controller: region,
+                        hintText: 'Enter your region here...',
+                        label: '',
+                        readOnly: false,
+                      ),
+                    ),
+                    _editInformation(
+                      'Area',
+                      KFillNormal(
+                        inputType: TextInputType.streetAddress,
+                        controller: area,
+                        hintText: 'Enter your area here...',
+                        label: '',
+                        readOnly: false,
+                      ),
+                    ),
+                    _editInformation(
+                      'House / Street',
+                      KFillNormal(
+                        inputType: TextInputType.streetAddress,
+                        controller: house,
+                        hintText: 'Enter your house/street here...',
                         label: '',
                         readOnly: false,
                       ),
@@ -100,20 +144,30 @@ class AddShippingAddressPageState extends State<AddShippingAddressPage> {
           ),
         ),
       ),
-      bottomSheet: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: KButton(
-          width: double.infinity,
-          height: 40,
-          isOutlineButton: false,
-          radius: 8,
-          color: KColor.primary,
-          textStyle: TextStyles.bodyText1
-              .copyWith(color: KColor.white, fontWeight: FontWeight.w500),
-          onPressedCallback: () {},
-          title: "Add Address",
-        ),
-      ),
+      bottomSheet: Consumer(builder: (context, ref, child) {
+        return Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: KButton(
+            width: double.infinity,
+            height: 40,
+            isOutlineButton: false,
+            radius: 8,
+            color: KColor.primary,
+            textStyle: TextStyles.bodyText1
+                .copyWith(color: KColor.white, fontWeight: FontWeight.w500),
+            onPressedCallback: () {
+              ref.read(addShippingAddressProvider.notifier).addShippingAddress(
+                  phone: phone.text,
+                  deliveryAddressType: _selectedValue.toString(),
+                  city: city.text,
+                  region: region.text,
+                  area: area.text,
+                  house: house.text);
+            },
+            title: "Add Address",
+          ),
+        );
+      }),
     );
   }
 

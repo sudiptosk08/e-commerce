@@ -2,7 +2,6 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce_app/features/view/global_component/shimmer/placeholder_shimmer.dart';
-import 'package:ecommerce_app/features/view/screens/product_details/component/product_review.dart';
 import 'package:ecommerce_app/features/view/screens/product_details/controller/product_details_controller.dart';
 import 'package:ecommerce_app/features/view/screens/product_details/state/product_details_state.dart';
 import 'package:ecommerce_app/utils/colors/app_colors.dart';
@@ -10,6 +9,7 @@ import 'package:ecommerce_app/utils/extension/extension.dart';
 import 'package:ecommerce_app/utils/size/k_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../../../utils/text_styles/text_styles.dart';
@@ -32,33 +32,25 @@ class ProductInfo extends StatefulWidget {
 class _ProductInfoState extends State<ProductInfo> {
   int currentIndex = 0;
   final _controller = PageController();
-  int selectIndex = 0;
-  int selectSize = 0;
-  int selectColor = 0;
+  int selectIndex = -1;
+  int selectColor = -1;
+  int selectSize = -1;
+  int selectType = -1;
   bool favorite = false;
+  var totalPrice;
 
-  List<dynamic> productSizeList = [
-    {'size': "S"},
-    {'size': "M"},
-    {'size': "L"},
-    {'size': "XL"}
-  ];
-  List<dynamic> productColorList = [
-    {'color': "grey"},
-    {'color': "red"},
-    {'color': "purples"},
-    {'color': "Sky blue accent"}
-  ];
   List<dynamic> item = ["About", "Reviews"];
+  List<Map<String, dynamic>> attributeList = [];
 
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, _) {
       final productDetailsState = ref.watch(productDetailsProvider);
       final productDetails = productDetailsState is ProductDetailsSuccessState
-          ? productDetailsState.productDetailsModel?.data
+          ? productDetailsState.productDetailsModel!.data
           : null;
-
+      attributeList = ref.read(productDetailsProvider.notifier).attributeList;
+      totalPrice = ref.read(productDetailsProvider.notifier).totalPrice;
       return productDetails != null
           ? Column(
               children: [
@@ -76,28 +68,27 @@ class _ProductInfoState extends State<ProductInfo> {
                       Column(
                         children: [
                           Expanded(
-                            child: Container(
-                              alignment: Alignment.center,
-                              width: context.screenWidth * 0.9,
-                              height: 250,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(
-                                    color: KColor.gray.withOpacity(0.5)),
-                                color: KColor.white,
-                              ),
-                              padding: const EdgeInsets.all(8),
-                              child: PageView.builder(
-                                  itemCount: productDetails.gallery.length,
-                                  controller: _controller,
-                                  itemBuilder: (ctx, position) {
-                                    return Image.network(
-                                      productDetails.gallery[position],
-                                      fit: BoxFit.fill,
-                                    );
-                                  }),
+                              child: Container(
+                            alignment: Alignment.center,
+                            width: context.screenWidth * 0.9,
+                            height: 250,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(
+                                  color: KColor.gray.withOpacity(0.5)),
+                              color: KColor.white,
                             ),
-                          ),
+                            padding: const EdgeInsets.all(8),
+                            child: PageView.builder(
+                                itemCount: productDetails.gallery.length,
+                                controller: _controller,
+                                itemBuilder: (ctx, position) {
+                                  return Image.network(
+                                    productDetails.gallery[position],
+                                    fit: BoxFit.fill,
+                                  );
+                                }),
+                          )),
                           Row(
                             children: [
                               SmoothPageIndicator(
@@ -141,22 +132,67 @@ class _ProductInfoState extends State<ProductInfo> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
-                              width: KSize.getWidth(context, 260),
+                              width: KSize.getWidth(context, 240),
                               child: Text(
                                 productDetails.name,
                                 style: TextStyles.headline6,
                               ),
                             ),
-                            Container(
-                              alignment: Alignment.centerRight,
-                              width: KSize.getWidth(context, 90),
-                              child: Text(
-                                "৳${productDetails.price}",
-                                style: TextStyles.headline3
-                                    .copyWith(color: KColor.errorRedText),
-                                textAlign: TextAlign.end,
-                              ),
-                            ),
+                            productDetails.discount.toInt() > 0
+                                ? Container(
+                                    alignment: Alignment.centerRight,
+                                    width: KSize.getWidth(context, 112),
+                                    child: Text.rich(
+                                      TextSpan(
+                                          text: ref
+                                                      .read(
+                                                          productDetailsProvider
+                                                              .notifier)
+                                                      .totalPrice
+                                                      .toInt() ==
+                                                  0
+                                              ? "৳${productDetails.discountPrice.toString()}  "
+                                              : ref
+                                                  .read(productDetailsProvider
+                                                      .notifier)
+                                                  .totalPrice
+                                                  .toString(),
+                                          style: TextStyles.headline3.copyWith(
+                                              color: KColor.errorRedText),
+                                          children: [
+                                            TextSpan(
+                                              text:
+                                                  "৳${productDetails.price.toString()}",
+                                              style: TextStyles.headline3
+                                                  .copyWith(
+                                                      decoration: TextDecoration
+                                                          .lineThrough,
+                                                      color: KColor.primary),
+                                            ),
+                                          ]),
+                                    ),
+                                  )
+                                : Container(
+                                    alignment: Alignment.centerRight,
+                                    width: KSize.getWidth(context, 90),
+                                    child: Text(
+                                      ref
+                                                  .read(productDetailsProvider
+                                                      .notifier)
+                                                  .totalPrice
+                                                  .toInt() ==
+                                              0
+                                          ? "৳${productDetails.price.toString()}"
+                                          : ref
+                                              .read(productDetailsProvider
+                                                  .notifier)
+                                              .totalPrice
+                                              .toString(),
+                                      style: TextStyles.headline3
+                                          .copyWith(color: KColor.errorRedText),
+                                      textAlign: TextAlign.end,
+                                    ),
+                                  ),
                           ],
                         ),
                         Row(
@@ -221,7 +257,7 @@ class _ProductInfoState extends State<ProductInfo> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   InkWell(
-                                    onTap: widget.add,
+                                    onTap: widget.remove,
                                     child: CircleAvatar(
                                       backgroundColor: KColor.primary,
                                       child: Center(
@@ -246,7 +282,7 @@ class _ProductInfoState extends State<ProductInfo> {
                                   InkWell(
                                     // When using InkWell check the spalsh effect if its radius matches the container
                                     borderRadius: BorderRadius.circular(8),
-                                    onTap: widget.remove,
+                                    onTap: widget.add,
                                     child: CircleAvatar(
                                       backgroundColor: KColor.primary,
                                       child: Center(
@@ -319,108 +355,369 @@ class _ProductInfoState extends State<ProductInfo> {
                             },
                           ),
                         ),
-                        Text(
-                          'Sizes',
-                          style:
-                              TextStyles.subTitle.copyWith(color: Colors.black),
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        SizedBox(
-                          width: double.infinity,
-                          height: 40,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: productSizeList.length,
-                            itemBuilder: (context, int index) {
-                              return Padding(
-                                  padding: const EdgeInsets.all(3.0),
-                                  child: InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        selectSize = index;
-                                      });
-                                    },
-                                    child: Container(
+                        ...List.generate(
+                          attributeList.length,
+                          (index) => Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                attributeList[index]['attributeName'],
+                                style: TextStyles.subTitle
+                                    .copyWith(color: Colors.black),
+                              ),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              attributeList[index]['attributeName'] == 'size'
+                                  ? SizedBox(
+                                      width: double.infinity,
                                       height: 40,
-                                      width: 40,
-                                      margin: const EdgeInsets.only(bottom: 5),
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 3, horizontal: 2),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          border: Border.all(
-                                              width: 1,
-                                              color: selectSize == index
-                                                  ? KColor.primary
-                                                  : KColor.gray)),
-                                      child: Center(
-                                        child: Text(
-                                          productSizeList[index]['size']
-                                              .toString(),
-                                          style: TextStyles.bodyText3.copyWith(
-                                              color: selectSize == index
-                                                  ? KColor.primary
-                                                  : KColor.grey800),
-                                        ),
+                                      child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: attributeList[index]
+                                                ["attributeValues"]
+                                            .length,
+                                        itemBuilder: (context, int idx) {
+                                          return Padding(
+                                              padding:
+                                                  const EdgeInsets.all(3.0),
+                                              child: InkWell(
+                                                onTap: () {
+                                                  setState(() {
+                                                    selectSize = idx;
+                                                    ref
+                                                        .read(
+                                                            productDetailsProvider
+                                                                .notifier)
+                                                        .size = attributeList[
+                                                                index]
+                                                            ['attributeValues']
+                                                        [idx]['value'];
+                                                    ref
+                                                        .read(
+                                                            productDetailsProvider
+                                                                .notifier)
+                                                        .sizeId = attributeList[
+                                                                index]
+                                                            ['attributeValues']
+                                                        [idx]['id'];
+
+                                                    ref
+                                                            .read(
+                                                                productDetailsProvider
+                                                                    .notifier)
+                                                            .sizeAdditionalPrice =
+                                                        int.parse(attributeList[
+                                                                        index][
+                                                                    'attributeValues'][idx]
+                                                                [
+                                                                'additional_price']
+                                                            .toString());
+                                                    productDetails.discount.toInt() > 0
+                                                        ? ref
+                                                            .read(
+                                                                productDetailsProvider
+                                                                    .notifier)
+                                                            .totalPrice = productDetails
+                                                                .discountPrice +
+                                                            ref
+                                                                .read(productDetailsProvider
+                                                                    .notifier)
+                                                                .sizeAdditionalPrice +
+                                                            ref
+                                                                .read(productDetailsProvider
+                                                                    .notifier)
+                                                                .colorAdditionalPrice +
+                                                            ref
+                                                                .read(productDetailsProvider
+                                                                    .notifier)
+                                                                .typeAdditionalPrice
+                                                        : ref
+                                                            .read(
+                                                                productDetailsProvider
+                                                                    .notifier)
+                                                            .totalPrice = productDetails
+                                                                .price
+                                                                .toInt() +
+                                                            ref
+                                                                .read(productDetailsProvider.notifier)
+                                                                .sizeAdditionalPrice +
+                                                            ref.read(productDetailsProvider.notifier).colorAdditionalPrice +
+                                                            ref.read(productDetailsProvider.notifier).typeAdditionalPrice;
+
+                                                    print("TotalPrice :");
+                                                  });
+                                                },
+                                                child: Container(
+                                                  height: 40,
+                                                  width: 40,
+                                                  margin: const EdgeInsets.only(
+                                                      bottom: 5),
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      vertical: 3,
+                                                      horizontal: 2),
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                      border: Border.all(
+                                                          width: 1,
+                                                          color: selectSize ==
+                                                                  idx
+                                                              ? KColor.primary
+                                                              : KColor.gray)),
+                                                  child: Center(
+                                                    child: Text(
+                                                      attributeList[index][
+                                                                  'attributeValues']
+                                                              [idx]['value']
+                                                          .toString(),
+                                                      style: TextStyles
+                                                          .bodyText3
+                                                          .copyWith(
+                                                              color: selectSize ==
+                                                                      idx
+                                                                  ? KColor
+                                                                      .primary
+                                                                  : KColor
+                                                                      .grey800),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ));
+                                        },
                                       ),
-                                    ),
-                                  ));
-                            },
+                                    )
+                                  : attributeList[index]['attributeName'] ==
+                                          'color'
+                                      ? SizedBox(
+                                          width: double.infinity,
+                                          height: 40,
+                                          child: ListView.builder(
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount: attributeList[index]
+                                                    ["attributeValues"]
+                                                .length,
+                                            itemBuilder: (context, int idx) {
+                                              return Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(3.0),
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        selectColor = idx;
+                                                        ref
+                                                            .read(
+                                                                productDetailsProvider
+                                                                    .notifier)
+                                                            .color = attributeList[
+                                                                    index][
+                                                                'attributeValues']
+                                                            [idx]['value'];
+                                                        ref
+                                                            .read(
+                                                                productDetailsProvider
+                                                                    .notifier)
+                                                            .colorId = attributeList[
+                                                                    index][
+                                                                'attributeValues']
+                                                            [idx]['id'];
+                                                        ref
+                                                                .read(productDetailsProvider
+                                                                    .notifier)
+                                                                .colorAdditionalPrice =
+                                                            int.parse(attributeList[
+                                                                            index]
+                                                                        [
+                                                                        'attributeValues'][idx]
+                                                                    [
+                                                                    'additional_price']
+                                                                .toString());
+                                                        productDetails.discount.toInt() > 0
+                                                            ? ref
+                                                                .read(productDetailsProvider
+                                                                    .notifier)
+                                                                .totalPrice = productDetails
+                                                                    .discountPrice +
+                                                                ref
+                                                                    .read(productDetailsProvider
+                                                                        .notifier)
+                                                                    .sizeAdditionalPrice +
+                                                                ref
+                                                                    .read(productDetailsProvider
+                                                                        .notifier)
+                                                                    .colorAdditionalPrice +
+                                                                ref
+                                                                    .read(productDetailsProvider
+                                                                        .notifier)
+                                                                    .typeAdditionalPrice
+                                                            : ref
+                                                                .read(productDetailsProvider
+                                                                    .notifier)
+                                                                .totalPrice = productDetails
+                                                                    .price
+                                                                    .toInt() +
+                                                                ref
+                                                                    .read(productDetailsProvider.notifier)
+                                                                    .sizeAdditionalPrice +
+                                                                ref.read(productDetailsProvider.notifier).colorAdditionalPrice +
+                                                                ref.read(productDetailsProvider.notifier).typeAdditionalPrice;
+
+                                                        print("TotalPrice :");
+                                                      });
+                                                    },
+                                                    child: Container(
+                                                      height: 40,
+                                                      width: 40,
+                                                      margin:
+                                                          const EdgeInsets.only(
+                                                              bottom: 5),
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          vertical: 3,
+                                                          horizontal: 2),
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(8),
+                                                          border: Border.all(
+                                                              width: 1,
+                                                              color: selectColor ==
+                                                                      idx
+                                                                  ? KColor
+                                                                      .primary
+                                                                  : KColor
+                                                                      .gray)),
+                                                      child: Center(
+                                                        child: Text(
+                                                          attributeList[index][
+                                                                      'attributeValues']
+                                                                  [idx]['value']
+                                                              .toString(),
+                                                          style: TextStyles
+                                                              .bodyText3
+                                                              .copyWith(
+                                                                  color: selectColor == idx
+                                                                      ? KColor
+                                                                          .primary
+                                                                      : KColor
+                                                                          .grey800),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ));
+                                            },
+                                          ),
+                                        )
+                                      : SizedBox(
+                                          width: double.infinity,
+                                          height: 40,
+                                          child: ListView.builder(
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount: attributeList[index]
+                                                    ["attributeValues"]
+                                                .length,
+                                            itemBuilder: (context, int idx) {
+                                              return Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(3.0),
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        selectType = idx;
+                                                        ref
+                                                                .read(productDetailsProvider
+                                                                    .notifier)
+                                                                .typeAdditionalPrice =
+                                                            int.parse(attributeList[
+                                                                            index]
+                                                                        [
+                                                                        'attributeValues'][idx]
+                                                                    [
+                                                                    'additional_price']
+                                                                .toString());
+                                                        productDetails.discount.toInt() > 0
+                                                            ? ref
+                                                                .read(productDetailsProvider
+                                                                    .notifier)
+                                                                .totalPrice = productDetails
+                                                                    .discountPrice +
+                                                                ref
+                                                                    .read(productDetailsProvider
+                                                                        .notifier)
+                                                                    .sizeAdditionalPrice +
+                                                                ref
+                                                                    .read(productDetailsProvider
+                                                                        .notifier)
+                                                                    .colorAdditionalPrice +
+                                                                ref
+                                                                    .read(productDetailsProvider
+                                                                        .notifier)
+                                                                    .typeAdditionalPrice
+                                                            : ref
+                                                                .read(productDetailsProvider
+                                                                    .notifier)
+                                                                .totalPrice = productDetails
+                                                                    .price
+                                                                    .toInt() +
+                                                                ref
+                                                                    .read(productDetailsProvider.notifier)
+                                                                    .sizeAdditionalPrice +
+                                                                ref.read(productDetailsProvider.notifier).colorAdditionalPrice +
+                                                                ref.read(productDetailsProvider.notifier).typeAdditionalPrice;
+
+                                                        print("TotalPrice :");
+                                                      });
+                                                    },
+                                                    child: Container(
+                                                      height: 40,
+                                                      width: 40,
+                                                      margin:
+                                                          const EdgeInsets.only(
+                                                              bottom: 5),
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          vertical: 3,
+                                                          horizontal: 2),
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(8),
+                                                          border: Border.all(
+                                                              width: 1,
+                                                              color: selectType ==
+                                                                      idx
+                                                                  ? KColor
+                                                                      .primary
+                                                                  : KColor
+                                                                      .gray)),
+                                                      child: Center(
+                                                        child: Text(
+                                                          attributeList[index][
+                                                                      'attributeValues']
+                                                                  [idx]['value']
+                                                              .toString(),
+                                                          style: TextStyles
+                                                              .bodyText3
+                                                              .copyWith(
+                                                                  color: selectType == idx
+                                                                      ? KColor
+                                                                          .primary
+                                                                      : KColor
+                                                                          .grey800),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ));
+                                            },
+                                          ),
+                                        )
+                            ],
                           ),
                         ),
-                        Text(
-                          'Colors',
-                          style:
-                              TextStyles.subTitle.copyWith(color: Colors.black),
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        SizedBox(
-                          width: double.infinity,
-                          height: 40,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: productColorList.length,
-                            itemBuilder: (context, int index) {
-                              return Padding(
-                                  padding: const EdgeInsets.all(3.0),
-                                  child: InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        selectColor = index;
-                                      });
-                                    },
-                                    child: Container(
-                                      margin: const EdgeInsets.only(bottom: 5),
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 3, horizontal: 6),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          border: Border.all(
-                                              width: 1,
-                                              color: selectColor == index
-                                                  ? KColor.primary
-                                                  : KColor.gray)),
-                                      child: Center(
-                                        child: Text(
-                                          productColorList[index]['color']
-                                              .toString(),
-                                          style: TextStyles.bodyText3.copyWith(
-                                              color: selectColor == index
-                                                  ? KColor.primary
-                                                  : KColor.grey800),
-                                        ),
-                                      ),
-                                    ),
-                                  ));
-                            },
-                          ),
-                        ),
+
+                        //  ...List.generate(productDetails.attributes., (index) => null);
                         const SizedBox(height: 12),
                         Container(
                           width: double.infinity,
@@ -508,7 +805,7 @@ class _ProductInfoState extends State<ProductInfo> {
                               _specification("Gender", "Men"),
                             ],
                           ),
-                        if (currentIndex == 1) const ProductReview(),
+                        // if (currentIndex == 1) const ProductReview(),
                         const SizedBox(
                           height: 80,
                         ),

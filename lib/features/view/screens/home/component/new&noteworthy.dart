@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/constant/navigation_service.dart';
+import 'package:ecommerce_app/features/view/screens/product_details/controller/product_details_controller.dart';
 import 'package:ecommerce_app/features/view/screens/shop/controller/product_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/shop/model/product_list_model.dart';
 import 'package:ecommerce_app/features/view/screens/shop/state/product_list_state.dart';
@@ -54,7 +55,7 @@ class _PopularProductState extends State<PopularProduct> {
               ],
             ),
             const SizedBox(
-              height: 8,
+              height: 4,
             ),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -77,12 +78,13 @@ class _PopularProductState extends State<PopularProduct> {
                         discountPrice:
                             productListData[index].discountPrice.toString(),
                         tap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const ProductDetailsPage(),
-                              ));
+                          NavigationService.navigateTo(SizeRoute(
+                            page: const ProductDetailsPage(),
+                          ));
+                          ref
+                              .read(productDetailsProvider.notifier)
+                              .fetchProductsDetails(
+                                  productListData[index].slug);
                         },
                       );
                       // here by default width and height is 0

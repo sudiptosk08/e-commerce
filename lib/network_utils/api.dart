@@ -12,41 +12,63 @@ class API {
   static const user = '/user';
   static const userBalance = '/user/balance';
 
-  // //
+  ///// auth
   static const signup = '/register'; //clear
   static const login = '/login'; //clear
   static const logout = '/logout';
   static const updatepassword = '/password/update';
 
-  // //brand
+  /////Shipping Address
+  static const addShippingAddress = '/user/address';
+  static const shippingAddressList = '/user/address';
+  ///// Order place
+  static const order = '/order';
+  ////My Order
+  static myOrderList({
+    status = "",
+  }) =>
+      '/order?status=$status';
+  static myOrderDetails({
+    id = "",
+  }) =>
+      '/order/$id/show';
+
+  ///// brand
   static const brands = '/brand';
 
-  // // category
+  ///// category
   static const categories = '/categories'; //clear
 
-  /////product list api
-  static shopProductList(
-          {categoryId = "",
-          subCategoryId = "",
-          brandId = "",
-          orderByPrice = "",
-          ratings = "",
-          minPrice = "",
-          maxPrice = "",
-          str = ""}) =>
-      '/products?category_id=$categoryId&subcategory_id=$subCategoryId&brand_id=$brandId&order_by_price=$orderByPrice&rating=$ratings&min_price=$minPrice&max_price=$maxPrice&name=$str';
+  ///// product list api
+  static shopProductList({
+    categoryId = "",
+    subCategoryId = "",
+    brandId = "",
+    orderByPrice = "",
+    ratings = "",
+    minPrice = "",
+    maxPrice = "",
+    str = "",
+  }) =>
+      '/products?category_id[]=$categoryId&subcategory_id[]=$subCategoryId&brand_id[]=$brandId&order_by_price=$orderByPrice&rating=$ratings&min_price=$minPrice&max_price=$maxPrice&name=$str';
+
+  ///// popular product
+
+  static const popularProduct = '/products?popular=1';
 
   /////single Product Details
+
   static productDetails({
     slug = "",
   }) =>
       '/product/$slug';
 
-  //wishlist api
+  /////wishlist api
+
   static addWishList({
     productId = "",
   }) =>
       '/wishlist/store?product_id=$productId';
   static const getWishlist = '/wishlist';
-  static const deleteWishlist = '//wishlist/delete/8';
+  static deleteWishlist({id = ""}) => '/wishlist/delete/$id?_method=delete';
 }

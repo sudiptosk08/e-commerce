@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/utils/assets/app_assets.dart';
 import 'package:ecommerce_app/utils/colors/app_colors.dart';
+import 'package:ecommerce_app/utils/size/k_size.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -8,25 +9,30 @@ import '../../../global_component/dialog/k_confirm_dialog.dart';
 
 class ShippingAddressCard extends StatefulWidget {
   bool isChecked;
+  final String? addressType;
   final String? userName;
+  final String? phone;
   final String? address;
   final String? city;
   final String? zone;
   final String? area;
   final VoidCallback? cancel;
   final VoidCallback? delete;
-  final VoidCallback? add;
+
+  final VoidCallback? onSelect;
 
   ShippingAddressCard({
     this.isChecked = false,
     this.userName,
+    this.addressType,
+    this.phone,
     this.address,
     this.city,
     this.zone,
     this.area,
     this.cancel,
     this.delete,
-    this.add,
+    this.onSelect,
     Key? key,
   }) : super(key: key);
 
@@ -64,7 +70,7 @@ class _ShippingAddressCardState extends State<ShippingAddressCard> {
         decoration: const BoxDecoration(
           color: KColor.primary,
         ),
-        child:const Row(
+        child: const Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [Icon(Icons.delete)],
         ),
@@ -100,6 +106,13 @@ class _ShippingAddressCardState extends State<ShippingAddressCard> {
                           ),
                         ),
                         const SizedBox(height: 4),
+                        Flexible(
+                          child: Text(
+                            '${widget.phone}',
+                            style: TextStyles.bodyText1
+                                .copyWith(color: KColor.black),
+                          ),
+                        ),
                         Text(
                           '${widget.address}',
                           style: TextStyles.bodyText1
@@ -130,7 +143,8 @@ class _ShippingAddressCardState extends State<ShippingAddressCard> {
                       InkWell(
                         onTap: () {
                           setState(() {
-                            widget.isChecked = !widget.isChecked;
+                            widget.onSelect
+                                ?.call(); // Notify the parent widget when selected
                           });
                         },
                         child: Container(
@@ -165,12 +179,31 @@ class _ShippingAddressCardState extends State<ShippingAddressCard> {
                 ],
               ),
             ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.edit,
-                color: KColor.primary,
-              ),
+            Column(
+              children: [
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.edit,
+                    color: KColor.primary,
+                  ),
+                ),
+                SizedBox(
+                  height: KSize.getHeight(context, 32),
+                ),
+                Container(
+                  margin: const EdgeInsets.all(5),
+                  padding: const EdgeInsets.only(
+                      left: 13, top: 4, right: 13, bottom: 4),
+                  decoration: BoxDecoration(
+                      color: KColor.black,
+                      borderRadius: BorderRadius.circular(12)),
+                  child: Text(
+                    widget.addressType.toString(),
+                    style: TextStyles.bodyText1.copyWith(color: KColor.white),
+                  ),
+                )
+              ],
             ),
           ],
         ),

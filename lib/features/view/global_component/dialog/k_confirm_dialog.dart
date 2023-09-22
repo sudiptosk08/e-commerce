@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/utils/extension/extension.dart';
+import 'package:ecommerce_app/utils/size/k_size.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../utils/colors/app_colors.dart';
@@ -22,7 +23,7 @@ class KConfirmDialog extends StatelessWidget {
       insetPadding: const EdgeInsets.all(8),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
       child: SizedBox(
-        height: 250,
+        height: KSize.getHeight(context, 180),
         width: double.infinity,
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -43,7 +44,7 @@ class KConfirmDialog extends StatelessWidget {
                 Text(
                   '$subMessage',
                   style: TextStyles.bodyText1.copyWith(
-                    color: KColor.primary.withOpacity(0.6),
+                    color: KColor.black.withOpacity(0.6),
                   ),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.05),
@@ -64,7 +65,7 @@ class KConfirmDialog extends StatelessWidget {
                     Flexible(
                       child: KButton(
                         title: 'Delete',
-                        onPressedCallback: onCancel,
+                        onPressedCallback: onDelete,
                         width: context.screenWidth * 0.4,
                         height: 40,
                         textColor: KColor.white,

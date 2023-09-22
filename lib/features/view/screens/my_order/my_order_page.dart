@@ -1,5 +1,4 @@
 import 'package:ecommerce_app/utils/extension/extension.dart';
-import 'package:ecommerce_app/utils/size/k_size.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../utils/colors/app_colors.dart';
@@ -28,15 +27,15 @@ class _MyOrderPageState extends State<MyOrderPage>
         ),
       ),
       body: DefaultTabController(
-        length: 3,
+        length: 5,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: KSize.getWidth(context, 350),
+              width: double.infinity,
               color: KColor.white,
-              child:const Column(
-                children:  [
+              child: const Column(
+                children: [
                   SizedBox(
                     height: 40,
                     child: TabBar(
@@ -46,21 +45,33 @@ class _MyOrderPageState extends State<MyOrderPage>
                       isScrollable: true,
                       tabs: [
                         Padding(
-                          padding: EdgeInsets.only(right: 12.0, left: 12.0),
+                          padding: EdgeInsets.only(right: 5.0, left: 5.0),
                           child: Tab(
-                            text: 'Delivered',
+                            text: 'Pending',
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(right: 12.0, left: 12.0),
+                          padding: EdgeInsets.only(right: 5.0, left: 5.0),
                           child: Tab(
                             text: 'Processing',
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(right: 12.0, left: 12.0),
+                          padding: EdgeInsets.only(right: 5.0, left: 5.0),
                           child: Tab(
-                            text: 'Canceled',
+                            text: 'Shipping',
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(right: 5.0, left: 5.0),
+                          child: Tab(
+                            text: 'Delivered',
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(right: 5.0, left: 5.0),
+                          child: Tab(
+                            text: 'Cancelled',
                           ),
                         ),
                       ],
@@ -74,9 +85,11 @@ class _MyOrderPageState extends State<MyOrderPage>
             const Expanded(
               child: TabBarView(
                 children: [
-                  SpecificOrder(orderStatus: "Delivered"),
+                  SpecificOrder(orderStatus: "Pending"),
                   SpecificOrder(orderStatus: "Processing"),
-                  SpecificOrder(orderStatus: "Canceled"),
+                  SpecificOrder(orderStatus: "Shiping"),
+                  SpecificOrder(orderStatus: "Delivered"),
+                  SpecificOrder(orderStatus: "Cancelled"),
                 ],
               ),
             ),

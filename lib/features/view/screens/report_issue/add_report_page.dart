@@ -69,6 +69,7 @@ class _ReportIssueState extends State<ReportIssue> {
               //const KDropdown(hint: 'Select a reason'),
               KFillNormal(
                 controller: reason,
+                inputType: TextInputType.streetAddress,
                 readOnly: false,
                 label: '',
                 hintText: 'Reason',
@@ -83,6 +84,7 @@ class _ReportIssueState extends State<ReportIssue> {
               const SizedBox(height: 8),
               KFillNormal(
                 controller: id,
+                inputType: TextInputType.streetAddress,
                 readOnly: false,
                 label: '',
                 hintText: 'Order ID',
@@ -97,6 +99,7 @@ class _ReportIssueState extends State<ReportIssue> {
               const SizedBox(height: 8),
               KFillNormal(
                 controller: description,
+                inputType: TextInputType.streetAddress,
                 readOnly: false,
                 label: '',
                 hintText: 'Description',

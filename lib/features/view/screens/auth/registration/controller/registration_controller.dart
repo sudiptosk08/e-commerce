@@ -9,8 +9,6 @@ import 'package:ecommerce_app/navigation_bar.dart';
 import 'package:ecommerce_app/network_utils/api.dart';
 import 'package:ecommerce_app/network_utils/network_utils.dart';
 import 'package:ecommerce_app/utils/colors/app_colors.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -58,7 +56,8 @@ class SignupController extends StateNotifier<BaseState> {
           setValue(token, userModel!.data.token);
           setValue(rememberToken, userModel!.data.token);
           setValue(userId, userModel!.data.user.id);
-          setValue(userName, userModel!.data.user.username);
+          setValue(firstName, userModel!.data.user.firstName);
+          setValue(firstName, userModel!.data.user.lastName);
           setValue(userContact, userModel!.data.user.phone);
 
           NavigationService.navigateToReplacement(FadeRoute(

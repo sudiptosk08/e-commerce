@@ -49,7 +49,8 @@ class LoginController extends StateNotifier<BaseState> {
           setValue(token, userModel!.data.token);
           setValue(rememberToken, userModel!.data.token);
           setValue(userId, userModel!.data.user.id);
-          setValue(userName, userModel!.data.user.username);
+          setValue(firstName, userModel!.data.user.firstName);
+          setValue(lastName, userModel!.data.user.lastName);
           setValue(userContact, userModel!.data.user.phone);
 
           NavigationService.navigateToReplacement(

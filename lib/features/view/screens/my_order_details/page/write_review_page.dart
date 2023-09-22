@@ -134,6 +134,7 @@ class _WriteReviewState extends State<WriteReview> {
                 hintText: 'Write here...',
                 maxline: 7,
                 minline: 7,
+                inputType: TextInputType.text,
                 label: '',
               ),
               const SizedBox(height: 16),

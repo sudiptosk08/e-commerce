@@ -12,7 +12,7 @@ String productDetailsModelToJson(ProductDetailsModel data) =>
 
 class ProductDetailsModel {
   bool status;
-  ProductDetailsData data;
+  Data data;
 
   ProductDetailsModel({
     required this.status,
@@ -22,7 +22,7 @@ class ProductDetailsModel {
   factory ProductDetailsModel.fromJson(Map<String, dynamic> json) =>
       ProductDetailsModel(
         status: json["status"],
-        data: ProductDetailsData.fromJson(json["data"]),
+        data: Data.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -31,7 +31,7 @@ class ProductDetailsModel {
       };
 }
 
-class ProductDetailsData {
+class Data {
   int id;
   String name;
   String slug;
@@ -47,10 +47,11 @@ class ProductDetailsData {
   String rating;
   String thumbnail;
   List<String> gallery;
-  List<Review> reviews;
+  List<dynamic> reviews;
   bool wishlist;
+  Variants variants;
 
-  ProductDetailsData({
+  Data({
     required this.id,
     required this.name,
     required this.slug,
@@ -68,9 +69,10 @@ class ProductDetailsData {
     required this.gallery,
     required this.reviews,
     required this.wishlist,
+    required this.variants,
   });
 
-  factory ProductDetailsData.fromJson(Map<String, dynamic> json) => ProductDetailsData(
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
         id: json["id"],
         name: json["name"],
         slug: json["slug"],
@@ -86,9 +88,9 @@ class ProductDetailsData {
         rating: json["rating"],
         thumbnail: json["thumbnail"],
         gallery: List<String>.from(json["gallery"].map((x) => x)),
-        reviews:
-            List<Review>.from(json["reviews"].map((x) => Review.fromJson(x))),
+        reviews: List<dynamic>.from(json["reviews"].map((x) => x)),
         wishlist: json["wishlist"],
+        variants: Variants.fromJson(json["variants"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -107,8 +109,9 @@ class ProductDetailsData {
         "rating": rating,
         "thumbnail": thumbnail,
         "gallery": List<dynamic>.from(gallery.map((x) => x)),
-        "reviews": List<dynamic>.from(reviews.map((x) => x.toJson())),
+        "reviews": List<dynamic>.from(reviews.map((x) => x)),
         "wishlist": wishlist,
+        "variants": variants.toJson(),
       };
 }
 
@@ -144,46 +147,46 @@ class Category {
       };
 }
 
-class Review {
-  int id;
-  String review;
-  String rating;
-  String userName;
-  String createTime;
-  String updateTime;
-  String email;
-  List<String> images;
+class Variants {
+  List<Color> size;
+  List<Color> color;
 
-  Review({
-    required this.id,
-    required this.review,
-    required this.rating,
-    required this.userName,
-    required this.createTime,
-    required this.updateTime,
-    required this.email,
-    required this.images,
+  Variants({
+    required this.size,
+    required this.color,
   });
 
-  factory Review.fromJson(Map<String, dynamic> json) => Review(
+  factory Variants.fromJson(Map<String, dynamic> json) => Variants(
+        size: List<Color>.from(json["size"].map((x) => Color.fromJson(x))),
+        color: List<Color>.from(json["color"].map((x) => Color.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "size": List<dynamic>.from(size.map((x) => x.toJson())),
+        "color": List<dynamic>.from(color.map((x) => x.toJson())),
+      };
+}
+
+class Color {
+  int id;
+  String value;
+  int additionalPrice;
+
+  Color({
+    required this.id,
+    required this.value,
+    required this.additionalPrice,
+  });
+
+  factory Color.fromJson(Map<String, dynamic> json) => Color(
         id: json["id"],
-        review: json["review"],
-        rating: json["rating"],
-        userName: json["user_name"],
-        createTime: json["create_time"],
-        updateTime: json["update_time"],
-        email: json["email"],
-        images: List<String>.from(json["images"].map((x) => x)),
+        value: json["value"],
+        additionalPrice: json["additional_price"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "review": review,
-        "rating": rating,
-        "user_name": userName,
-        "create_time": createTime,
-        "update_time": updateTime,
-        "email": email,
-        "images": List<dynamic>.from(images.map((x) => x)),
+        "value": value,
+        "additional_price": additionalPrice,
       };
 }

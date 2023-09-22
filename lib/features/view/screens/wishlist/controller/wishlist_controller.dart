@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/constant/base_state.dart';
+import 'package:ecommerce_app/constant/navigation_service.dart';
 import 'package:ecommerce_app/features/view/screens/wishlist/model/wishlist_model.dart';
 import 'package:ecommerce_app/features/view/screens/wishlist/state/wishList_state.dart';
 import 'package:ecommerce_app/network_utils/api.dart';
@@ -70,15 +71,16 @@ class WishlistController extends StateNotifier<BaseState> {
     dynamic responseBody;
     var requestBody = {'id': id};
 
-   
     try {
       responseBody = await Network.handleResponse(
-        await Network.postRequest(API.deleteWishlist, requestBody),
+        await Network.postRequest(API.deleteWishlist(id: id), requestBody),
       );
       if (responseBody != null) {
         toast("Product removed from wishlist successfully",
             bgColor: KColor.green);
         state = const DeleteWishlistSuccessState();
+        NavigationService.popNavigate();
+        ref!.read(wishlistProvider.notifier).fetchWishlistProducts();
       } else {
         state = const ErrorState();
       }

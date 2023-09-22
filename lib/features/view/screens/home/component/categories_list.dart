@@ -1,7 +1,9 @@
+import 'package:ecommerce_app/constant/navigation_service.dart';
 import 'package:ecommerce_app/features/view/screens/home/controller/category_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/home/model/category_list_model.dart';
 import 'package:ecommerce_app/features/view/screens/home/state/categories_state.dart';
 import 'package:ecommerce_app/features/view/screens/shop/controller/product_list_controller.dart';
+import 'package:ecommerce_app/features/view/screens/shop/view/shop_page.dart';
 import 'package:ecommerce_app/utils/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -50,7 +52,8 @@ class _CategorySectionState extends State<CategorySection> {
                               .fetchShopProductList(
                                 categoryID: categoryData[index].id,
                               );
-                          Navigator.pushNamed(context, '/shop');
+                          NavigationService.navigateTo(
+                              SizeRoute(page: const ShopPage()));
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(3.0),

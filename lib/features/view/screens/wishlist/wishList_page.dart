@@ -35,6 +35,7 @@ class _WishListPageState extends State<WishListPage> {
       final List<Datum> wishListData = wishListState is WishlistSuccessState
           ? wishListState.wishlistModel!.data
           : [];
+
       return Scaffold(
         appBar: const PreferredSize(
           preferredSize: Size.fromHeight(50),
@@ -102,18 +103,16 @@ class _WishListPageState extends State<WishListPage> {
                                   });
                                 },
                                 delete: () {
-                                  Navigator.pop(context);
+                                  ref
+                                      .read(wishlistProvider.notifier)
+                                      .deleteWishlist(
+                                        id: wishListData[index].id.toString(),
+                                      );
+                                  print("On Delete Tap");
+
                                   
                                 },
-                                add: () {
-                                  //if (cartState is! LoadingState) {
-                                  // ref.read(cartProvider.notifier).addCart(
-                                  //       product: wishlistData[index].product,
-                                  //       barCode: "3211",
-                                  //       quantity: 1,
-                                  //     );
-                                  //}
-                                },
+                                add: () {},
                               );
                             },
                           )

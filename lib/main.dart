@@ -6,6 +6,7 @@ import 'package:ecommerce_app/constant/shared_preference_constant.dart';
 import 'package:ecommerce_app/features/view/screens/auth/login/login_page.dart';
 import 'package:ecommerce_app/features/view/screens/home/controller/brand_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/home/controller/category_list_controller.dart';
+import 'package:ecommerce_app/features/view/screens/home/controller/popular_product_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/shop/controller/product_list_controller.dart';
 import 'package:ecommerce_app/navigation_bar.dart';
 import 'package:ecommerce_app/utils/colors/app_colors.dart';
@@ -47,6 +48,7 @@ class _MyAppState extends ConsumerState<MyApp> {
   initData() {
     
     ref.read(productListProvider.notifier).fetchShopProductList();
+    ref.read(popularProductProvider.notifier).fetchPopularList();
     ref.read(categoryProvider.notifier).fetchCategoryDetails();
     ref.read(brandProvider.notifier).fetchBrand();
   }

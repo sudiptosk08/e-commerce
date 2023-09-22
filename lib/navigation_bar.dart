@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/features/view/screens/my_order/controller/my_order_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/wishlist/controller/wishlist_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -154,8 +155,12 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
                             //     builder: (context) => token != null
                             //         ? CartScreen()
                             //         : LogInScreen()));
+
                             currentScreen = const MyOrderPage();
                             currentTab = 2;
+                               ref
+                                .read(myOrderProvider.notifier)
+                                .fetchMyOrders('Pending');
                             // store.dispatch(LogoutUserAction("CartPage"));
                             // store.state.logoutUserData = null;
                           });

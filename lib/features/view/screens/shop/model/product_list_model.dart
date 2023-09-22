@@ -177,14 +177,14 @@ class Links {
 }
 
 class Meta {
-  int currentPage;
-  int from;
-  int lastPage;
+  dynamic currentPage;
+  dynamic from;
+  dynamic lastPage;
   List<Link> links;
   String path;
-  int perPage;
-  int to;
-  int total;
+  dynamic perPage;
+  dynamic to;
+  dynamic total;
 
   Meta({
     required this.currentPage,

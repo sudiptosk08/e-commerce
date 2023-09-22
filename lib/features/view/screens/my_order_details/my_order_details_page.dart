@@ -10,8 +10,7 @@ import '../../global_component/buttons/Kdrop_down_field.dart';
 import 'component/order_item_card.dart';
 
 class OrderDetailsPage extends StatefulWidget {
-  final Object orderData;
-  const OrderDetailsPage({Key? key, required this.orderData}) : super(key: key);
+  const OrderDetailsPage({Key? key}) : super(key: key);
 
   @override
   State<OrderDetailsPage> createState() => _OrderDetailsPageState();

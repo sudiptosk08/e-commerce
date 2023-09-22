@@ -40,6 +40,7 @@ class CouponCodeCard extends StatelessWidget {
                   controller: controller!,
                   hintText: hintText!,
                   label: "",
+                  inputType: TextInputType.text,
                   readOnly: readOnly!,
                 ),
               ),

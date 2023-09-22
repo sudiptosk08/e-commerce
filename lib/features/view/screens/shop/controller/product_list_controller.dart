@@ -31,6 +31,7 @@ class ProductListController extends StateNotifier<BaseState> {
     minPrice = '',
     ratings = '',
     str = '',
+    
   }) async {
     state = const LoadingState();
 

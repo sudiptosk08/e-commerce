@@ -35,6 +35,8 @@ class _KFilterState extends State<KFilter> {
   String? brandId = '';
   List<String> subCategoryIdList = [];
   String? subCategoryId = '';
+  List<String> categoryIdList = [];
+  String? categoryId = '';
   var cateSelectIndex;
   bool selectcategory = false;
   var ratings = 0;
@@ -160,25 +162,26 @@ class _KFilterState extends State<KFilter> {
                                         (index) => InkWell(
                                               onTap: () {
                                                 setState(() {
-                                                  // if (categoryIdList.contains(
-                                                  //     categoryData[index]
-                                                  //         .id
-                                                  //         .toString())){
-                                                  //   categoryIdList.removeWhere(
-                                                  //       (element) =>
-                                                  //           element ==
-                                                  //           categoryData[index]
-                                                  //               .id
-                                                  //               .toString());
-                                                  // } else {
-                                                  //   categoryIdList.add(
-                                                  //       categoryData[index]
-                                                  //           .id
-                                                  //           .toString());
-                                                  // }
-                                                  // categoryId =
-                                                  //     categoryIdList.join(",");
+                                                  if (categoryIdList.contains(
+                                                      categoryData[index]
+                                                          .id
+                                                          .toString())) {
+                                                    categoryIdList.removeWhere(
+                                                        (element) =>
+                                                            element ==
+                                                            categoryData[index]
+                                                                .id
+                                                                .toString());
+                                                  } else {
+                                                    categoryIdList.add(
+                                                        categoryData[index]
+                                                            .id
+                                                            .toString());
+                                                  }
+                                                  categoryId =
+                                                      categoryIdList.join(",");
                                                   cateSelectIndex = index;
+
                                                   selectcategory = true;
                                                 });
                                               },
@@ -315,14 +318,14 @@ class _KFilterState extends State<KFilter> {
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyles.bodyText1.copyWith(
-                                                            color: brandIdList.contains(categoryData[
+                                                            color: subCategoryIdList.contains(categoryData[
                                                                         index]
                                                                     .subcategories![
                                                                         index]
                                                                     .id
                                                                     .toString())
-                                                                ? KColor.grey
-                                                                : KColor.white,
+                                                                ? KColor.white
+                                                                : KColor.grey,
                                                             fontWeight:
                                                                 FontWeight
                                                                     .normal),
@@ -474,10 +477,12 @@ class _KFilterState extends State<KFilter> {
                                   brandID: brandId,
                                   categoryID: cateSelectIndex,
                                   subCategoryID: subCategoryId,
-                                  maxPrice: _upperValue,
-                                  minPrice: _lowerValue,
+                                  maxPrice:
+                                      _upperValue == 9999.0 ? "" : _upperValue,
+                                  minPrice:
+                                      _lowerValue == 1.0 ? "" : _lowerValue,
                                   orderByPrice: 0,
-                                  ratings: ratings,
+                                  ratings: ratings == 0 ? "" : ratings,
                                   str: "");
                           NavigationService.navigateToReplacement(
                               SlideLeftRoute(page: const ShopPage()));

@@ -1,4 +1,6 @@
+import 'package:ecommerce_app/features/view/screens/my_order_details/controller/my_order_details_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../utils/colors/app_colors.dart';
 import '../../../../../utils/size/k_size.dart';
 import '../../../../../utils/text_styles/text_styles.dart';
@@ -9,20 +11,20 @@ class MyOrderCard extends StatelessWidget {
   final bool isChecked;
   final String id;
   final String date;
-  final String userName;
-  final String contract;
+  final String paymentMethod;
+  final String paymentStatus;
   final String grandTotal;
-  final String paymentType;
+  final String deliveryType;
   final String status;
   const MyOrderCard(
       {required this.isChecked,
       Key? key,
       required this.id,
       required this.date,
-      required this.userName,
-      required this.contract,
+      required this.paymentMethod,
+      required this.paymentStatus,
       required this.grandTotal,
-      required this.paymentType,
+      required this.deliveryType,
       required this.status})
       : super(key: key);
 
@@ -43,7 +45,7 @@ class MyOrderCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Order No: #$id",
+              Text("$id",
                   style: TextStyles.subTitle.copyWith(
                     color: KColor.black54,
                   )),
@@ -59,113 +61,120 @@ class MyOrderCard extends StatelessWidget {
           const SizedBox(height: 5),
           Row(
             children: [
-              Text(
-                "Tracking Number : ",
-                style: TextStyles.bodyText1.copyWith(
-                  color: KColor.black54,
+              SizedBox(
+                width: KSize.getWidth(context, 102),
+                child: Text(
+                  "Delivered By",
+                  style: TextStyles.bodyText1
+                      .copyWith(color: KColor.black54, wordSpacing: 2),
                 ),
               ),
-              Text("IW25879SB",
+              Text(":",
                   style: TextStyles.bodyText1.copyWith(color: KColor.black54)),
+              Text(" $deliveryType",
+                  style: TextStyles.bodyText1.copyWith(color: KColor.green)),
             ],
           ),
-
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 5.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      "Quantity : ",
-                      style: TextStyles.bodyText1.copyWith(
-                        color: KColor.black54,
-                      ),
-                    ),
-                    Text("3",
-                        style: TextStyles.bodyText1
-                            .copyWith(color: KColor.black54)),
-                  ],
+          Row(
+            children: [
+              SizedBox(
+                width: KSize.getWidth(context, 102),
+                child: Text(
+                  "Payment  Method ",
+                  style: TextStyles.bodyText1
+                      .copyWith(color: KColor.black54, wordSpacing: 1.3),
                 ),
-                Row(
-                  children: [
-                    Text(
-                      "Total Amount : ",
-                      style: TextStyles.bodyText1.copyWith(
-                        color: KColor.black54,
-                      ),
-                    ),
-                    Text("৳$grandTotal",
-                        style: TextStyles.bodyText1
-                            .copyWith(color: KColor.errorRedText)),
-                  ],
-                ),
-              ],
-            ),
+              ),
+              Text(":",
+                  style: TextStyles.bodyText1.copyWith(color: KColor.black54)),
+              Text(" $paymentMethod",
+                  style: TextStyles.bodyText1.copyWith(color: KColor.green)),
+            ],
           ),
-
+          Row(
+            children: [
+              SizedBox(
+                width: KSize.getWidth(context, 102),
+                child: Text(
+                  "Payment  Status ",
+                  style: TextStyles.bodyText1
+                      .copyWith(color: KColor.black54, wordSpacing: 1.3),
+                ),
+              ),
+              Text(":",
+                  style: TextStyles.bodyText1.copyWith(color: KColor.black54)),
+              Text(" $paymentStatus",
+                  style: TextStyles.bodyText1.copyWith(color: KColor.green)),
+            ],
+          ),
+          const SizedBox(height: 5),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              KButton(
-                width: KSize.getWidth(context, 110),
-                height: 40,
-                isOutlineButton: false,
-                radius: 8,
-                color: KColor.primary,
-                textStyle: TextStyles.bodyText1
-                    .copyWith(color: KColor.white, fontWeight: FontWeight.w500),
-                onPressedCallback: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const OrderDetailsPage(
-                                orderData: "laksjdf",
-                              )));
-                },
-                title: "Details",
+              Row(
+                children: [
+                  Consumer(
+                    builder: (context, ref, child) => KButton(
+                      width: status == "Pending"
+                          ? KSize.getWidth(context, 80)
+                          : KSize.getWidth(context, 110),
+                      height: 38,
+                      isOutlineButton: false,
+                      radius: 8,
+                      color: KColor.primary,
+                      textStyle: TextStyles.bodyText1.copyWith(
+                          color: KColor.white, fontWeight: FontWeight.w800),
+                      onPressedCallback: () {
+                        ref.read(myOrderDetailsProvider.notifier).fetchMyOrdersDetails(id);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const OrderDetailsPage()));
+                      },
+                      title: "Details",
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  status == "Pending"
+                      ? KButton(
+                          width: KSize.getWidth(context, 80),
+                          height: 38,
+                          isOutlineButton: false,
+                          radius: 8,
+                          color: KColor.errorRedText,
+                          textStyle: TextStyles.bodyText1.copyWith(
+                              color: KColor.white, fontWeight: FontWeight.w800),
+                          onPressedCallback: () {
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => const OrderDetailsPage()));
+                          },
+                          title: "Cancel",
+                        )
+                      : Container(),
+                ],
               ),
-              const SizedBox(width: 3),
-              Text(
-                status,
-                style: TextStyles.bodyText1.copyWith(
-                  color: KColor.green,
-                ),
+              Column(
+                children: [
+                  Text(
+                    status,
+                    style: TextStyles.subTitle.copyWith(
+                      color: KColor.green,
+                    ),
+                  ),
+                  const SizedBox(height: 1),
+                  Text("৳$grandTotal",
+                      style: TextStyles.subTitle.copyWith(
+                        color: KColor.errorRedText,
+                      )),
+                ],
               ),
             ],
           ),
-
-          // review
-          // if (status == "Delivered")
-          //   InkWell(
-          //     onTap: () {
-          //       Navigator.pushNamed(context, '/orderDetails');
-          //     },
-          //     child: Container(
-          //       height: 40,
-          //       padding:
-          //           const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-          //       decoration: BoxDecoration(
-          //         borderRadius: BorderRadius.circular(8),
-          //         border: Border.all(
-          //           color: KColor.black.withOpacity(0.7),
-          //         ),
-          //       ),
-          //       child: Row(
-          //         children: [
-          //           Text(
-          //             'Review',
-          //             style: TextStyles.subtitle1.copyWith(
-          //               color: KColor.background,
-          //             ),
-          //           ),
-          //           const SizedBox(width: 3),
-          //           SvgPicture.asset('assets/images/edit.svg', height: 20)
-          //         ],
-          //       ),
-          //     ),
-          //   ),
         ],
       ),
     );

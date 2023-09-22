@@ -11,7 +11,7 @@ class PopularProductCard extends StatelessWidget {
     this.aspectRatio = 1.02,
     required this.imagePath,
     required this.productName,
-    //required this.discount,
+    required this.category,
     required this.price,
     required this.discountPrice,
     required this.id,
@@ -20,7 +20,7 @@ class PopularProductCard extends StatelessWidget {
   }) : super(key: key);
 
   final double width, aspectRatio;
-  //final int discount;
+  final String category;
   final int appDiscount;
   final String imagePath;
   final String productName;
@@ -48,6 +48,7 @@ class PopularProductCard extends StatelessWidget {
                 padding: const EdgeInsets.all(6.0),
                 child: Stack(children: [
                   Container(
+                    padding: const EdgeInsets.fromLTRB(0, 16, 0, 14),
                     width: KSize.getWidth(context, 125),
                     height: KSize.getWidth(context, 122),
                     decoration: BoxDecoration(
@@ -56,16 +57,15 @@ class PopularProductCard extends StatelessWidget {
                     ),
                     child: Container(
                         decoration: BoxDecoration(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(7)),
                             image: DecorationImage(
-                                image: AssetImage(
-                              imagePath,
-                            )))),
+                                fit: BoxFit.fitWidth,
+                                image: NetworkImage(
+                                  imagePath,
+                                )))),
                   ),
                   Positioned(
-                      top: 4,
-                      left: 4,
+                      top: 2,
+                      left: 6,
                       child: Text(
                         "$appDiscount% Off",
                         style: TextStyles.bodyText3.copyWith(
@@ -125,7 +125,7 @@ class PopularProductCard extends StatelessWidget {
                           Text(
                             "4.9 ",
                             textAlign: TextAlign.center,
-                            style: TextStyles.subTitle.copyWith(height: 1.5),
+                            style: TextStyles.subTitle,
                           ),
                         ],
                       ),
@@ -135,6 +135,14 @@ class PopularProductCard extends StatelessWidget {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyles.bodyText1,
+                      ),
+                      Text(
+                        category,
+                        textAlign: TextAlign.justify,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyles.bodyText1
+                            .copyWith(color: KColor.black54),
                       ),
                       KButton(
                         color: KColor.primary,
