@@ -53,9 +53,8 @@ class LoginController extends StateNotifier<BaseState> {
           setValue(lastName, userModel!.data.user.lastName);
           setValue(userContact, userModel!.data.user.phone);
 
-          NavigationService.navigateToReplacement(
-            SlideLeftRoute(
-            page:const  NavigationBarScreen(
+          NavigationService.navigateToReplacement(SlideLeftRoute(
+            page: const NavigationBarScreen(
               page: "0",
             ),
           ));
@@ -66,6 +65,36 @@ class LoginController extends StateNotifier<BaseState> {
     } catch (error, stackTrace) {
       print(error);
       print(stackTrace);
+      state = const ErrorState();
+    }
+  }
+
+  Future logout() async {
+    state = const LoadingState();
+    dynamic responseBody;
+    try {
+      responseBody = await Network.getRequest(API.logout);
+      if (responseBody != null) {
+        setValue(isLoggedIn, false);
+        setValue(token, "");
+        setValue(rememberToken, "");
+        setValue(firstName, "");
+        setValue(lastName, "");
+        
+
+        toast("Logout", bgColor: KColor.errorRedText);
+
+        NavigationService.navigateToReplacement(
+          SlideLeftRoute(
+            page: const NavigationBarScreen(page: "0"),
+          ),
+        );
+      } else {
+        state = const ErrorState();
+      }
+    } catch (error, stackTrace) {
+      print("error = $error");
+      print("error = $stackTrace");
       state = const ErrorState();
     }
   }

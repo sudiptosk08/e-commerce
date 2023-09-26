@@ -219,14 +219,15 @@ class Meta {
   });
 
   factory Meta.fromJson(Map<String, dynamic> json) => Meta(
-        currentPage: json["current_page"],
-        from: json["from"],
-        lastPage: json["last_page"],
+        currentPage:
+            json["current_page"] ?? 0, // Provide a default value if null
+        from: json["from"] ?? 0, // Provide a default value if null
+        lastPage: json["last_page"] ?? 0, // Provide a default value if null
         links: List<Link>.from(json["links"].map((x) => Link.fromJson(x))),
-        path: json["path"],
-        perPage: json["per_page"],
-        to: json["to"],
-        total: json["total"],
+        path: json["path"] ?? "", // Provide a default value if null
+        perPage: json["per_page"] ?? 0, // Provide a default value if null
+        to: json["to"] ?? 0, // Provide a default value if null
+        total: json["total"] ?? 0, // Provide a default value if null
       );
 
   Map<String, dynamic> toJson() => {

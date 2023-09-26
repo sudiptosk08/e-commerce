@@ -1,5 +1,4 @@
-import 'package:ecommerce_app/constant/navigation_service.dart';
-import 'package:ecommerce_app/features/view/screens/cart/cart_page.dart';
+
 import 'package:ecommerce_app/features/view/screens/cart/controller/cart_controller.dart';
 import 'package:ecommerce_app/features/view/screens/product_details/controller/product_details_controller.dart';
 import 'package:ecommerce_app/features/view/screens/product_details/state/product_details_state.dart';

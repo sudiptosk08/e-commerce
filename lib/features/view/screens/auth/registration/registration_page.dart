@@ -13,7 +13,7 @@ import '../../../global_component/text_field_container/text_field_container.dart
 
 // ignore: must_be_immutable
 class SignUpPage extends StatefulWidget {
-  SignUpPage({super.key});
+  const SignUpPage({super.key});
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
@@ -170,8 +170,8 @@ class _SignUpPageState extends State<SignUpPage> {
                         if (password.text == confirmPassword.text) {
                           if (authState is! LoadingState) {
                             ref.read(signupProvider.notifier).register(
-                                  firstName: firstName.text,
-                                  lastName: lastName.text,
+                                  first_Name: firstName.text,
+                                  last_Name: lastName.text,
                                   phone: userPhone.text,
                                   password: password.text,
                                   confirmPassword: confirmPassword.text,
@@ -203,7 +203,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => LoginPage(),
+                                builder: (context) =>const LoginPage(),
                               ));
                         },
                         child: Text(

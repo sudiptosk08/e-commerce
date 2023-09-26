@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/features/view/screens/auth/login/controller/login_controller.dart';
 import 'package:ecommerce_app/features/view/screens/shipping_address/controller/get_shipping_address_controller.dart';
 import 'package:ecommerce_app/utils/assets/app_assets.dart';
 import 'package:flutter/material.dart';
@@ -139,7 +140,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       color: KColor.primary,
                       textStyle: TextStyles.bodyText1.copyWith(
                           color: KColor.white, fontWeight: FontWeight.w500),
-                      onPressedCallback: () {},
+                      onPressedCallback: () {
+                        ref.read(loginProvider.notifier).logout();
+                      },
                       title: "Log Out",
                       trailingTitleIcon: Icon(
                         Icons.logout,

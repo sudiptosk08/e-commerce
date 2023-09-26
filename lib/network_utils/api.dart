@@ -12,11 +12,16 @@ class API {
   static const user = '/user';
   static const userBalance = '/user/balance';
 
+  ///// Banner
+  static const banner = '/banner';
+
   ///// auth
   static const signup = '/register'; //clear
   static const login = '/login'; //clear
   static const logout = '/logout';
   static const updatepassword = '/password/update';
+  ///// Notification
+  static const notification = '/notifications';
 
   /////Shipping Address
   static const addShippingAddress = '/user/address';
@@ -31,7 +36,14 @@ class API {
   static myOrderDetails({
     id = "",
   }) =>
-      '/order/$id/show';
+      '/order/$id';
+  static orderCancel({
+    id = "",
+  }) =>
+      '/order/$id/cancelled';
+
+  ///// Add Reviews
+  static const reviews = '/review/store';
 
   ///// brand
   static const brands = '/brand';
@@ -40,17 +52,17 @@ class API {
   static const categories = '/categories'; //clear
 
   ///// product list api
-  static shopProductList({
-    categoryId = "",
-    subCategoryId = "",
-    brandId = "",
-    orderByPrice = "",
-    ratings = "",
-    minPrice = "",
-    maxPrice = "",
-    str = "",
-  }) =>
-      '/products?category_id[]=$categoryId&subcategory_id[]=$subCategoryId&brand_id[]=$brandId&order_by_price=$orderByPrice&rating=$ratings&min_price=$minPrice&max_price=$maxPrice&name=$str';
+  static shopProductList(
+          {categoryId = "",
+          subCategoryId = "",
+          brandId = "",
+          orderByPrice = "",
+          ratings = "",
+          minPrice = "",
+          maxPrice = "",
+          str = "",
+          page = ""}) =>
+      '/products?category_id[]=$categoryId&subcategory_id[]=$subCategoryId&brand_id[]=$brandId&order_by_price=$orderByPrice&rating=$ratings&min_price=$minPrice&max_price=$maxPrice&name=$str&page=$page';
 
   ///// popular product
 

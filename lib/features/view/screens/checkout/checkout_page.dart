@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'package:ecommerce_app/constant/base_state.dart';
 import 'package:ecommerce_app/constant/shared_preference_constant.dart';
@@ -239,7 +241,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                     ],
                                   ),
                                   const SizedBox(height: 5),
-                                  ShippingInfoCard()
+                                  const ShippingInfoCard()
                                 ],
                               ),
                               const SizedBox(height: 10),

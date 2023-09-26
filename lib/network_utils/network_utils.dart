@@ -1,12 +1,12 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, avoid_function_literals_in_foreach_calls
 
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 // ignore: depend_on_referenced_packages
 import 'package:http_parser/http_parser.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import 'package:ecommerce_app/utils/colors/app_colors.dart';
@@ -84,34 +84,41 @@ class Network {
     }
   }
 
-  static multiPartRequest(String endPoint,
-      {Map<String, String>? body, file, filedName}) async {
-    var accesstoken = getStringAsync(token);
-
+  static multiPartRequest(String endPoint, String methodName,
+      {required Map<String, String> body,
+      required List<XFile> files,
+      String filedName = 'gallery[]'}) async {
     if (await isNetworkAvailable()) {
-      final request = http.MultipartRequest(
-        'POST',
+      var request = MultipartRequest(
+        methodName.toUpperCase(),
         Uri.parse('${API.base}' '$endPoint'),
-      )
-        ..fields.addAll(body!)
-        ..headers.addAll({
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $accesstoken'
-        })
-        ..files.add(await http.MultipartFile.fromPath("image", file));
+      );
+      print('URL: ${API.base}$endPoint');
+
+      var accessToken = getStringAsync(token);
+
+      Map<String, String> headers = {
+        "Authorization": "Bearer $accessToken",
+      };
+
+       request.fields.addAll((body));
+      if (files.isNotEmpty) {
+        files.forEach((file) async {
+          request.files.add(await MultipartFile.fromPath(
+            filedName,
+            file.path,
+          ));
+          print(file.path);
+        });
+      }
       print('Request Files: ${request.files}');
+
+      request.headers.addAll(headers);
 
       print('Headers: ${request.headers}');
       print('Request Fields: ${request.fields}');
-      print('\nURL: ${API.base}$endPoint');
-
-      print('Request Body: ${jsonEncode(body)}\n');
-
-      Response response = await post(Uri.parse('${API.base}$endPoint'),
-          body: jsonEncode(body), headers: request.headers);
-
-      print('Response: $response');
+      StreamedResponse streamedResponse = await request.send();
+      Response response = await Response.fromStream(streamedResponse);
       return response;
     } else {
       throw noInternetMessage;

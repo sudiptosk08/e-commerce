@@ -1,6 +1,8 @@
+import 'package:ecommerce_app/features/view/screens/my_order/controller/my_order_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/my_order_details/controller/my_order_details_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nb_utils/nb_utils.dart';
 import '../../../../../utils/colors/app_colors.dart';
 import '../../../../../utils/size/k_size.dart';
 import '../../../../../utils/text_styles/text_styles.dart';
@@ -10,6 +12,7 @@ import '../../my_order_details/my_order_details_page.dart';
 class MyOrderCard extends StatelessWidget {
   final bool isChecked;
   final String id;
+  final String inVoice;
   final String date;
   final String paymentMethod;
   final String paymentStatus;
@@ -19,6 +22,7 @@ class MyOrderCard extends StatelessWidget {
   const MyOrderCard(
       {required this.isChecked,
       Key? key,
+      required this.inVoice,
       required this.id,
       required this.date,
       required this.paymentMethod,
@@ -45,7 +49,7 @@ class MyOrderCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("$id",
+              Text(inVoice,
                   style: TextStyles.subTitle.copyWith(
                     color: KColor.black54,
                   )),
@@ -125,7 +129,9 @@ class MyOrderCard extends StatelessWidget {
                       textStyle: TextStyles.bodyText1.copyWith(
                           color: KColor.white, fontWeight: FontWeight.w800),
                       onPressedCallback: () {
-                        ref.read(myOrderDetailsProvider.notifier).fetchMyOrdersDetails(id);
+                        ref
+                            .read(myOrderDetailsProvider.notifier)
+                            .fetchMyOrdersDetails(id);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -138,24 +144,26 @@ class MyOrderCard extends StatelessWidget {
                   const SizedBox(
                     width: 10,
                   ),
-                  status == "Pending"
-                      ? KButton(
-                          width: KSize.getWidth(context, 80),
-                          height: 38,
-                          isOutlineButton: false,
-                          radius: 8,
-                          color: KColor.errorRedText,
-                          textStyle: TextStyles.bodyText1.copyWith(
-                              color: KColor.white, fontWeight: FontWeight.w800),
-                          onPressedCallback: () {
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => const OrderDetailsPage()));
-                          },
-                          title: "Cancel",
-                        )
-                      : Container(),
+                  Consumer(
+                    builder: (context, ref, child) => status == "Pending"
+                        ? KButton(
+                            width: KSize.getWidth(context, 80),
+                            height: 38,
+                            isOutlineButton: false,
+                            radius: 8,
+                            color: KColor.errorRedText,
+                            textStyle: TextStyles.bodyText1.copyWith(
+                                color: KColor.white,
+                                fontWeight: FontWeight.w800),
+                            onPressedCallback: () {
+                              ref
+                                  .read(myOrderProvider.notifier)
+                                  .cancelOrder(id: id.toInt());
+                            },
+                            title: "Cancel",
+                          )
+                        : Container(),
+                  )
                 ],
               ),
               Column(

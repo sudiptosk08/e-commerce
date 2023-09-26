@@ -1,13 +1,11 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, file_names
 
 import 'package:ecommerce_app/constant/base_state.dart';
 import 'package:ecommerce_app/constant/navigation_service.dart';
 import 'package:ecommerce_app/features/view/screens/auth/login/model/user_model.dart';
-import 'package:ecommerce_app/features/view/screens/shipping_address/component/shpping_address_card.dart';
 import 'package:ecommerce_app/features/view/screens/shipping_address/controller/get_shipping_address_controller.dart';
 import 'package:ecommerce_app/features/view/screens/shipping_address/shipping_address_page.dart';
 import 'package:ecommerce_app/features/view/screens/shipping_address/state/add_new_shippingAddress_state.dart';
-import 'package:ecommerce_app/navigation_bar.dart';
 import 'package:ecommerce_app/network_utils/api.dart';
 import 'package:ecommerce_app/network_utils/network_utils.dart';
 import 'package:ecommerce_app/utils/colors/app_colors.dart';

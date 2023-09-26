@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 
 import '../../../../../utils/colors/app_colors.dart';
@@ -7,7 +9,7 @@ import '../component/stepper.dart';
 
 class TrackOrder extends StatefulWidget {
   // final OrderData orderData;
-  TrackOrder({
+  const TrackOrder({
     Key? key,
   }) : super(key: key);
 

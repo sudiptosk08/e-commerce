@@ -1,4 +1,6 @@
 
+// ignore_for_file: avoid_print
+
 import 'package:ecommerce_app/constant/base_state.dart';
 import 'package:ecommerce_app/features/view/screens/home/model/category_list_model.dart';
 import 'package:ecommerce_app/features/view/screens/home/state/categories_state.dart';

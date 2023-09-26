@@ -1,9 +1,15 @@
+// ignore_for_file: must_be_immutable, file_names
+
+import 'package:ecommerce_app/constant/shared_preference_constant.dart';
+import 'package:ecommerce_app/features/view/screens/auth/login/login_page.dart';
 import 'package:ecommerce_app/features/view/screens/cart/cart_page.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 import '../../../../utils/colors/app_colors.dart';
 
 class FloatingActionBottom extends StatelessWidget {
-  const FloatingActionBottom({super.key});
+  FloatingActionBottom({super.key});
+  bool checkLogin = getBoolAsync(isLoggedIn, defaultValue: false);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +20,8 @@ class FloatingActionBottom extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CartPage(),
+                  builder: (context) =>
+                      checkLogin ? const CartPage() : const LoginPage(),
                 ));
           },
           child: Container(

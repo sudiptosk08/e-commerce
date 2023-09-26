@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, non_constant_identifier_names
 
 import 'package:ecommerce_app/constant/base_state.dart';
 import 'package:ecommerce_app/constant/navigation_service.dart';
@@ -25,8 +25,8 @@ class SignupController extends StateNotifier<BaseState> {
   UserModel? userModel;
 
   Future register({
-    required String firstName,
-    required String lastName,
+    required String first_Name,
+    required String last_Name,
     required String phone,
     required String password,
     required String confirmPassword,
@@ -34,8 +34,8 @@ class SignupController extends StateNotifier<BaseState> {
     state = const LoadingState();
     dynamic responseBody;
     var requestBody = {
-      'first_name': firstName,
-      'last_name': lastName,
+      'first_name': first_Name,
+      'last_name': last_Name,
       'password': password,
       'phone': phone,
       'password_confirmation': confirmPassword
@@ -57,7 +57,7 @@ class SignupController extends StateNotifier<BaseState> {
           setValue(rememberToken, userModel!.data.token);
           setValue(userId, userModel!.data.user.id);
           setValue(firstName, userModel!.data.user.firstName);
-          setValue(firstName, userModel!.data.user.lastName);
+          setValue(lastName, userModel!.data.user.lastName);
           setValue(userContact, userModel!.data.user.phone);
 
           NavigationService.navigateToReplacement(FadeRoute(

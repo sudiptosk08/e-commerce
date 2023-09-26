@@ -84,8 +84,8 @@ class _AllCategoryPageState extends State<AllCategoryPage> {
                         children: [
                           Container(
                             margin: index == 0
-                                ? EdgeInsets.only(top: 12)
-                                : EdgeInsets.only(top: 0),
+                                ?const EdgeInsets.only(top: 12)
+                                :const EdgeInsets.only(top: 0),
                             width: KSize.getWidth(context, 51),
                             height: KSize.getHeight(context, 55),
                             alignment: Alignment.center,

@@ -1,8 +1,9 @@
+// ignore_for_file: avoid_print, prefer_typing_uninitialized_variables
+
 import 'package:ecommerce_app/constant/base_state.dart';
-import 'package:ecommerce_app/constant/navigation_service.dart';
+import 'package:ecommerce_app/features/view/screens/shop/controller/all_product_pagination_controller.dart';
 import 'package:ecommerce_app/features/view/screens/shop/model/product_list_model.dart';
 import 'package:ecommerce_app/features/view/screens/shop/state/product_list_state.dart';
-import 'package:ecommerce_app/features/view/screens/shop/view/shop_page.dart';
 import 'package:ecommerce_app/network_utils/api.dart';
 import 'package:ecommerce_app/network_utils/network_utils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,8 +20,9 @@ class ProductListController extends StateNotifier<BaseState> {
 
   ProductListController({this.ref}) : super(const InitialState());
   ProductListModel? productListModel;
+  int? lastpage;
 
-  // List<ShopDataModel>? searchModel = [];
+  int page = 1;
   int limit = 0;
   Future fetchShopProductList({
     categoryID = '',
@@ -31,7 +33,6 @@ class ProductListController extends StateNotifier<BaseState> {
     minPrice = '',
     ratings = '',
     str = '',
-    
   }) async {
     state = const LoadingState();
 
@@ -61,8 +62,9 @@ class ProductListController extends StateNotifier<BaseState> {
 
       if (responseBody != null) {
         productListModel = ProductListModel.fromJson(responseBody);
+        page = productListModel!.meta.currentPage;
+        lastpage = productListModel!.meta.lastPage;
         state = ProductListSuccessState(productListModel);
-     
       } else {
         state = const ErrorState();
       }
@@ -73,47 +75,45 @@ class ProductListController extends StateNotifier<BaseState> {
     }
   }
 
-//   Future fetchMoreShopProductList(
-//       {str, groupId, categoryId, brandId, price, color, size}) async {
-//     if (shopDataModel == null) state = const LoadingState();
+  Future fetchMoreProductList({
+    categoryID = '',
+    subCategoryID = '',
+    brandID = '',
+    orderByPrice = '',
+    maxPrice = '',
+    minPrice = '',
+    ratings = '',
+    str = '',
+  }) async {
+    if (productListModel == null) state = const LoadingState();
 
-//     var responseBody;
-//     //for filter page value
-//     str = str == null ? '' : str.toString();
+    var responseBody;
+    if (lastpage == page) {
+      return null;
+    } else {
+      try {
+        responseBody = await Network.handleResponse(
+          await Network.getRequest(API.shopProductList(
+            page: page + 1,
+          )),
+        );
 
-//     groupId = groupId == null ? '' : groupId.toString();
-//     categoryId = categoryId == null ? '' : categoryId.toString();
-//     price = price == null ? '' : price.toString();
-//     brandId = brandId == null ? '' : brandId.toString();
-//     color = color == null ? '' : color.toString();
-//     size = size == null ? '' : size.toString();
-
-//     try {
-//       responseBody = await Network.handleResponse(
-//         await Network.getRequest(API.shop(
-//             limit: limit += 20,
-//             str: str,
-//             groupId: groupId,
-//             categoryId: categoryId,
-//             price: price,
-//             brandId: brandId,
-//             colour: color,
-//             size: size)),
-//       );
-
-//       if (responseBody != null) {
-//         shopDataModel = ShopDataModel.fromJson(responseBody);
-
-//         state = ShopSuccessState(shopDataModel);
-//         ref!.read(shopListScrollProvider.notifier).resetState();
-//       } else {
-//         state = const ErrorState();
-//       }
-//     } catch (error, stackTrace) {
-//       print(error);
-//       print(stackTrace);
-//       state = const ErrorState();
-//     }
-//   }
-// }
+        if (responseBody != null) {
+          var productListNewModel = ProductListModel.fromJson(responseBody);
+          productListModel!.data.addAll(productListNewModel.data);
+          productListModel!.meta.currentPage =
+              productListNewModel.meta.currentPage;
+          productListModel!.meta.lastPage = productListNewModel.meta.lastPage;
+          state = ProductListSuccessState(productListModel);
+          ref!.read(allProductScrollProvider.notifier).resetState();
+        } else {
+          state = const ErrorState();
+        }
+      } catch (error, stackTrace) {
+        print(error);
+        print(stackTrace);
+        state = const ErrorState();
+      }
+    }
+  }
 }

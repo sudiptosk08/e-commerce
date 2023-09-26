@@ -1,9 +1,13 @@
-import 'package:ecommerce_app/utils/colors/app_colors.dart';
-import 'package:ecommerce_app/utils/extension/extension.dart';
-import 'package:ecommerce_app/utils/size/k_size.dart';
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.dart';
+
+import 'package:ecommerce_app/utils/colors/app_colors.dart';
+import 'package:ecommerce_app/utils/extension/extension.dart';
+import 'package:ecommerce_app/utils/size/k_size.dart';
+
 import '../../../../../utils/text_styles/text_styles.dart';
 import '../../../global_component/buttons/custom_button.dart';
 import '../../../global_component/dialog/k_confirm_dialog.dart';
@@ -25,20 +29,20 @@ class WishListCard extends StatefulWidget {
   final VoidCallback? add;
 
   WishListCard({
-    required this.img,
-    required this.productId,
+    Key? key,
     this.quantity,
+    required this.productId,
+    required this.img,
     this.isChecked,
     this.productName,
     this.group,
     this.price,
-    this.cancel,
-    this.appDiscount,
     this.disprice,
+    this.appDiscount,
+    this.total,
+    this.cancel,
     this.delete,
     this.add,
-    this.total,
-    Key? key,
   }) : super(key: key);
 
   @override

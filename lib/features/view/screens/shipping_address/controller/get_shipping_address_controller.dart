@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:ecommerce_app/constant/base_state.dart';
 import 'package:ecommerce_app/features/view/screens/shipping_address/model/shipping_address_list_model.dart';
 import 'package:ecommerce_app/features/view/screens/shipping_address/state/get_shipping_address_state.dart';

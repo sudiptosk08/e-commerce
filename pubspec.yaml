@@ -46,7 +46,6 @@ dependencies:
   smooth_star_rating_null_safety: ^1.0.4+2
   cached_network_image: ^3.2.3
   image_picker: ^0.8.5+3
-  file_picker: ^5.0.1
   flutter_riverpod: ^1.0.4
   nb_utils: ^4.6.20
   url_launcher: ^6.1.5
@@ -56,6 +55,7 @@ dependencies:
   shared_preferences: ^2.0.15
   http: ^0.13.5
   shimmer: ^3.0.0
+  mime_type: ^1.0.0
 
 
 

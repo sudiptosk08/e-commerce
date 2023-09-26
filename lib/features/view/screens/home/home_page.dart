@@ -1,11 +1,12 @@
 import 'package:ecommerce_app/features/view/global_component/drawer/drawer.dart';
 import 'package:ecommerce_app/features/view/screens/all_categories/all_categories_page.dart';
-import 'package:ecommerce_app/features/view/screens/home/component/brand_list.dart';
+import 'package:ecommerce_app/features/view/screens/notification/controller/notification_controller.dart';
 import 'package:ecommerce_app/utils/assets/app_assets.dart';
 import 'package:ecommerce_app/utils/colors/app_colors.dart';
 import 'package:ecommerce_app/utils/helper/helper.dart';
 import 'package:ecommerce_app/utils/size/k_size.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../global_component/text_field_container/k_search_field.dart';
 import '../notification/notification_page.dart';
 import 'component/categories_list.dart';
@@ -14,7 +15,7 @@ import 'component/new&noteworthy.dart';
 import 'component/slider_iamge.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -54,17 +55,23 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ],
                 ),
-                IconButton(
-                  onPressed: () {
-                    Helper.dissmissKeyboard();
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: ((context) => const NotificationPage())));
-                  },
-                  padding: const EdgeInsets.all(12),
-                  icon: const Image(
-                    image: AssetImage(AppAssets.notification),
+                Consumer(
+                  builder: (context, ref, child) => IconButton(
+                    onPressed: () {
+                      Helper.dissmissKeyboard();
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) =>
+                                  const NotificationPage())));
+                      ref
+                          .read(notificationListProvider.notifier)
+                          .fetchNotificationList();
+                    },
+                    padding: const EdgeInsets.all(12),
+                    icon: const Image(
+                      image: AssetImage(AppAssets.notification),
+                    ),
                   ),
                 ),
               ],

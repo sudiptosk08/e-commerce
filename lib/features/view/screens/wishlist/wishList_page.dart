@@ -1,12 +1,10 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, avoid_print
 
 import 'package:ecommerce_app/constant/base_state.dart';
 import 'package:ecommerce_app/features/view/global_component/shimmer/placeholder_shimmer.dart';
-import 'package:ecommerce_app/features/view/screens/auth/login/model/user_model.dart';
 import 'package:ecommerce_app/features/view/screens/wishlist/controller/wishlist_controller.dart';
 import 'package:ecommerce_app/features/view/screens/wishlist/model/wishlist_model.dart';
 import 'package:ecommerce_app/features/view/screens/wishlist/state/wishList_state.dart';
-import 'package:ecommerce_app/utils/assets/app_assets.dart';
 import 'package:ecommerce_app/utils/colors/app_colors.dart';
 import 'package:ecommerce_app/utils/text_styles/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -109,8 +107,6 @@ class _WishListPageState extends State<WishListPage> {
                                         id: wishListData[index].id.toString(),
                                       );
                                   print("On Delete Tap");
-
-                                  
                                 },
                                 add: () {},
                               );
@@ -128,7 +124,7 @@ class _WishListPageState extends State<WishListPage> {
                           FaIcon(
                             FontAwesomeIcons.gift,
                             color: KColor.grey.withOpacity(0.4),
-                            size: 60,
+                            size: 35,
                           ),
                           const SizedBox(
                             height: 10,

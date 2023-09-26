@@ -1,14 +1,17 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:ecommerce_app/utils/size/k_size.dart';
 import 'package:flutter/material.dart';
 
 class BannerPlaceholder extends StatelessWidget {
-  const BannerPlaceholder({Key? key}) : super(key: key);
+  int height;
+  BannerPlaceholder({required this.height, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 320.0,
+      height: height.toDouble(),
       margin: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(7.0),
@@ -156,6 +159,12 @@ class WishListPlaceholder extends StatelessWidget {
                   color: Colors.white,
                   margin: const EdgeInsets.only(bottom: 8.0),
                 ),
+                Container(
+                  width: double.infinity,
+                  height: 10.0,
+                  color: Colors.white,
+                  margin: const EdgeInsets.only(bottom: 8.0),
+                ),
                 if (lineType == ContentLineType.threeLines)
                   Container(
                     width: double.infinity,
@@ -164,7 +173,7 @@ class WishListPlaceholder extends StatelessWidget {
                     margin: const EdgeInsets.only(bottom: 8.0),
                   ),
                 Container(
-                  width: 100.0,
+                  width: 80.0,
                   height: 10.0,
                   color: Colors.white,
                 )
@@ -172,6 +181,124 @@ class WishListPlaceholder extends StatelessWidget {
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class MyOrderPlaceholder extends StatelessWidget {
+  final ContentLineType lineType;
+
+  const MyOrderPlaceholder({
+    Key? key,
+    required this.lineType,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 5),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: 10.0,
+                  color: Colors.white,
+                  margin: const EdgeInsets.only(bottom: 8.0),
+                ),
+                Container(
+                  width: double.infinity,
+                  height: 10.0,
+                  color: Colors.white,
+                  margin: const EdgeInsets.only(bottom: 8.0),
+                ),
+                if (lineType == ContentLineType.threeLines)
+                  Container(
+                    width: double.infinity,
+                    height: 10.0,
+                    color: Colors.white,
+                    margin: const EdgeInsets.only(bottom: 8.0),
+                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          width: 80.0,
+                          height: 38.0,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Container(
+                          width: 80.0,
+                          height: 38.0,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Container(
+                          width: 80.0,
+                          height: 10.0,
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 7,
+                        ),
+                        Container(
+                          width: 80.0,
+                          height: 10.0,
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class CategoryPlaceholder extends StatelessWidget {
+  const CategoryPlaceholder({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+      child: Container(
+        width: 100.0,
+        height: 52.0,
+        decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(10))),
       ),
     );
   }

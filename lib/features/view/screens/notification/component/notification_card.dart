@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:ecommerce_app/utils/assets/app_assets.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

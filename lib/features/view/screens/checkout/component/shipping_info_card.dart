@@ -8,7 +8,7 @@ import 'package:nb_utils/nb_utils.dart';
 import '../../../../../utils/colors/app_colors.dart';
 
 class ShippingInfoCard extends StatefulWidget {
-  ShippingInfoCard({super.key});
+  const ShippingInfoCard({super.key});
 
   @override
   State<ShippingInfoCard> createState() => _ShippingInfoCardState();

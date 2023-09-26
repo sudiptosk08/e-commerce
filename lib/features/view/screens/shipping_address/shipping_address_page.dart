@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:convert';
 
 import 'package:ecommerce_app/constant/shared_preference_constant.dart';

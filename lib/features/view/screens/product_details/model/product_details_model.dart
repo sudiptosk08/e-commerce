@@ -47,7 +47,7 @@ class Data {
   String rating;
   String thumbnail;
   List<String> gallery;
-  List<dynamic> reviews;
+  List<Review> reviews;
   bool wishlist;
   Variants variants;
 
@@ -88,7 +88,8 @@ class Data {
         rating: json["rating"],
         thumbnail: json["thumbnail"],
         gallery: List<String>.from(json["gallery"].map((x) => x)),
-        reviews: List<dynamic>.from(json["reviews"].map((x) => x)),
+        reviews:
+            List<Review>.from(json["reviews"].map((x) => Review.fromJson(x))),
         wishlist: json["wishlist"],
         variants: Variants.fromJson(json["variants"]),
       );
@@ -109,7 +110,7 @@ class Data {
         "rating": rating,
         "thumbnail": thumbnail,
         "gallery": List<dynamic>.from(gallery.map((x) => x)),
-        "reviews": List<dynamic>.from(reviews.map((x) => x)),
+        "reviews": List<dynamic>.from(reviews.map((x) => x.toJson())),
         "wishlist": wishlist,
         "variants": variants.toJson(),
       };
@@ -144,6 +145,46 @@ class Category {
         "slug": slug,
         "icon": icon,
         "image": image,
+      };
+}
+
+class Review {
+  int id;
+  String review;
+  String rating;
+  String userName;
+  String createTime;
+  String updateTime;
+  List<dynamic> images;
+
+  Review({
+    required this.id,
+    required this.review,
+    required this.rating,
+    required this.userName,
+    required this.createTime,
+    required this.updateTime,
+    required this.images,
+  });
+
+  factory Review.fromJson(Map<String, dynamic> json) => Review(
+        id: json["id"],
+        review: json["review"],
+        rating: json["rating"],
+        userName: json["user_name"],
+        createTime: json["create_time"],
+        updateTime: json["update_time"],
+        images: List<dynamic>.from(json["images"].map((x) => x)),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "review": review,
+        "rating": rating,
+        "user_name": userName,
+        "create_time": createTime,
+        "update_time": updateTime,
+        "images": List<dynamic>.from(images.map((x) => x)),
       };
 }
 

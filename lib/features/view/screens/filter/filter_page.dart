@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, prefer_typing_uninitialized_variables
+
 import 'package:another_xlider/another_xlider.dart';
 import 'package:another_xlider/enums/tooltip_direction_enum.dart';
 import 'package:another_xlider/models/handler.dart';

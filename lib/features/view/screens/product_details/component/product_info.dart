@@ -1,7 +1,8 @@
-// ignore_for_file: unnecessary_null_comparison
+// ignore_for_file: unnecessary_null_comparison, must_be_immutable, avoid_print, prefer_typing_uninitialized_variables
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce_app/features/view/global_component/shimmer/placeholder_shimmer.dart';
+import 'package:ecommerce_app/features/view/screens/product_details/component/product_review.dart';
 import 'package:ecommerce_app/features/view/screens/product_details/controller/product_details_controller.dart';
 import 'package:ecommerce_app/features/view/screens/product_details/state/product_details_state.dart';
 import 'package:ecommerce_app/utils/colors/app_colors.dart';
@@ -141,7 +142,7 @@ class _ProductInfoState extends State<ProductInfo> {
                             productDetails.discount.toInt() > 0
                                 ? Container(
                                     alignment: Alignment.centerRight,
-                                    width: KSize.getWidth(context, 112),
+                                    width: KSize.getWidth(context, 110),
                                     child: Text.rich(
                                       TextSpan(
                                           text: ref
@@ -805,7 +806,7 @@ class _ProductInfoState extends State<ProductInfo> {
                               _specification("Gender", "Men"),
                             ],
                           ),
-                        // if (currentIndex == 1) const ProductReview(),
+                        if (currentIndex == 1) const ProductReview(),
                         const SizedBox(
                           height: 80,
                         ),
@@ -819,24 +820,26 @@ class _ProductInfoState extends State<ProductInfo> {
               baseColor: Colors.grey.shade300,
               highlightColor: Colors.grey.shade100,
               enabled: true,
-              child: const SingleChildScrollView(
-                physics: NeverScrollableScrollPhysics(),
+              child: SingleChildScrollView(
+                physics: const NeverScrollableScrollPhysics(),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 9,
                       ),
-                      BannerPlaceholder(),
-                      SizedBox(
+                      BannerPlaceholder(
+                        height: 320,
+                      ),
+                      const SizedBox(
                         height: 9,
                       ),
-                      TitlePlaceholder(width: double.infinity),
-                      SizedBox(
+                      const TitlePlaceholder(width: double.infinity),
+                      const SizedBox(
                         height: 9,
                       ),
-                      TitlePlaceholder(
+                      const TitlePlaceholder(
                         width: double.infinity,
                       ),
                     ]),

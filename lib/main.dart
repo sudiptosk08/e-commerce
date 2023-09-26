@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:ecommerce_app/constant/logger.dart';
 import 'package:ecommerce_app/constant/navigation_service.dart';
 import 'package:ecommerce_app/constant/shared_preference_constant.dart';
-import 'package:ecommerce_app/features/view/screens/auth/login/login_page.dart';
+import 'package:ecommerce_app/features/view/screens/home/controller/banner_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/home/controller/brand_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/home/controller/category_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/home/controller/popular_product_list_controller.dart';
@@ -42,36 +42,33 @@ class _MyAppState extends ConsumerState<MyApp> {
   @override
   void initState() {
     super.initState();
-    checkLogin ? initData() : Container();
+    initData();
   }
 
   initData() {
-    
     ref.read(productListProvider.notifier).fetchShopProductList();
     ref.read(popularProductProvider.notifier).fetchPopularList();
     ref.read(categoryProvider.notifier).fetchCategoryDetails();
     ref.read(brandProvider.notifier).fetchBrand();
+    ref.read(sliderProvider.notifier).fetchSliderDetails();
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      navigatorKey: NavigationService.navigatorKey,
-      debugShowCheckedModeBanner: false,
-      title: 'E-Commerce',
-      theme: ThemeData(
-        appBarTheme: const AppBarTheme(
-          centerTitle: true,
-          elevation: 0,
-          backgroundColor: KColor.background,
-          iconTheme: IconThemeData(color: KColor.black),
+        navigatorKey: NavigationService.navigatorKey,
+        debugShowCheckedModeBanner: false,
+        title: 'E-Commerce',
+        theme: ThemeData(
+          appBarTheme: const AppBarTheme(
+            centerTitle: true,
+            elevation: 0,
+            backgroundColor: KColor.background,
+            iconTheme: IconThemeData(color: KColor.black),
+          ),
         ),
-      ),
-      home: checkLogin
-          ? const NavigationBarScreen(
-              page: "0",
-            )
-          : const LoginPage(),
-    );
+        home: const NavigationBarScreen(
+          page: "0",
+        ));
   }
 }

@@ -1,8 +1,12 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:ecommerce_app/constant/base_state.dart';
 import 'package:ecommerce_app/features/view/global_component/product_card.dart/product_card_shimmer/product_card_shimmer.dart';
 import 'package:ecommerce_app/features/view/screens/filter/filter_page.dart';
 import 'package:ecommerce_app/features/view/screens/product_details/controller/product_details_controller.dart';
 import 'package:ecommerce_app/features/view/screens/product_details/product_details_page.dart';
+import 'package:ecommerce_app/features/view/screens/product_details/state/pagination_scroll_state.dart';
+import 'package:ecommerce_app/features/view/screens/shop/controller/all_product_pagination_controller.dart';
 import 'package:ecommerce_app/features/view/screens/shop/controller/product_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/shop/model/product_list_model.dart';
 import 'package:ecommerce_app/features/view/screens/shop/state/product_list_state.dart';
@@ -36,8 +40,7 @@ class _ShopPageState extends State<ShopPage> {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, _) {
-        // final wishlistState = ref.watch(wishlistProvider);
-        // final shopScrollState = ref.watch(shopListScrollProvider);
+        final shopScrollState = ref.watch(allProductScrollProvider);
         final shopState = ref.watch(productListProvider);
         final List<ProductListData> productListData =
             shopState is ProductListSuccessState
@@ -145,74 +148,87 @@ class _ShopPageState extends State<ShopPage> {
                       ],
                       if (shopState is ProductListSuccessState) ...[
                         Expanded(
-                          child: SingleChildScrollView(
-                            child: productListData.isEmpty
-                                ? Container(
-                                    height: 520,
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      'No products found!',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyles.bodyText1
-                                          .copyWith(color: KColor.black54),
-                                    ))
-                                : GridView.builder(
-                                    padding: const EdgeInsets.all(6),
-                                    physics: const ScrollPhysics(),
-                                    shrinkWrap: true,
-                                    gridDelegate:
-                                        const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2,
-                                      crossAxisSpacing: 3.0,
-                                      mainAxisSpacing: 2.0,
-                                      childAspectRatio: 7.5 / 10,
-                                    ),
-                                    itemCount: productListData.length,
-                                    scrollDirection: Axis.vertical,
-                                    itemBuilder: (context, index) {
-                                      return ProductCard(
-                                        id: productListData[index]
-                                            .id
-                                            .toString(),
-                                        imagePath: productListData[index]
-                                            .thumbnail
-                                            .toString(),
-                                        productName:
-                                            productListData[index].name,
-                                        discountPrice: productListData[index]
-                                            .discountPrice
-                                            .toString(),
-                                        price: productListData[index].price,
-                                        appDiscount: productListData[index]
-                                            .discount
-                                            .toInt(),
-                                        ratingStar: productListData[index]
-                                            .rating
-                                            .toInt(),
-                                        category: productListData[index]
-                                            .category
-                                            .slug
-                                            .toString(),
-                                        wishList:
-                                            productListData[index].wishlist,
-                                        tap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const ProductDetailsPage(),
-                                              ));
-                                          ref
-                                              .read(productDetailsProvider
-                                                  .notifier)
-                                              .fetchProductsDetails(
-                                                  productListData[index].slug);
-                                        },
-                                      );
-                                    },
+                          child: productListData.isEmpty
+                              ? Container(
+                                  height: 520,
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'No products found!',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyles.bodyText1
+                                        .copyWith(color: KColor.black54),
+                                  ))
+                              : GridView.builder(
+                                  padding: const EdgeInsets.all(6),
+                                  physics: const ScrollPhysics(),
+                                  controller:  ref
+                                    .read(allProductScrollProvider.notifier)
+                                    .controller,
+                                  shrinkWrap: true,
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    crossAxisSpacing: 3.0,
+                                    mainAxisSpacing: 2.0,
+                                    childAspectRatio: 7.5 / 10,
                                   ),
-                          ),
+                                  itemCount: productListData.length,
+                                  scrollDirection: Axis.vertical,
+                                  itemBuilder: (context, index) {
+                                    return ProductCard(
+                                      id: productListData[index].id.toString(),
+                                      imagePath: productListData[index]
+                                          .thumbnail
+                                          .toString(),
+                                      productName: productListData[index].name,
+                                      discountPrice: productListData[index]
+                                          .discountPrice
+                                          .toString(),
+                                      price: productListData[index].price,
+                                      appDiscount: productListData[index]
+                                          .discount
+                                          .toInt(),
+                                      ratingStar:
+                                          productListData[index].rating.toInt(),
+                                      category: productListData[index]
+                                          .category
+                                          .slug
+                                          .toString(),
+                                      wishList: productListData[index].wishlist,
+                                      tap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const ProductDetailsPage(),
+                                            ));
+                                        ref
+                                            .read(
+                                                productDetailsProvider.notifier)
+                                            .fetchProductsDetails(
+                                                productListData[index].slug);
+                                      },
+                                    );
+                                  },
+                                ),
                         ),
+                        if (shopScrollState is ScrollReachedBottomState)
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Loading ... ",
+                                style: TextStyles.bodyText3
+                                    .copyWith(color: KColor.grey),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              const CircularProgressIndicator(
+                                color: KColor.grey,
+                              )
+                            ],
+                          ),
                       ],
                     ]))
               ],
@@ -226,29 +242,4 @@ class _ShopPageState extends State<ShopPage> {
     );
   }
 
-  _categoryHeader(title, tap) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
-              style: TextStyles.subTitle,
-            ),
-            InkWell(
-              onTap: tap,
-              child: Text(
-                'Reset',
-                style: TextStyles.bodyText3.copyWith(
-                  color: KColor.white,
-                ),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 16),
-      ],
-    );
-  }
 }

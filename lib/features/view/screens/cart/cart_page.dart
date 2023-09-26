@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable, avoid_print
+
 import 'dart:convert';
 import 'package:ecommerce_app/features/view/global_component/dialog/k_confirm_dialog.dart';
 import 'package:ecommerce_app/features/view/screens/cart/controller/cart_controller.dart';
@@ -8,7 +10,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../navigation_bar.dart';
 import '../../../../utils/size/k_size.dart';
 import '../../global_component/appBar/app_bar.dart';
@@ -17,7 +18,7 @@ import '../../global_component/gray_handle/gray_handle.dart';
 import '../checkout/checkout_page.dart';
 
 class CartPage extends ConsumerStatefulWidget {
-  CartPage({super.key});
+  const CartPage({super.key});
 
   @override
   ConsumerState<CartPage> createState() => _CartPageState();
@@ -129,10 +130,16 @@ class _CartPageState extends ConsumerState<CartPage> {
                                           subMessage:
                                               'Are you sure you want to remove this item?"',
                                           onCancel: () {
-                                            //cancel
+                                            Navigator.pop(context);
                                           },
                                           onDelete: () {
-                                            //delete,
+                                            ref
+                                                .read(cartProvider.notifier)
+                                                .removeFromCart(
+                                                    cartItems[index]['id']);
+
+                                            loadCartItems();
+                                            Navigator.pop(context);
                                           });
                                     },
                                   );
@@ -482,6 +489,7 @@ class _CartPageState extends ConsumerState<CartPage> {
           ));
     });
   }
+
   text(String title, String price) {
     return Padding(
       padding: const EdgeInsets.only(left: 3.0, bottom: 10),

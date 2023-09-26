@@ -1,3 +1,7 @@
+// ignore_for_file: unrelated_type_equality_checks, library_private_types_in_public_api
+
+import 'package:ecommerce_app/constant/shared_preference_constant.dart';
+import 'package:ecommerce_app/features/view/screens/auth/login/login_page.dart';
 import 'package:ecommerce_app/features/view/screens/my_order/controller/my_order_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/wishlist/controller/wishlist_controller.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +12,7 @@ import 'package:ecommerce_app/utils/assets/app_assets.dart';
 import 'package:ecommerce_app/utils/colors/app_colors.dart';
 import 'package:ecommerce_app/utils/text_styles/text_styles.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 import 'features/view/screens/cart/cart_page.dart';
 import 'features/view/screens/home/home_page.dart';
@@ -26,9 +31,11 @@ class NavigationBarScreen extends StatefulWidget {
 }
 
 class _NavigationBarScreenState extends State<NavigationBarScreen> {
+  bool? checkLogin;
   @override
   void initState() {
-    currentScreen = widget.page == 2 ? CartPage() : HomePage();
+    checkLogin = getBoolAsync(isLoggedIn, defaultValue: false);
+    currentScreen = widget.page == 2 ? const CartPage() : const HomePage();
     currentTab = widget.page == 2 ? 2 : 0;
     super.initState();
   }
@@ -39,7 +46,7 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
 
   int currentTab = 0;
   final List<Widget> screens = [
-    HomePage(),
+    const HomePage(),
     const WishListPage(),
     const MyOrderPage(),
     const ProfilePage(),
@@ -62,7 +69,7 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
               bucket: bucket,
               child: currentScreen,
             ),
-            floatingActionButton: const FloatingActionBottom(),
+            floatingActionButton: FloatingActionBottom(),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
             bottomNavigationBar: BottomAppBar(
@@ -79,7 +86,7 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
                       MaterialButton(
                         onPressed: () {
                           setState(() {
-                            currentScreen = HomePage();
+                            currentScreen = const HomePage();
                             currentTab = 0;
                             // store.state.logoutUserData = null;
                           });
@@ -109,19 +116,14 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
                         padding: const EdgeInsets.only(right: 25),
                         onPressed: () {
                           setState(() {
-                            currentScreen = const WishListPage();
-                            // : Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => token != null
-                            //             ? CartScreen()
-                            //             : LogInScreen()));
+                            currentScreen = checkLogin!
+                                ? const WishListPage()
+                                : const LoginPage();
+
                             currentTab = 1;
                             ref
                                 .read(wishlistProvider.notifier)
                                 .fetchWishlistProducts();
-                            // store.dispatch(LogoutUserAction("WishList"));
-                            // store.state.logoutUserData = null;
                           });
                         },
                         child: Column(
@@ -149,20 +151,13 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
                         padding: const EdgeInsets.only(left: 25),
                         onPressed: () {
                           setState(() {
-                            // Navigator.push(
-                            //     context,
-                            // MaterialPageRoute(
-                            //     builder: (context) => token != null
-                            //         ? CartScreen()
-                            //         : LogInScreen()));
-
-                            currentScreen = const MyOrderPage();
+                            currentScreen = checkLogin!
+                                ? const MyOrderPage()
+                                : const LoginPage();
                             currentTab = 2;
-                               ref
+                            ref
                                 .read(myOrderProvider.notifier)
                                 .fetchMyOrders('Pending');
-                            // store.dispatch(LogoutUserAction("CartPage"));
-                            // store.state.logoutUserData = null;
                           });
                         },
                         child: Column(
@@ -189,17 +184,11 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
                       MaterialButton(
                         onPressed: () {
                           setState(() {
-                            // token != null
-                            currentScreen = const ProfilePage();
-                            // : Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) =>
-                            //              CartPage()
-                            //             ));
+                            currentScreen = checkLogin!
+                                ? const ProfilePage()
+                                : const LoginPage();
+
                             currentTab = 3;
-                            // store.dispatch(LogoutUserAction("ProfileScreen"));
-                            // store.state.logoutUserData = null;
                           });
                         },
                         child: Column(

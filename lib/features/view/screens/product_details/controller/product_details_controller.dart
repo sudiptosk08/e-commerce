@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:ecommerce_app/constant/base_state.dart';
 import 'package:ecommerce_app/features/view/screens/product_details/model/product_details_model.dart';
 import 'package:ecommerce_app/features/view/screens/product_details/state/product_details_state.dart';

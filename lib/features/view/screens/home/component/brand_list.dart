@@ -1,8 +1,5 @@
-import 'package:ecommerce_app/utils/assets/app_assets.dart';
 import 'package:ecommerce_app/utils/colors/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../../../../utils/size/k_size.dart';
 import '../../../../../utils/text_styles/text_styles.dart';
 
 class BrandSection extends StatefulWidget {

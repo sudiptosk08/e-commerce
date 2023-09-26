@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:ecommerce_app/constant/base_state.dart';
 import 'package:ecommerce_app/features/view/screens/wishlist/model/wishlist_model.dart';
 
