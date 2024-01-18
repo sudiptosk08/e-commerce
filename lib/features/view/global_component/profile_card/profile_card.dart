@@ -18,11 +18,15 @@ class ProfileCard extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         decoration: const BoxDecoration(color: KColor.background),
-        padding: const EdgeInsets.symmetric(vertical: 2),
+        padding: const EdgeInsets.symmetric(vertical: 0),
         width: context.screenWidth,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            Divider(
+              color: KColor.white,
+              thickness: 0.9,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -38,8 +42,8 @@ class ProfileCard extends StatelessWidget {
                         children: [
                           Text(
                             '$title',
-                            style: TextStyles.subTitle.copyWith(
-                                color: KColor.black54,
+                            style: TextStyles.subTitle1.copyWith(
+                                color: KColor.textgrey,
                                 fontWeight: FontWeight.normal),
                           ),
                         ],
@@ -47,20 +51,20 @@ class ProfileCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                Expanded(
+                const Expanded(
                     flex: 1,
                     child: Icon(
                       Icons.arrow_forward_ios,
-                      color: KColor.black54,
+                      color: KColor.textgrey,
                     ))
               ],
             ),
-            const SizedBox(
-              height: 10,
-            ),
+            // const SizedBox(
+            //   height: 5,
+            // ),
             Divider(
               color: KColor.white,
-              thickness: 1,
+              thickness: 0.9,
             )
           ],
         ),

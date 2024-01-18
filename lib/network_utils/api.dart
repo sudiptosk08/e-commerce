@@ -2,9 +2,9 @@ import 'package:ecommerce_app/constant/app_mode.dart';
 
 class API {
   static const live =
-      'https://ecom.spinnertech.online/api/v1'; // Live Production API URL
+      'http://ecom.slashproduct.xyz/api'; // Live Production API URL
   static const test =
-      'https://ecom.spinnertech.online/api/v1'; // Live Staging API URL
+      'http://ecom.slashproduct.xyz/api'; // Live Staging API URL
   static const base = AppMode.PRODUCTION_MODE ? live : test;
 
   // //
@@ -29,10 +29,7 @@ class API {
   ///// Order place
   static const order = '/order';
   ////My Order
-  static myOrderList({
-    status = "",
-  }) =>
-      '/order?status=$status';
+  static const myOrderList = '/order';
   static myOrderDetails({
     id = "",
   }) =>

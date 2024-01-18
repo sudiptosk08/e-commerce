@@ -20,13 +20,13 @@ import 'package:ecommerce_app/utils/extension/extension.dart';
 import 'package:ecommerce_app/utils/size/k_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.dart';
 import '../../../../utils/colors/app_colors.dart';
 import '../../../../utils/text_styles/text_styles.dart';
 
 class KFilter extends StatefulWidget {
-  const KFilter({super.key});
+  String title;
+  KFilter({required this.title, super.key});
 
   @override
   State<KFilter> createState() => _KFilterState();
@@ -73,23 +73,29 @@ class _KFilterState extends State<KFilter> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Center(
-                        child: Text(
-                          'Filter Product By',
-                          style: GoogleFonts.rubik(
-                              fontSize: 25, fontWeight: FontWeight.bold),
-                        ),
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.arrow_back_ios,
+                          ),
+                          const SizedBox(width: 20),
+                          Center(
+                            child: Text('Filter Product By',
+                                style: TextStyles.headline6),
+                          ),
+                        ],
                       ),
+
                       const SizedBox(height: 10),
                       Divider(
-                          color: KColor.black54.withOpacity(0.2), thickness: 1),
+                          color: KColor.black.withOpacity(0.2), thickness: 1),
                       const SizedBox(
                         height: 10,
                       ),
                       Text(
                         "PRICE RANGE",
-                        style: TextStyles.subTitle.copyWith(
-                          color: KColor.black54,
+                        style: TextStyles.subTitle1.copyWith(
+                          color: KColor.black,
                         ),
                       ),
                       Container(
@@ -112,9 +118,9 @@ class _KFilterState extends State<KFilter> {
                             trackBar: const FlutterSliderTrackBar(
                               inactiveTrackBarHeight: 4,
                               activeTrackBar: BoxDecoration(
-                                color: KColor.primary,
+                                color: KColor.secondary,
                               ),
-                              activeTrackBarHeight: 10,
+                              activeTrackBarHeight: 5,
                             ),
                             disabled: false,
                             onDragging: (handlerIndex, lowerValue, upperValue) {
@@ -139,8 +145,8 @@ class _KFilterState extends State<KFilter> {
                       const SizedBox(height: 30),
                       Text(
                         "CATEGORIES ",
-                        style: TextStyles.subTitle.copyWith(
-                          color: KColor.black54,
+                        style: TextStyles.subTitle1.copyWith(
+                          color: KColor.black,
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -197,11 +203,16 @@ class _KFilterState extends State<KFilter> {
                                                 decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(
-                                                          5.0),
+                                                          7.0),
+                                                  border: Border.all(
+                                                      width: 0.5,
+                                                      color: const Color(
+                                                              0xFF697089)
+                                                          .withOpacity(0.6)),
                                                   color:
                                                       cateSelectIndex == index
                                                           ? KColor.grey400
-                                                          : KColor.white,
+                                                          : KColor.transparent,
                                                 ),
                                                 child: Text(
                                                   categoryData[index].name,
@@ -211,7 +222,8 @@ class _KFilterState extends State<KFilter> {
                                                               cateSelectIndex ==
                                                                       index
                                                                   ? KColor.white
-                                                                  : KColor.grey,
+                                                                  : Color(
+                                                                      0xFF697089),
                                                           fontWeight: FontWeight
                                                               .normal),
                                                 ),
@@ -220,130 +232,130 @@ class _KFilterState extends State<KFilter> {
                               ),
                             )
                           ]),
-                      selectcategory
-                          ? const SizedBox(height: 16)
-                          : const SizedBox(height: 0),
+                      // selectcategory
+                      //     ? const SizedBox(height: 16)
+                      //     : const SizedBox(height: 0),
 
-                      selectcategory
-                          ? Text(
-                              "SUB CATEGORIES ",
-                              style: TextStyles.subTitle.copyWith(
-                                color: KColor.black54,
-                              ),
-                            )
-                          : Container(),
-                      selectcategory
-                          ? const SizedBox(height: 10)
-                          : const SizedBox(height: 0),
+                      // selectcategory
+                      //     ? Text(
+                      //         "SUB CATEGORIES ",
+                      //         style: TextStyles.subTitle1.copyWith(
+                      //           color: KColor.black,
+                      //         ),
+                      //       )
+                      //     : Container(),
+                      // selectcategory
+                      //     ? const SizedBox(height: 10)
+                      //     : const SizedBox(height: 0),
 
-                      selectcategory
-                          ? Wrap(
-                              direction: Axis.horizontal,
-                              spacing: KSize.getWidth(context, 13),
-                              runSpacing: KSize.getHeight(context, 14),
-                              children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Wrap(
-                                          //s: 5.0,
-                                          // runSpacing: 3.0,
-                                          spacing: 7,
-                                          runSpacing: 4,
-                                          children: List.generate(
-                                              categoryData[cateSelectIndex]
-                                                  .subcategories!
-                                                  .length,
-                                              (index) => InkWell(
-                                                    onTap: () {
-                                                      setState(() {
-                                                        if (subCategoryIdList
-                                                            .contains(categoryData[
-                                                                    index]
-                                                                .subcategories![
-                                                                    index]
-                                                                .id
-                                                                .toString())) {
-                                                          subCategoryIdList
-                                                              .removeWhere((element) =>
-                                                                  element ==
-                                                                  categoryData[
-                                                                          index]
-                                                                      .subcategories![
-                                                                          index]
-                                                                      .id
-                                                                      .toString());
-                                                        } else {
-                                                          subCategoryIdList.add(
-                                                              categoryData[
-                                                                      index]
-                                                                  .subcategories![
-                                                                      index]
-                                                                  .id
-                                                                  .toString());
-                                                        }
-                                                        subCategoryId =
-                                                            subCategoryIdList
-                                                                .join(",");
-                                                      });
-                                                    },
-                                                    child: Container(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8),
-                                                      margin:
-                                                          const EdgeInsets.only(
-                                                              top: 2.5,
-                                                              bottom: 4,
-                                                              right: 2.5),
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                        color: subCategoryIdList
-                                                                .contains(categoryData[
-                                                                        index]
-                                                                    .subcategories![
-                                                                        index]
-                                                                    .id
-                                                                    .toString())
-                                                            ? KColor.grey400
-                                                            : KColor.white,
-                                                      ),
-                                                      child: Text(
-                                                        categoryData[index]
-                                                            .subcategories![
-                                                                index]
-                                                            .name
-                                                            .toString(),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyles.bodyText1.copyWith(
-                                                            color: subCategoryIdList.contains(categoryData[
-                                                                        index]
-                                                                    .subcategories![
-                                                                        index]
-                                                                    .id
-                                                                    .toString())
-                                                                ? KColor.white
-                                                                : KColor.grey,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal),
-                                                      ),
-                                                    ),
-                                                  ))),
-                                    ),
-                                  )
-                                ])
-                          : Container(),
+                      // selectcategory
+                      //     ? Wrap(
+                      //         direction: Axis.horizontal,
+                      //         spacing: KSize.getWidth(context, 13),
+                      //         runSpacing: KSize.getHeight(context, 14),
+                      //         children: [
+                      //             Padding(
+                      //               padding: const EdgeInsets.only(left: 8.0),
+                      //               child: Align(
+                      //                 alignment: Alignment.centerLeft,
+                      //                 child: Wrap(
+                      //                     //s: 5.0,
+                      //                     // runSpacing: 3.0,
+                      //                     spacing: 7,
+                      //                     runSpacing: 4,
+                      //                     children: List.generate(
+                      //                         categoryData[cateSelectIndex]
+                      //                             .subcategories!
+                      //                             .length,
+                      //                         (index) => InkWell(
+                      //                               onTap: () {
+                      //                                 setState(() {
+                      //                                   if (subCategoryIdList
+                      //                                       .contains(categoryData[
+                      //                                               index]
+                      //                                           .subcategories![
+                      //                                               index]
+                      //                                           .id
+                      //                                           .toString())) {
+                      //                                     subCategoryIdList
+                      //                                         .removeWhere((element) =>
+                      //                                             element ==
+                      //                                             categoryData[
+                      //                                                     index]
+                      //                                                 .subcategories![
+                      //                                                     index]
+                      //                                                 .id
+                      //                                                 .toString());
+                      //                                   } else {
+                      //                                     subCategoryIdList.add(
+                      //                                         categoryData[
+                      //                                                 index]
+                      //                                             .subcategories![
+                      //                                                 index]
+                      //                                             .id
+                      //                                             .toString());
+                      //                                   }
+                      //                                   subCategoryId =
+                      //                                       subCategoryIdList
+                      //                                           .join(",");
+                      //                                 });
+                      //                               },
+                      //                               child: Container(
+                      //                                 padding:
+                      //                                     const EdgeInsets.all(
+                      //                                         8),
+                      //                                 margin:
+                      //                                     const EdgeInsets.only(
+                      //                                         top: 2.5,
+                      //                                         bottom: 4,
+                      //                                         right: 2.5),
+                      //                                 decoration: BoxDecoration(
+                      //                                   borderRadius:
+                      //                                       BorderRadius
+                      //                                           .circular(5.0),
+                      //                                   color: subCategoryIdList
+                      //                                           .contains(categoryData[
+                      //                                                   index]
+                      //                                               .subcategories![
+                      //                                                   index]
+                      //                                               .id
+                      //                                               .toString())
+                      //                                       ? KColor.grey400
+                      //                                       : KColor.white,
+                      //                                 ),
+                      //                                 child: Text(
+                      //                                   categoryData[index]
+                      //                                       .subcategories![
+                      //                                           index]
+                      //                                       .name
+                      //                                       .toString(),
+                      //                                   textAlign:
+                      //                                       TextAlign.center,
+                      //                                   style: TextStyles.bodyText1.copyWith(
+                      //                                       color: subCategoryIdList.contains(categoryData[
+                      //                                                   index]
+                      //                                               .subcategories![
+                      //                                                   index]
+                      //                                               .id
+                      //                                               .toString())
+                      //                                           ? KColor.white
+                      //                                           : KColor.grey,
+                      //                                       fontWeight:
+                      //                                           FontWeight
+                      //                                               .normal),
+                      //                                 ),
+                      //                               ),
+                      //                             ))),
+                      //               ),
+                      //             )
+                      //           ])
+                      //     : Container(),
                       const SizedBox(height: 10),
                       //wraper
                       Text(
                         "BRAND ",
-                        style: TextStyles.subTitle.copyWith(
-                          color: KColor.black54,
+                        style: TextStyles.subTitle1.copyWith(
+                          color: KColor.black,
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -397,13 +409,18 @@ class _KFilterState extends State<KFilter> {
                                                 decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(
-                                                          5.0),
+                                                          7.0),
+                                                  border: Border.all(
+                                                      width: 0.5,
+                                                      color: const Color(
+                                                              0xFF697089)
+                                                          .withOpacity(0.6)),
                                                   color: brandIdList.contains(
                                                           brandListData[index]
                                                               .id
                                                               .toString())
                                                       ? KColor.grey400
-                                                      : KColor.white,
+                                                      : KColor.transparent,
                                                 ),
                                                 child: Text(
                                                   brandListData[index]
@@ -417,7 +434,8 @@ class _KFilterState extends State<KFilter> {
                                                                       .id
                                                                       .toString())
                                                               ? KColor.white
-                                                              : KColor.grey,
+                                                              : const Color(
+                                                                  0xff697089),
                                                           fontWeight: FontWeight
                                                               .normal),
                                                 ),
@@ -431,23 +449,31 @@ class _KFilterState extends State<KFilter> {
 
                       Text(
                         "AVARAGE RATING ",
-                        style: TextStyles.subTitle.copyWith(
-                          color: KColor.black54,
+                        style: TextStyles.subTitle1.copyWith(
+                          color: KColor.black,
                         ),
                       ),
                       const SizedBox(height: 10),
-                      SmoothStarRating(
-                        size: 30,
-                        spacing: 8,
-                        color: KColor.primary,
-                        borderColor: KColor.primary,
-                        rating: ratings.toDouble(),
-                        onRatingChanged: (rating) {
-                          setState(() {
-                            ratings = rating.toInt();
-                          });
-                        },
-                      ),
+                      Row(
+                        children: [
+                          SmoothStarRating(
+                            size: 20,
+                            spacing: 1,
+                            color: KColor.yellow,
+                            borderColor: KColor.yellow,
+                            rating: ratings.toDouble(),
+                            onRatingChanged: (rating) {
+                              setState(() {
+                                ratings = rating.toInt();
+                              });
+                            },
+                          ),
+                          Text(
+                            " (05 star)",
+                            style: TextStyles.bodyText1,
+                          ),
+                        ],
+                      )
                     ],
                   ),
                   const SizedBox(
@@ -458,10 +484,13 @@ class _KFilterState extends State<KFilter> {
                       Expanded(
                           child: KButton(
                         title: "Reset",
-                        radius: 8,
+                        radius: 7,
                         textColor: KColor.black,
-                        height: 45,
+                        color: KColor.transparent,
+                        borderColor: Color(0xff697089).withOpacity(0.6),
+                        height: 34,
                         onPressedCallback: () {},
+                        isOutlineButton: true,
                       )),
                       const SizedBox(
                         width: 4,
@@ -470,8 +499,8 @@ class _KFilterState extends State<KFilter> {
                           child: KButton(
                         title: "Apply",
                         radius: 8,
-                        height: 45,
-                        textColor: KColor.black,
+                        height: 34,
+                        textColor: KColor.white,
                         onPressedCallback: () {
                           ref
                               .read(productListProvider.notifier)
@@ -487,7 +516,11 @@ class _KFilterState extends State<KFilter> {
                                   ratings: ratings == 0 ? "" : ratings,
                                   str: "");
                           NavigationService.navigateToReplacement(
-                              SlideLeftRoute(page: const ShopPage()));
+                              SlideLeftRoute(
+                                  page: ShopPage(
+                            index: "",
+                            title: widget.title,
+                          )));
                         },
                       ))
                     ],
@@ -506,7 +539,7 @@ class _KFilterState extends State<KFilter> {
       decoration: const BoxDecoration(),
       child: Container(
         decoration: const BoxDecoration(
-          color: Colors.grey,
+          color: Color(0xFFE0E0E0),
           shape: BoxShape.circle,
         ),
       ),

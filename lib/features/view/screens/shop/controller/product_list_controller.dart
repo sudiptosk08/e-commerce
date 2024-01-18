@@ -57,6 +57,7 @@ class ProductListController extends StateNotifier<BaseState> {
             maxPrice: maxPrice,
             minPrice: minPrice,
             ratings: ratings,
+            
             str: str)),
       );
 

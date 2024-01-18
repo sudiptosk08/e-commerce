@@ -36,12 +36,11 @@ class MyOrderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-      margin: const EdgeInsets.only(bottom: 4),
+      margin: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          color: KColor.white,
-          border:
-              Border.all(color: KColor.textgrey.withOpacity(0.4), width: 1)),
+        borderRadius: BorderRadius.circular(8),
+        color: KColor.white,
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,7 +49,7 @@ class MyOrderCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(inVoice,
-                  style: TextStyles.subTitle.copyWith(
+                  style: TextStyles.subTitle1.copyWith(
                     color: KColor.black54,
                   )),
               Text(
@@ -66,7 +65,7 @@ class MyOrderCard extends StatelessWidget {
           Row(
             children: [
               SizedBox(
-                width: KSize.getWidth(context, 102),
+                width: KSize.getWidth(context, 112),
                 child: Text(
                   "Delivered By",
                   style: TextStyles.bodyText1
@@ -82,7 +81,7 @@ class MyOrderCard extends StatelessWidget {
           Row(
             children: [
               SizedBox(
-                width: KSize.getWidth(context, 102),
+                width: KSize.getWidth(context, 112),
                 child: Text(
                   "Payment  Method ",
                   style: TextStyles.bodyText1
@@ -98,7 +97,7 @@ class MyOrderCard extends StatelessWidget {
           Row(
             children: [
               SizedBox(
-                width: KSize.getWidth(context, 102),
+                width: KSize.getWidth(context, 112),
                 child: Text(
                   "Payment  Status ",
                   style: TextStyles.bodyText1
@@ -122,10 +121,12 @@ class MyOrderCard extends StatelessWidget {
                       width: status == "Pending"
                           ? KSize.getWidth(context, 80)
                           : KSize.getWidth(context, 110),
-                      height: 38,
+                      height: 37,
                       isOutlineButton: false,
                       radius: 8,
-                      color: KColor.primary,
+                      color: status == "Cancelled"
+                          ? KColor.errorRedText
+                          : KColor.primary,
                       textStyle: TextStyles.bodyText1.copyWith(
                           color: KColor.white, fontWeight: FontWeight.w800),
                       onPressedCallback: () {
@@ -138,7 +139,7 @@ class MyOrderCard extends StatelessWidget {
                                 builder: (context) =>
                                     const OrderDetailsPage()));
                       },
-                      title: "Details",
+                      title: status == "Cancelled" ? "Re - Order" : "Details",
                     ),
                   ),
                   const SizedBox(
@@ -148,7 +149,7 @@ class MyOrderCard extends StatelessWidget {
                     builder: (context, ref, child) => status == "Pending"
                         ? KButton(
                             width: KSize.getWidth(context, 80),
-                            height: 38,
+                            height: 37,
                             isOutlineButton: false,
                             radius: 8,
                             color: KColor.errorRedText,
@@ -170,13 +171,13 @@ class MyOrderCard extends StatelessWidget {
                 children: [
                   Text(
                     status,
-                    style: TextStyles.subTitle.copyWith(
+                    style: TextStyles.subTitle1.copyWith(
                       color: KColor.green,
                     ),
                   ),
                   const SizedBox(height: 1),
                   Text("৳$grandTotal",
-                      style: TextStyles.subTitle.copyWith(
+                      style: TextStyles.subTitle1.copyWith(
                         color: KColor.errorRedText,
                       )),
                 ],

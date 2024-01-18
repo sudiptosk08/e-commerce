@@ -5,6 +5,7 @@ import 'package:ecommerce_app/utils/colors/app_colors.dart';
 import 'package:ecommerce_app/utils/size/k_size.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../../utils/text_styles/text_styles.dart';
 import '../../../global_component/dialog/k_confirm_dialog.dart';
@@ -22,6 +23,7 @@ class ShippingAddressCard extends StatefulWidget {
   final VoidCallback? delete;
 
   final VoidCallback? onSelect;
+  final VoidCallback? onTap;
 
   ShippingAddressCard({
     this.isChecked = false,
@@ -35,6 +37,7 @@ class ShippingAddressCard extends StatefulWidget {
     this.cancel,
     this.delete,
     this.onSelect,
+    this.onTap,
     Key? key,
   }) : super(key: key);
 
@@ -79,22 +82,44 @@ class _ShippingAddressCardState extends State<ShippingAddressCard> {
       ),
       child: Container(
         //padding: const EdgeInsets.all(8),
-        margin: const EdgeInsets.only(bottom: 4),
-        height: 123,
+        margin: const EdgeInsets.only(bottom: 6),
+        height: KSize.getHeight(context, 170),
+        padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            color: KColor.white,
-            border:
-                Border.all(color: KColor.textgrey.withOpacity(0.4), width: 1)),
+            color: const Color(0xffEDFFF6),
+            border: Border.all(color: const Color(0xff9BDBBB), width: 1)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(width: 16),
             Flexible(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      widget.addressType == "Home"
+                          ? Image.asset(
+                              AppAssets.home,
+                              height: 30,
+                            )
+                          : Image.asset(
+                              AppAssets.office,
+                              height: 30,
+                            ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        "${widget.addressType.toString()}  Address",
+                        style: TextStyles.bodyText1
+                            .copyWith(color: KColor.primary),
+                      ),
+                    ],
+                  ),
                   Flexible(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -115,65 +140,33 @@ class _ShippingAddressCardState extends State<ShippingAddressCard> {
                                 .copyWith(color: KColor.black),
                           ),
                         ),
+                        const SizedBox(
+                          height: 7,
+                        ),
                         Text(
                           '${widget.address}',
                           style: TextStyles.bodyText1
-                              .copyWith(color: KColor.black54),
+                              .copyWith(color: const Color(0xff677294)),
+                        ),
+                        Text(
+                          '${widget.area}',
+                          style: TextStyles.bodyText1
+                              .copyWith(color: const Color(0xff677294)),
                         ),
                         Row(
                           children: [
                             Text('${widget.city}, ',
                                 style: TextStyles.bodyText1
-                                    .copyWith(color: KColor.black54)),
+                                    .copyWith(color: const Color(0xff677294))),
                             Text(
-                              '${widget.zone}, ',
+                              '${widget.zone} ',
                               style: TextStyles.bodyText1
-                                  .copyWith(color: KColor.black54),
-                            ),
-                            Text(
-                              '${widget.area}',
-                              style: TextStyles.bodyText1
-                                  .copyWith(color: KColor.black54),
+                                  .copyWith(color: const Color(0xff677294)),
                             ),
                           ],
                         ),
                       ],
                     ),
-                  ),
-                  Row(
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          setState(() {
-                            widget.onSelect
-                                ?.call(); // Notify the parent widget when selected
-                          });
-                        },
-                        child: Container(
-                          width: 20,
-                          height: 20,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: widget.isChecked
-                                ? KColor.black
-                                : KColor.transparent,
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(color: KColor.black, width: 1),
-                          ),
-                          child: widget.isChecked
-                              ? Padding(
-                                  padding: const EdgeInsets.all(2),
-                                  child: Image.asset(AppAssets.check),
-                                )
-                              : null,
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Text(
-                        "Use as the shipping address",
-                        style: TextStyles.bodyText1,
-                      ),
-                    ],
                   ),
                   const SizedBox(
                     height: 10,
@@ -181,30 +174,46 @@ class _ShippingAddressCardState extends State<ShippingAddressCard> {
                 ],
               ),
             ),
-            Column(
+            Row(
               children: [
                 IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.edit,
-                    color: KColor.primary,
+                  onPressed: widget.onTap,
+                  icon: const FaIcon(
+                    FontAwesomeIcons.edit,
+                    size: 20,
+                    color: Color(0xff677294),
                   ),
                 ),
                 SizedBox(
                   height: KSize.getHeight(context, 32),
                 ),
-                Container(
-                  margin: const EdgeInsets.all(5),
-                  padding: const EdgeInsets.only(
-                      left: 13, top: 4, right: 13, bottom: 4),
-                  decoration: BoxDecoration(
-                      color: KColor.black,
-                      borderRadius: BorderRadius.circular(12)),
-                  child: Text(
-                    widget.addressType.toString(),
-                    style: TextStyles.bodyText1.copyWith(color: KColor.white),
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      widget.onSelect
+                          ?.call(); // Notify the parent widget when selected
+                    });
+                  },
+                  child: Container(
+                    width: 20,
+                    height: 20,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color:
+                          widget.isChecked ? KColor.green : KColor.transparent,
+                      // borderRadius: BorderRadius.circular(8),
+                      border:
+                          Border.all(color: const Color(0xff677294), width: 1),
+                    ),
+                    child: widget.isChecked
+                        ? Padding(
+                            padding: const EdgeInsets.all(2),
+                            child: Image.asset(AppAssets.check),
+                          )
+                        : null,
                   ),
-                )
+                ),
               ],
             ),
           ],
@@ -213,3 +222,131 @@ class _ShippingAddressCardState extends State<ShippingAddressCard> {
     );
   }
 }
+
+
+// Container(
+//             //padding: const EdgeInsets.all(8),
+//             margin: const EdgeInsets.only(bottom: 4),
+//             height: KSize.getHeight(context, 170),
+//             padding: const EdgeInsets.all(12),
+//             decoration: BoxDecoration(
+//                 borderRadius: BorderRadius.circular(8),
+//                 color: const Color(0xffEDFFF6),
+//                 border: Border.all(color: const Color(0xff9BDBBB), width: 1)),
+//             child: Row(
+//               mainAxisAlignment: MainAxisAlignment.start,
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 const SizedBox(width: 2),
+//                 Flexible(
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Row(
+//                         crossAxisAlignment: CrossAxisAlignment.center,
+//                         mainAxisAlignment: MainAxisAlignment.start,
+//                         children: [
+//                           widget.addressType == "Home"
+//                               ? Image.asset(
+//                                   AppAssets.home,
+//                                   height: 35,
+//                                 )
+//                               : Image.asset(
+//                                   AppAssets.home,
+//                                   height: 35,
+//                                 ),
+//                           const SizedBox(
+//                             width: 5,
+//                           ),
+//                           Text(
+//                             "${widget.addressType.toString()}  Address",
+//                             style: TextStyles.bodyText1
+//                                 .copyWith(color: KColor.primary),
+//                           ),
+//                         ],
+//                       ),
+//                       Flexible(
+//                         child: Padding(
+//                           padding: const EdgeInsets.only(left: 4.0),
+//                           child: Column(
+//                             mainAxisAlignment: MainAxisAlignment.center,
+//                             crossAxisAlignment: CrossAxisAlignment.start,
+//                             children: [
+//                               Flexible(
+//                                 child: Text(
+//                                   "${getStringAsync(firstName)} ${getStringAsync(lastName)}",
+//                                   style: TextStyles.bodyText1
+//                                       .copyWith(color: KColor.black),
+//                                 ),
+//                               ),
+//                               const SizedBox(height: 4),
+//                               Flexible(
+//                                 child: Text(
+//                                   '${widget.phone}',
+//                                   style: TextStyles.bodyText1
+//                                       .copyWith(color: KColor.black),
+//                                 ),
+//                               ),
+//                               const SizedBox(
+//                                 height: 7,
+//                               ),
+//                               Text('${widget.city} ',
+//                                   style: TextStyles.bodyText1.copyWith(
+//                                       color: const Color(0xff677294))),
+//                               Row(
+//                                 children: [
+//                                   Text(
+//                                     '${widget.region} ',
+//                                     style: TextStyles.bodyText1.copyWith(
+//                                         color: const Color(0xff677294)),
+//                                   ),
+//                                   Text(
+//                                     '${widget.area} ',
+//                                     style: TextStyles.bodyText1.copyWith(
+//                                         color: const Color(0xff677294)),
+//                                   ),
+//                                 ],
+//                               ),
+//                               Text(
+//                                 '${widget.address}',
+//                                 style: TextStyles.bodyText1
+//                                     .copyWith(color: const Color(0xff677294)),
+//                               )
+//                             ],
+//                           ),
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//                 Padding(
+//                   padding: const EdgeInsets.only(top: 2.0),
+//                   child: GestureDetector(
+//                     onTap: () {
+//                       Navigator.pushReplacement(
+//                           context,
+//                           MaterialPageRoute(
+//                               builder: (context) => widget.addressDetails!.isNotEmpty
+//                                   ? ShippingAddressPage(
+//                                       page: 'checkout',
+//                                     )
+//                                   : const AddShippingAddressPage()));
+//                     },
+//                     child: const FaIcon(
+//                       FontAwesomeIcons.edit,
+//                       size: 20,
+//                       color: Color(0xff677294),
+//                     ),
+//                   ),
+//                 ),
+//                 const SizedBox(
+//                   width: 8,
+//                 ),
+//                 const Icon(
+//                   Icons.check_circle,
+//                   size: 25,
+//                   color: KColor.green,
+//                 ),
+//               ],
+//             ),
+//           )

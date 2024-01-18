@@ -24,7 +24,7 @@ class _ReportListState extends State<ReportList> {
         return Scaffold(
           backgroundColor: KColor.background,
           appBar: PreferredSize(
-            preferredSize:const Size.fromHeight(50),
+            preferredSize: const Size.fromHeight(50),
             child: KAppBar(
               checkTitle: true,
               title: 'Report List',
@@ -48,7 +48,7 @@ class _ReportListState extends State<ReportList> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 ReportViewCard(
-                                  image: AppAssets.shoe1,
+                                  image: "assets/product/product2.png",
                                   orderId: "5",
                                   reason: "Wrong Product Delivery",
                                   date: "2023-04-06",

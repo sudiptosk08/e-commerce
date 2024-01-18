@@ -7,6 +7,7 @@ import 'package:http/http.dart';
 // ignore: depend_on_referenced_packages
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mime_type/mime_type.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import 'package:ecommerce_app/utils/colors/app_colors.dart';
@@ -83,15 +84,12 @@ class Network {
       throw noInternetMessage;
     }
   }
-
   static multiPartRequest(String endPoint, String methodName,
-      {required Map<String, String> body,
-      required List<XFile> files,
-      String filedName = 'gallery[]'}) async {
+      {body, List<File>? files, String filedName = 'images'}) async {
     if (await isNetworkAvailable()) {
       var request = MultipartRequest(
         methodName.toUpperCase(),
-        Uri.parse('${API.base}' '$endPoint'),
+        Uri.parse('${API.base}' + '$endPoint'),
       );
       print('URL: ${API.base}$endPoint');
 
@@ -101,14 +99,17 @@ class Network {
         "Authorization": "Bearer $accessToken",
       };
 
-       request.fields.addAll((body));
-      if (files.isNotEmpty) {
+      if (body != null) request.fields.addAll((body));
+      if (files!.isNotEmpty) {
         files.forEach((file) async {
           request.files.add(await MultipartFile.fromPath(
             filedName,
             file.path,
+            contentType: MediaType(
+              mime(file.path)!.split('/')[0],
+              mime(file.path)!.split('/')[1],
+            ),
           ));
-          print(file.path);
         });
       }
       print('Request Files: ${request.files}');
@@ -124,7 +125,7 @@ class Network {
       throw noInternetMessage;
     }
   }
-
+  
   static multiPartRequestSingle(
     String endPoint,
     String methodName, {

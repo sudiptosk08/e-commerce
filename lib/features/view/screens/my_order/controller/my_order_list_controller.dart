@@ -1,4 +1,3 @@
-// ignore_for_file: avoid_print
 
 import 'package:ecommerce_app/constant/base_state.dart';
 import 'package:ecommerce_app/features/view/screens/my_order/model/my_order_list_model.dart';
@@ -9,9 +8,11 @@ import 'package:ecommerce_app/utils/colors/app_colors.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nb_utils/nb_utils.dart';
 
+
 final myOrderProvider = StateNotifierProvider<MyOrderController, BaseState>(
   (ref) => MyOrderController(ref: ref),
 );
+
 
 class MyOrderController extends StateNotifier<BaseState> {
   final Ref? ref;
@@ -19,19 +20,23 @@ class MyOrderController extends StateNotifier<BaseState> {
   MyOrderController({this.ref}) : super(const InitialState());
 
   MyOrderListModel? myOrderListModel;
+  
 
-  Future fetchMyOrders(String status) async {
+  Future fetchMyOrders(
+    String status
+  ) async {
     state = const LoadingState();
     dynamic responseBody;
     try {
       responseBody = await Network.handleResponse(
-        await Network.getRequest(API.myOrderList(status: status)),
+        await Network.getRequest(API.myOrderList),
       );
       if (responseBody != null) {
         myOrderListModel = MyOrderListModel.fromJson(responseBody);
         state = MyOrderListSuccessState(myOrderListModel);
         print("fetch order state");
         print("$responseBody");
+        
       } else {
         state = const ErrorState();
       }
@@ -73,9 +78,13 @@ class MyOrderController extends StateNotifier<BaseState> {
         await Network.postRequest(API.orderCancel(id: id), requestBody),
       );
       if (responseBody != null) {
-        toast("Order Cancel Successfully", bgColor: KColor.green);
+      
+       
+          toast("Order Cancel Successfully", bgColor: KColor.errorRedText);
 
-        ref!.read(myOrderProvider.notifier).fetchMyOrders("Pending");
+          ref!.read(myOrderProvider.notifier).fetchMyOrders("Pending");
+          
+      
       } else {
         state = const ErrorState();
       }

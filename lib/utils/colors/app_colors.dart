@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class KColor {
-  static const primary = Color(0xffFFBD5A);
-  static const secondary = Color(0xff4251D4);
+  static const primary = Color(0xff019E8B);
+  static const secondary = Color(0xff5C6BE9);
 
   static const background = Color(0xFFF0F0F5);
-  static const textgrey = Color(0xFFCECECE);
-  static const black = Color(0xff222222);
-  static const Color errorRedText = Color(0xFFF17660);
+  static const textgrey = Color(0xff677294);
+  static const black = Color(0xff1C274C);
+  static const Color errorRedText = Color(0xffF17660);
 
   /*
   time grey text color 
@@ -68,10 +68,12 @@ class KColor {
   normal color
   */
   static Color black87 = Colors.black87;
-  static Color black54 = Colors.black54;
+  static Color black54 = Color(0xff677294);
   static const Color white38 = Color.fromARGB(255, 254, 254, 254);
   static Color white54 = Colors.white54;
-  static Color white = const Color(0xffffffff);
+  static Color white = const Color(0xffFFFFFF);
+  static Color containerColor = const Color(0xffF9F9F9);
+
   static const Color grey = Colors.grey;
   static Color? grey50 = Colors.grey[50];
   static Color? grey100 = Colors.grey[100];
@@ -80,19 +82,19 @@ class KColor {
   static Color? grey300 = Colors.grey[300];
   static Color? grey400 = Colors.grey[400];
   static Color? grey800 = Colors.grey[800];
-  static Color? yellow800 = Colors.yellow[800];
+  static Color? yellow800 = Color(0xffFFCE31);
   static Color blue = Colors.blue;
-  static Color red = Colors.red;
+  static Color red = Color(0xffF44848);
   static Color? red900 = Colors.red[900];
   static Color transparent = Colors.transparent;
   static Color cyan = Colors.cyan;
   static const Color green = Color(0xFF3CB733);
-  static const Color yellow = Color(0xFFFEDA14);
+  static const Color yellow = Color(0xFFFFCE31);
 
   static const Color orange = Color(0xFFF76B1C);
   static const Color blueA = Color(0xff395498);
   static const Color gray = Color(0xffD9D9D9);
-  static const Color gray223 = Color(0xff848484);
+  static const Color gray223 = Color(0xff697089);
   static const Color red123 = Color(0xffF7695B);
   static const Color gray242 = Color(0xffBCBCBF);
   static const Color greenAn = Color(0xffADB733);

@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:ecommerce_app/utils/assets/app_assets.dart';
+import 'package:ecommerce_app/utils/extension/extension.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -39,78 +40,71 @@ class _NotificationCardState extends State<NotificationCard> {
           widget.seen = "0";
         });
       },
-      child: Dismissible(
-        key: UniqueKey(),
-        dragStartBehavior: DragStartBehavior.start,
-        movementDuration: const Duration(milliseconds: 200),
-        resizeDuration: const Duration(milliseconds: 1000),
-        onDismissed: (direction) {
-          switch (direction) {
-            case DismissDirection.startToEnd:
-              break;
-            case DismissDirection.endToStart:
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return KConfirmDialog(
-                    message: 'Delete product',
-                    subMessage:
-                        'Are you sure you want to remove this notification?',
-                    onCancel: widget.cancel,
-                    onDelete: widget.delete,
-                  );
-                },
-              );
-              break;
-            default:
-              break;
-          }
-        },
-        secondaryBackground: _endToStartBackground(),
-        background: _startToEndBackground(),
-        child: Container(
-          margin: const EdgeInsets.all(2.5),
-          height: 80,
-          decoration: BoxDecoration(
-              border: Border(
-                  bottom: BorderSide(
-                      color: KColor.grey.withOpacity(0.5), width: 1))),
-          child: Row(
-            //mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(width: 16),
-              Flexible(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.title.toString(),
-                      style: TextStyles.subTitle,
-                    ),
-                    Text(
-                      widget.date.toString(),
-                      style:
-                          TextStyles.bodyText3.copyWith(color: KColor.black54),
-                    ),
-                    Flexible(
-                      flex: 2,
-                      child: Text(
-                        widget.msg.toString(),
-                        style: widget.seen.toString() == "0"
-                            ? TextStyles.bodyText2
-                                .copyWith(color: KColor.black54)
-                            : TextStyles.bodyText1
-                                .copyWith(color: KColor.black54),
+      child: Container(
+        margin: const EdgeInsets.all(5),
+        height: 80,
+        width: context.screenWidth,
+        decoration: BoxDecoration(
+            color: KColor.white, borderRadius: BorderRadius.circular(12)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Flexible(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 12.0, right: 12, top: 16),
+                    child: CircleAvatar(
+                      backgroundColor: KColor.primary,
+                      radius: 18,
+                      child: Icon(
+                        Icons.delivery_dining_outlined,
+                        color: KColor.white,
                       ),
                     ),
-                    const SizedBox(height: 4),
-                  ],
-                ),
+                  ),
+                  Flexible(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.title.toString(),
+                          style: TextStyles.subTitle1,
+                        ),
+                        Text(
+                          widget.date.toString(),
+                          style: TextStyles.bodyText3
+                              .copyWith(color: KColor.black54),
+                        ),
+                        Flexible(
+                          flex: 2,
+                          child: Text(
+                            widget.msg.toString(),
+                            style: widget.seen.toString() == "0"
+                                ? TextStyles.bodyText2
+                                    .copyWith(color: KColor.black54)
+                                : TextStyles.bodyText1
+                                    .copyWith(color: KColor.black54),
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              //const SizedBox(height: 25),
-            ],
-          ),
+            ),
+            const Padding(
+              padding: EdgeInsets.all(12.0),
+              child: Icon(Icons.delete_forever_outlined,
+                  size: 25, color: KColor.textgrey),
+            )
+          ],
         ),
       ),
     );
@@ -150,9 +144,9 @@ class _NotificationCardState extends State<NotificationCard> {
           bottomRight: Radius.circular(4.0),
         ),
       ),
-      child:const Row(
+      child: const Row(
         mainAxisAlignment: MainAxisAlignment.end,
-        children:  [Icon(Icons.delete)],
+        children: [Icon(Icons.delete)],
       ),
     );
   }

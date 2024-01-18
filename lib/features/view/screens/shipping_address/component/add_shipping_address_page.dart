@@ -11,7 +11,19 @@ import '../../../global_component/buttons/Kdrop_down_field.dart';
 import '../../../global_component/text_field_container/k_text_field.dart';
 
 class AddShippingAddressPage extends StatefulWidget {
-  const AddShippingAddressPage({Key? key}) : super(key: key);
+  String region;
+  String city;
+  String area;
+  String house;
+  int selectedValue;
+  AddShippingAddressPage(
+      {required this.region,
+      required this.city,
+      required this.area,
+      required this.house,
+      required this.selectedValue,
+      Key? key})
+      : super(key: key);
 
   @override
   State<AddShippingAddressPage> createState() => AddShippingAddressPageState();
@@ -71,7 +83,8 @@ class AddShippingAddressPageState extends State<AddShippingAddressPage> {
                                     Radio(
                                       value: index,
                                       activeColor: KColor.primary,
-                                      groupValue: _selectedValue,
+                                      groupValue: widget.selectedValue ??
+                                          _selectedValue,
                                       onChanged: (int? value) {
                                         setState(() {
                                           _selectedValue = value!;
@@ -96,21 +109,21 @@ class AddShippingAddressPageState extends State<AddShippingAddressPage> {
                       ),
                     ),
                     _editInformation(
-                      'City',
+                      'Region',
                       KFillNormal(
                         inputType: TextInputType.streetAddress,
-                        controller: city,
-                        hintText: 'Enter your city here...',
+                        controller: region..text = widget.region,
+                        hintText: 'Enter your region here...',
                         label: '',
                         readOnly: false,
                       ),
                     ),
                     _editInformation(
-                      'Region',
+                      'City',
                       KFillNormal(
                         inputType: TextInputType.streetAddress,
-                        controller: region,
-                        hintText: 'Enter your region here...',
+                        controller: city..text = widget.city,
+                        hintText: 'Enter your city here...',
                         label: '',
                         readOnly: false,
                       ),
@@ -119,7 +132,7 @@ class AddShippingAddressPageState extends State<AddShippingAddressPage> {
                       'Area',
                       KFillNormal(
                         inputType: TextInputType.streetAddress,
-                        controller: area,
+                        controller: area..text = widget.area,
                         hintText: 'Enter your area here...',
                         label: '',
                         readOnly: false,
@@ -129,7 +142,7 @@ class AddShippingAddressPageState extends State<AddShippingAddressPage> {
                       'House / Street',
                       KFillNormal(
                         inputType: TextInputType.streetAddress,
-                        controller: house,
+                        controller: house..text = widget.house,
                         hintText: 'Enter your house/street here...',
                         label: '',
                         readOnly: false,

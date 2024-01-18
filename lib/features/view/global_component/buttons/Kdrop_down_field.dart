@@ -57,9 +57,10 @@ class _KButtonState extends State<KButton> {
             top: widget.innerPadding,
             bottom: widget.leadingTitleIcon != null
                 ? widget.innerPadding
-                : widget.innerPadding + 3),
+                : widget.innerPadding + 0),
         decoration: widget.isOutlineButton
             ? BoxDecoration(
+                color: widget.color,
                 border: Border.all(color: widget.borderColor, width: 1),
                 borderRadius: BorderRadius.all(Radius.circular(widget.radius)),
               )
@@ -82,7 +83,7 @@ class _KButtonState extends State<KButton> {
                 overflow: widget.textOverflow,
                 style: widget.textStyle ??
                     TextStyles.bodyText1.copyWith(
-                        fontWeight: FontWeight.w500, color: KColor.white),
+                        fontWeight: FontWeight.w500, color: widget.textColor),
               ),
             ),
             if (widget.trailingTitleIcon != null)

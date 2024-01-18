@@ -13,6 +13,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.dart';
 import '../../../../../utils/text_styles/text_styles.dart';
 
 class ProductInfo extends StatefulWidget {
@@ -56,30 +57,31 @@ class _ProductInfoState extends State<ProductInfo> {
           ? Column(
               children: [
                 Container(
-                  height: KSize.getHeight(context, 380),
+                  height: KSize.getHeight(context, 302),
+                  margin: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: KColor.white,
+                    borderRadius: BorderRadius.circular(12),
+                    color: KColor.containerColor,
                   ),
                   padding: const EdgeInsets.only(left: 12, bottom: 10),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      const SizedBox(width: 8),
+                      const SizedBox(width: 2),
                       Column(
                         children: [
                           Expanded(
                               child: Container(
                             alignment: Alignment.center,
-                            width: context.screenWidth * 0.9,
+                            width: context.screenWidth * 0.85,
                             height: 250,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
-                              border: Border.all(
-                                  color: KColor.gray.withOpacity(0.5)),
-                              color: KColor.white,
+                              // border: Border.all(
+                              //     color: KColor.gray.withOpacity(0.5)),
+                              color: KColor.containerColor,
                             ),
-                            padding: const EdgeInsets.all(8),
+                            padding: const EdgeInsets.all(40),
                             child: PageView.builder(
                                 itemCount: productDetails.gallery.length,
                                 controller: _controller,
@@ -106,9 +108,9 @@ class _ProductInfoState extends State<ProductInfo> {
                                   });
                                   if (index == selectIndex) {}
                                 },
-                                effect: const ExpandingDotsEffect(
-                                  activeDotColor: KColor.primary,
-                                  dotColor: KColor.grey,
+                                effect: ExpandingDotsEffect(
+                                  activeDotColor: KColor.black,
+                                  dotColor: Colors.grey.shade400,
                                   dotHeight: 4,
                                   dotWidth: 4,
                                   radius: 107,
@@ -125,24 +127,110 @@ class _ProductInfoState extends State<ProductInfo> {
                 SizedBox(
                   child: Padding(
                     padding: const EdgeInsets.only(
-                        left: 12, right: 12, bottom: 5, top: 5),
+                        left: 12, right: 12, bottom: 5, top: 0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        SizedBox(
+                          child: Text(
+                            productDetails.name,
+                            style: TextStyles.headline6,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 2,
+                        ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
-                              width: KSize.getWidth(context, 240),
-                              child: Text(
-                                productDetails.name,
-                                style: TextStyles.headline6,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  IgnorePointer(
+                                      child: Row(
+                                    children: [
+                                      SmoothStarRating(
+                                        rating: 5,
+                                        size: 17,
+                                        color: KColor.yellow,
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        "(${productDetails.rating.toString()}) ",
+                                        style: TextStyles.bodyText1
+                                            .copyWith(color: KColor.textgrey),
+                                      )
+                                    ],
+                                  )),
+                                  const SizedBox(width: 6),
+                                  IgnorePointer(
+                                      child: Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.memory_outlined,
+                                        size: 17,
+                                        color: KColor.grey,
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text.rich(
+                                        TextSpan(
+                                            text:
+                                                "${productDetails.stock.toString()}",
+                                            style: TextStyles.bodyText1
+                                                .copyWith(
+                                                    color: KColor.textgrey),
+                                            children: [
+                                              TextSpan(
+                                                text: " (In Stock)",
+                                                style: TextStyles.bodyText1
+                                                    .copyWith(
+                                                        color: KColor.green),
+                                              )
+                                            ]),
+                                      )
+                                    ],
+                                  )),
+                                  IgnorePointer(
+                                      child: Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.delivery_dining_outlined,
+                                        size: 17,
+                                        color: KColor.grey,
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        "70 BDT(120 BDT Out Side Dhaka)",
+                                        style: TextStyles.bodyText1
+                                            .copyWith(color: KColor.textgrey),
+                                      )
+                                    ],
+                                  )),
+                                ],
                               ),
                             ),
+                          ],
+                        ),
+                        const Divider(
+                            thickness: 1,
+                            color: Color(
+                              0xffCBD4F0,
+                            )),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
                             productDetails.discount.toInt() > 0
                                 ? Container(
-                                    alignment: Alignment.centerRight,
-                                    width: KSize.getWidth(context, 110),
+                                    alignment: Alignment.centerLeft,
                                     child: Text.rich(
                                       TextSpan(
                                           text: ref
@@ -153,22 +241,20 @@ class _ProductInfoState extends State<ProductInfo> {
                                                       .toInt() ==
                                                   0
                                               ? "৳${productDetails.discountPrice.toString()}  "
-                                              : ref
-                                                  .read(productDetailsProvider
-                                                      .notifier)
-                                                  .totalPrice
-                                                  .toString(),
-                                          style: TextStyles.headline3.copyWith(
-                                              color: KColor.errorRedText),
+                                              : "৳${ref.read(productDetailsProvider.notifier).totalPrice.toString()} ",
+                                          style: TextStyles.headline6.copyWith(
+                                              color: KColor.red,
+                                              fontWeight: FontWeight.w700),
                                           children: [
                                             TextSpan(
                                               text:
                                                   "৳${productDetails.price.toString()}",
-                                              style: TextStyles.headline3
+                                              style: TextStyles.headline6
                                                   .copyWith(
                                                       decoration: TextDecoration
                                                           .lineThrough,
-                                                      color: KColor.primary),
+                                                      color: const Color(
+                                                          0xff525377)),
                                             ),
                                           ]),
                                     ),
@@ -190,83 +276,30 @@ class _ProductInfoState extends State<ProductInfo> {
                                               .totalPrice
                                               .toString(),
                                       style: TextStyles.headline3
-                                          .copyWith(color: KColor.errorRedText),
+                                          .copyWith(color: KColor.red),
                                       textAlign: TextAlign.end,
                                     ),
                                   ),
-                          ],
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              width: KSize.getWidth(context, 200),
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 10.0, bottom: 19),
-                                    child: IgnorePointer(
-                                        child: Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.star,
-                                          size: 25,
-                                          color: KColor.primary,
-                                        ),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        Text(
-                                          "${productDetails.rating.toString()} ",
-                                          style: TextStyles.bodyText1
-                                              .copyWith(color: KColor.gray223),
-                                        )
-                                      ],
-                                    )),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 10.0, bottom: 19),
-                                    child: IgnorePointer(
-                                        child: Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.circle,
-                                          size: 20,
-                                          color: KColor.primary,
-                                        ),
-                                        const SizedBox(
-                                          width: 2,
-                                        ),
-                                        Text(
-                                          "${productDetails.stock.toString()}(stock)",
-                                          style: TextStyles.bodyText1
-                                              .copyWith(color: KColor.gray223),
-                                        )
-                                      ],
-                                    )),
-                                  ),
-                                ],
-                              ),
-                            ),
                             Container(
                               alignment: Alignment.centerRight,
-                              width: KSize.getWidth(context, 150),
+                              decoration: BoxDecoration(
+                                  color: Color(0xffE9E9FA),
+                                  borderRadius: BorderRadius.circular(19)),
+                              width: KSize.getWidth(context, 120),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   InkWell(
                                     onTap: widget.remove,
-                                    child: CircleAvatar(
-                                      backgroundColor: KColor.primary,
-                                      child: Center(
-                                        child: Icon(
-                                          Icons.remove,
-                                          size: 25,
-                                          color: KColor.white,
-                                        ),
+                                    child: Container(
+                                      padding: const EdgeInsets.all(6),
+                                      decoration: BoxDecoration(
+                                          color: KColor.containerColor,
+                                          shape: BoxShape.circle),
+                                      child: const Center(
+                                        child: Icon(Icons.remove,
+                                            size: 25, color: KColor.textgrey),
                                       ),
                                     ),
                                   ),
@@ -275,17 +308,19 @@ class _ProductInfoState extends State<ProductInfo> {
                                         horizontal: 15.0),
                                     child: Text(
                                       widget.quantity.toString(),
-                                      style: TextStyles.headline6.copyWith(
-                                        color: KColor.black,
-                                      ),
+                                      style: TextStyles.headline6
+                                          .copyWith(color: KColor.textgrey),
                                     ),
                                   ),
                                   InkWell(
                                     // When using InkWell check the spalsh effect if its radius matches the container
-                                    borderRadius: BorderRadius.circular(8),
+
                                     onTap: widget.add,
-                                    child: CircleAvatar(
-                                      backgroundColor: KColor.primary,
+                                    child: Container(
+                                      padding: const EdgeInsets.all(6),
+                                      decoration: const BoxDecoration(
+                                          color: KColor.primary,
+                                          shape: BoxShape.circle),
                                       child: Center(
                                         child: Icon(
                                           Icons.add,
@@ -300,10 +335,17 @@ class _ProductInfoState extends State<ProductInfo> {
                             ),
                           ],
                         ),
+
+                        const Divider(
+                            thickness: 1,
+                            color: Color(
+                              0xffCBD4F0,
+                            )),
+
                         Text(
                           'Variation',
-                          style:
-                              TextStyles.subTitle.copyWith(color: Colors.black),
+                          style: TextStyles.subTitle1
+                              .copyWith(color: KColor.black),
                         ),
                         const SizedBox(
                           height: 8,
@@ -333,14 +375,14 @@ class _ProductInfoState extends State<ProductInfo> {
                                     width: 60,
                                     margin: const EdgeInsets.only(bottom: 5),
                                     padding: const EdgeInsets.symmetric(
-                                        vertical: 2, horizontal: 2),
+                                        vertical: 2.5, horizontal: 2.5),
                                     decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
+                                        color: KColor.containerColor,
                                         border: Border.all(
                                             width: 1,
                                             color: selectIndex == index
                                                 ? KColor.primary
-                                                : KColor.gray)),
+                                                : Colors.grey.shade300)),
                                     child: Center(
                                       child: CachedNetworkImage(
                                         fit: BoxFit.cover,
@@ -356,6 +398,7 @@ class _ProductInfoState extends State<ProductInfo> {
                             },
                           ),
                         ),
+
                         ...List.generate(
                           attributeList.length,
                           (index) => Column(
@@ -363,8 +406,8 @@ class _ProductInfoState extends State<ProductInfo> {
                             children: [
                               Text(
                                 attributeList[index]['attributeName'],
-                                style: TextStyles.subTitle
-                                    .copyWith(color: Colors.black),
+                                style: TextStyles.subTitle1
+                                    .copyWith(color: KColor.black),
                               ),
                               const SizedBox(
                                 height: 8,
@@ -451,17 +494,15 @@ class _ProductInfoState extends State<ProductInfo> {
                                                 },
                                                 child: Container(
                                                   height: 40,
-                                                  width: 40,
                                                   margin: const EdgeInsets.only(
                                                       bottom: 5),
                                                   padding: const EdgeInsets
                                                           .symmetric(
                                                       vertical: 3,
-                                                      horizontal: 2),
+                                                      horizontal: 10),
                                                   decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8),
+                                                      color:
+                                                          KColor.containerColor,
                                                       border: Border.all(
                                                           width: 1,
                                                           color: selectSize ==
@@ -475,14 +516,10 @@ class _ProductInfoState extends State<ProductInfo> {
                                                               [idx]['value']
                                                           .toString(),
                                                       style: TextStyles
-                                                          .bodyText3
+                                                          .bodyText2
                                                           .copyWith(
-                                                              color: selectSize ==
-                                                                      idx
-                                                                  ? KColor
-                                                                      .primary
-                                                                  : KColor
-                                                                      .grey800),
+                                                              color: const Color(
+                                                                  0xff697089)),
                                                     ),
                                                   ),
                                                 ),
@@ -570,18 +607,16 @@ class _ProductInfoState extends State<ProductInfo> {
                                                     },
                                                     child: Container(
                                                       height: 40,
-                                                      width: 40,
                                                       margin:
                                                           const EdgeInsets.only(
                                                               bottom: 5),
                                                       padding: const EdgeInsets
                                                               .symmetric(
                                                           vertical: 3,
-                                                          horizontal: 2),
+                                                          horizontal: 10),
                                                       decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(8),
+                                                          color: KColor
+                                                              .containerColor,
                                                           border: Border.all(
                                                               width: 1,
                                                               color: selectColor ==
@@ -592,19 +627,17 @@ class _ProductInfoState extends State<ProductInfo> {
                                                                       .gray)),
                                                       child: Center(
                                                         child: Text(
-                                                          attributeList[index][
-                                                                      'attributeValues']
-                                                                  [idx]['value']
-                                                              .toString(),
-                                                          style: TextStyles
-                                                              .bodyText3
-                                                              .copyWith(
-                                                                  color: selectColor == idx
-                                                                      ? KColor
-                                                                          .primary
-                                                                      : KColor
-                                                                          .grey800),
-                                                        ),
+                                                            attributeList[index]
+                                                                            [
+                                                                            'attributeValues']
+                                                                        [idx]
+                                                                    ['value']
+                                                                .toString(),
+                                                            style: TextStyles
+                                                                .bodyText2
+                                                                .copyWith(
+                                                                    color: const Color(
+                                                                        0xff697089))),
                                                       ),
                                                     ),
                                                   ));
@@ -673,24 +706,20 @@ class _ProductInfoState extends State<ProductInfo> {
                                                     },
                                                     child: Container(
                                                       height: 40,
-                                                      width: 40,
                                                       margin:
                                                           const EdgeInsets.only(
                                                               bottom: 5),
                                                       padding: const EdgeInsets
                                                               .symmetric(
                                                           vertical: 3,
-                                                          horizontal: 2),
+                                                          horizontal: 10),
                                                       decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(8),
                                                           border: Border.all(
                                                               width: 1,
                                                               color: selectType ==
                                                                       idx
-                                                                  ? KColor
-                                                                      .primary
+                                                                  ? const Color(
+                                                                      0xff697089)
                                                                   : KColor
                                                                       .gray)),
                                                       child: Center(
@@ -699,14 +728,13 @@ class _ProductInfoState extends State<ProductInfo> {
                                                                       'attributeValues']
                                                                   [idx]['value']
                                                               .toString(),
-                                                          style: TextStyles
-                                                              .bodyText3
-                                                              .copyWith(
-                                                                  color: selectType == idx
-                                                                      ? KColor
-                                                                          .primary
-                                                                      : KColor
-                                                                          .grey800),
+                                                          style: TextStyles.bodyText2.copyWith(
+                                                              color: selectType ==
+                                                                      idx
+                                                                  ? const Color(
+                                                                      0xff697089)
+                                                                  : KColor
+                                                                      .grey800),
                                                         ),
                                                       ),
                                                     ),
@@ -717,9 +745,13 @@ class _ProductInfoState extends State<ProductInfo> {
                             ],
                           ),
                         ),
-
+                        const Divider(
+                            thickness: 1,
+                            color: Color(
+                              0xffCBD4F0,
+                            )),
                         //  ...List.generate(productDetails.attributes., (index) => null);
-                        const SizedBox(height: 12),
+                        const SizedBox(height: 7),
                         Container(
                           width: double.infinity,
                           alignment: Alignment.center,
@@ -745,9 +777,8 @@ class _ProductInfoState extends State<ProductInfo> {
                                       height: 40,
                                       decoration: BoxDecoration(
                                         color: index == currentIndex
-                                            ? KColor.black54.withOpacity(0.8)
-                                            : const Color.fromARGB(
-                                                255, 220, 220, 222),
+                                            ? KColor.primary
+                                            : KColor.containerColor,
                                         borderRadius: BorderRadius.circular(7),
                                       ),
                                       child: Center(
@@ -756,8 +787,7 @@ class _ProductInfoState extends State<ProductInfo> {
                                           style: TextStyles.bodyText1.copyWith(
                                             color: index == currentIndex
                                                 ? KColor.white
-                                                : KColor.black54
-                                                    .withOpacity(0.4),
+                                                : KColor.primary,
                                           ),
                                         ),
                                       ),
@@ -774,8 +804,8 @@ class _ProductInfoState extends State<ProductInfo> {
                             children: [
                               Text(
                                 'Description',
-                                style: TextStyles.subTitle
-                                    .copyWith(color: Colors.black),
+                                style: TextStyles.subTitle1
+                                    .copyWith(color: KColor.black),
                               ),
                               const SizedBox(
                                 height: 8,
@@ -783,16 +813,17 @@ class _ProductInfoState extends State<ProductInfo> {
                               Text(
                                 productDetails.description,
                                 textAlign: TextAlign.justify,
-                                style: TextStyles.bodyText1
-                                    .copyWith(color: KColor.gray223),
+                                style: TextStyles.bodyText1.copyWith(
+                                  color: KColor.textgrey,
+                                ),
                               ),
                               const SizedBox(
                                 height: 8,
                               ),
                               Text(
                                 'Specification',
-                                style: TextStyles.subTitle
-                                    .copyWith(color: Colors.black),
+                                style: TextStyles.subTitle1
+                                    .copyWith(color: KColor.black),
                               ),
                               const SizedBox(
                                 height: 8,
@@ -808,8 +839,13 @@ class _ProductInfoState extends State<ProductInfo> {
                           ),
                         if (currentIndex == 1) const ProductReview(),
                         const SizedBox(
-                          height: 80,
+                          height: 5,
                         ),
+                        const Divider(
+                            thickness: 1,
+                            color: Color(
+                              0xffCBD4F0,
+                            )),
                       ],
                     ),
                   ),
@@ -853,14 +889,10 @@ class _ProductInfoState extends State<ProductInfo> {
       children: [
         SizedBox(
           width: KSize.getWidth(context, 130),
-          child: Text(title,
-              style: TextStyles.bodyText1.copyWith(color: KColor.black54)),
+          child: Text(title, style: TextStyles.bodyText1),
         ),
-        Text(":  ",
-            style: TextStyles.bodyText1.copyWith(color: KColor.black54)),
-        Expanded(
-            child: Text(description,
-                style: TextStyles.bodyText1.copyWith(color: KColor.black54))),
+        Text(":  ", style: TextStyles.bodyText1),
+        Expanded(child: Text(description, style: TextStyles.bodyText1))
       ],
     );
   }

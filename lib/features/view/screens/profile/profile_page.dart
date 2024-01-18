@@ -1,5 +1,10 @@
+import 'package:ecommerce_app/constant/navigation_service.dart';
 import 'package:ecommerce_app/features/view/screens/auth/login/controller/login_controller.dart';
+import 'package:ecommerce_app/features/view/screens/coupon/coupon_page.dart';
+import 'package:ecommerce_app/features/view/screens/my_order/my_order_page.dart';
 import 'package:ecommerce_app/features/view/screens/shipping_address/controller/get_shipping_address_controller.dart';
+import 'package:ecommerce_app/features/view/screens/update_profile/update_profile.dart';
+import 'package:ecommerce_app/features/view/screens/wishlist/wishList_page.dart';
 import 'package:ecommerce_app/utils/assets/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,6 +24,12 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  List<dynamic> item = [
+    {'icon': Icons.favorite_border_sharp, 'text': "WishList"},
+    {'icon': Icons.list_alt_outlined, 'text': "My Order"},
+    {'icon': Icons.person_2_outlined, 'text': "Profile"},
+    {'icon': Icons.percent_rounded, 'text': "Cupon"}
+  ];
   @override
   Widget build(BuildContext context) {
     return Consumer(
@@ -37,32 +48,14 @@ class _ProfilePageState extends State<ProfilePage> {
                       height: 20,
                     ),
                     Center(
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Container(
-                            width: KSize.getWidth(context, 70),
-                            height: KSize.getHeight(context, 90),
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: KColor.black.withOpacity(0.4),
-                                ),
-                                shape: BoxShape.circle,
-                                image: const DecorationImage(
-                                    image: AssetImage(AppAssets.product1))),
-                          ),
-                          const Positioned(
-                            right: 1,
-                            top: 50,
-                            child: CircleAvatar(
-                                radius: 14,
-                                backgroundColor: KColor.black,
-                                child: Icon(
-                                  Icons.camera_alt,
-                                  size: 16,
-                                )),
-                          ),
-                        ],
+                      child: Container(
+                        width: KSize.getWidth(context, 90),
+                        height: KSize.getHeight(context, 100),
+                        decoration: BoxDecoration(
+                            color: KColor.white,
+                            shape: BoxShape.circle,
+                            image: const DecorationImage(
+                                image: AssetImage(AppAssets.product1))),
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -75,18 +68,71 @@ class _ProfilePageState extends State<ProfilePage> {
                             Text(
                               "Sudipto Sarker",
                               style: TextStyles.headline5.copyWith(
-                                color: KColor.black54,
+                                color: KColor.black,
                               ),
                             ),
                             Text(
                               "sudiptosarker05@gmail.com",
                               style: TextStyles.bodyText1.copyWith(
-                                color: KColor.black.withOpacity(0.4),
+                                color: KColor.black,
                               ),
                             ),
                           ],
                         ),
                       ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        ...List.generate(
+                            item.length,
+                            (index) => InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      index == 0
+                                          ? NavigationService.navigateTo(
+                                              SizeRoute(
+                                                  page: const WishListPage()))
+                                          : index == 1
+                                              ? NavigationService.navigateTo(
+                                                  SizeRoute(
+                                                      page:
+                                                          const MyOrderPage()))
+                                              : index == 2
+                                                  ? NavigationService
+                                                      .navigateTo(SizeRoute(
+                                                          page:
+                                                              const UpdateProfile()))
+                                                  : NavigationService
+                                                      .navigateTo(SizeRoute(
+                                                          page:
+                                                              const CouponPage()));
+                                    });
+                                  },
+                                  child: Column(
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 25,
+                                        backgroundColor: KColor.white,
+                                        child: Icon(
+                                          item[index]['icon'],
+                                          color: KColor.primary,
+                                          size: 19,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 4,
+                                      ),
+                                      Text(
+                                        item[index]['text'],
+                                        style: TextStyles.subTitle1.copyWith(
+                                            color: KColor.textgrey,
+                                            fontWeight: FontWeight.normal),
+                                      )
+                                    ],
+                                  ),
+                                ))
+                      ],
                     ),
                     const SizedBox(
                       height: 40,

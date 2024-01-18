@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/constant/navigation_service.dart';
+import 'package:ecommerce_app/features/view/global_component/text_field_container/k_search_field.dart';
 import 'package:ecommerce_app/features/view/screens/home/controller/category_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/home/model/category_list_model.dart';
 import 'package:ecommerce_app/features/view/screens/home/state/categories_state.dart';
@@ -23,7 +24,19 @@ class AllCategoryPage extends StatefulWidget {
 class _AllCategoryPageState extends State<AllCategoryPage> {
   int cateSelectIndex = 0;
   int subCateSelectIndex = 0;
-
+  TextEditingController controller = TextEditingController();
+  List<dynamic> categoryList = [
+    {'name': "Fashion", 'image': "assets/category/category1.png"},
+    {'name': "Medicine", 'image': "assets/category/category2.png"},
+    {'name': "Furniture", 'image': "assets/category/category3.png"},
+    {'name': "Home & Appliance", 'image': "assets/category/category4.png"},
+    {'name': "Sports & Outdoors", 'image': "assets/category/category5.png"},
+    {'name': "Toys & Games", 'image': "assets/category/category6.png"},
+    {'name': "Bag & Travels", 'image': "assets/category/category7.png"},
+    {'name': "Groceries", 'image': "assets/category/category8.png"},
+    {'name': "Stationery", 'image': "assets/category/category9.png"},
+    {'name': "Beauty", 'image': "assets/category/category10.png"},
+  ];
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, child) {
@@ -36,165 +49,75 @@ class _AllCategoryPageState extends State<AllCategoryPage> {
       return Scaffold(
         backgroundColor: KColor.background,
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(50),
-          child: KAppBar(
-              leading: IconButton(
-                  icon: const Icon(Icons.arrow_back_ios),
-                  onPressed: () {
-                    Navigator.pop(
-                      context,
-                    );
-                  }),
-              checkTitle: true,
-              title: 'Categories'),
+          preferredSize: const Size.fromHeight(110),
+          child: Column(
+            children: [
+              const KAppBar(checkTitle: true, title: 'Categories'),
+              SearchTextField(
+                callbackFunction: (query) {},
+                controller: controller,
+                readOnly: false,
+                hintText: 'Search here...',
+              ),
+            ],
+          ),
         ),
-        body: Row(
-          children: [
-            Container(
-              width: KSize.getWidth(context, 100),
-              height: double.infinity,
-              color: KColor.white,
-              margin: const EdgeInsets.only(left: 12, right: 5),
-              child: GridView.builder(
-                physics: const ScrollPhysics(),
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 1, mainAxisExtent: 95),
-                itemCount: categoryData.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(
-                            color: cateSelectIndex == index
-                                ? KColor.primary.withOpacity(0.3)
-                                : KColor.background,
-                            width: 2),
+        body: GridView.builder(
+          physics: const ScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 4,
+            crossAxisSpacing: 5,
+            mainAxisSpacing: 0.0,
+            childAspectRatio: 2 / 3,
+          ),
+          itemCount: categoryList.length,
+          itemBuilder: (context, index) {
+            return InkWell(
+              onTap: () {
+                setState(() {
+                  subCateSelectIndex = index;
+                  ref.read(productListProvider.notifier).fetchShopProductList(
+                      subCategoryID:
+                          categoryData[index].subcategories![index].id);
+                });
+                NavigationService.navigateTo(FadeRoute(
+                    page: ShopPage(
+                  index: "",
+                  title: categoryList[index]['name'].toString(),
+                )));
+              },
+              child: Container(
+                margin: const EdgeInsets.only(top: 7, left: 13, right: 13),
+                color: KColor.background,
+                child: Column(
+                  children: [
+                    CircleAvatar(
+                      radius: 40,
+                      backgroundColor: KColor.white,
+                      child: Padding(
+                        padding: const EdgeInsets.all(11),
+                        child: Image.asset(
+                          categoryList[index]['image'],
+                        ),
                       ),
                     ),
-                    child: InkWell(
-                      onTap: () {
-                        setState(() {
-                          cateSelectIndex = index;
-                        });
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            margin: index == 0
-                                ?const EdgeInsets.only(top: 12)
-                                :const EdgeInsets.only(top: 0),
-                            width: KSize.getWidth(context, 51),
-                            height: KSize.getHeight(context, 55),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: cateSelectIndex == index
-                                  ? KColor.primary.withOpacity(0.3)
-                                  : KColor.grey300,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Center(
-                              child: SvgPicture.string(
-                                categoryData[index].icon,
-                                height: 35,
-                                width: 35,
-                                color: KColor.black54,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 2),
-                          Flexible(
-                            child: Text(
-                              categoryData[index].name.toString(),
-                              textAlign: TextAlign.center,
-                              style: TextStyles.bodyText3.copyWith(
-                                color: KColor.black,
-                              ),
-                            ),
-                          ),
-                        ],
+                    const SizedBox(height: 2),
+                    Flexible(
+                      child: Text(
+                        categoryList[index]['name'].toString(),
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        style: TextStyles.bodyText2
+                            .copyWith(color: KColor.black, fontSize: 13),
                       ),
                     ),
-                  );
-                },
-              ),
-            ),
-            Container(
-              width: KSize.getWidth(context, 252),
-              height: double.infinity,
-              color: KColor.white,
-              child: GridView.builder(
-                physics: const ScrollPhysics(),
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 5,
-                  mainAxisSpacing: 5.0,
-                  childAspectRatio: 2.8 / 3,
+                  ],
                 ),
-                itemCount: categoryData[cateSelectIndex].subcategories!.length,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {
-                      setState(() {
-                        subCateSelectIndex = index;
-                        ref
-                            .read(productListProvider.notifier)
-                            .fetchShopProductList(
-                                subCategoryID: categoryData[index]
-                                    .subcategories![index]
-                                    .id);
-                      });
-                      NavigationService.navigateTo(
-                          FadeRoute(page: const ShopPage()));
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.only(top: 7, left: 7),
-                      color: KColor.background,
-                      child: Column(
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(top: 10),
-                            width: KSize.getWidth(context, 55),
-                            height: KSize.getHeight(context, 60),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: KColor.grey300,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Center(
-                              child: SvgPicture.string(
-                                categoryData[index].subcategories![index].icon,
-                                height: 35,
-                                width: 35,
-                                color: KColor.black54,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 2),
-                          Flexible(
-                            child: Text(
-                              categoryData[index]
-                                  .subcategories![index]
-                                  .name
-                                  .toString(),
-                              textAlign: TextAlign.center,
-                              style: TextStyles.bodyText3.copyWith(
-                                color: KColor.black,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
               ),
-            ),
-          ],
+            );
+          },
         ),
       );
     });

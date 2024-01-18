@@ -3,6 +3,5 @@ import 'package:ecommerce_app/features/view/screens/shop/model/product_list_mode
 
 class PopularProductSuccessState extends SuccessState {
   final ProductListModel? popularProductModel;
-
   const PopularProductSuccessState(this.popularProductModel);
 }

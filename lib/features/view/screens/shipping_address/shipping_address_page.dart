@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:ecommerce_app/constant/navigation_service.dart';
 import 'package:ecommerce_app/constant/shared_preference_constant.dart';
 import 'package:ecommerce_app/features/view/screens/shipping_address/controller/get_shipping_address_controller.dart';
 import 'package:ecommerce_app/features/view/screens/shipping_address/state/get_shipping_address_state.dart';
@@ -53,16 +54,21 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
               IconButton(
                   padding: const EdgeInsets.only(right: 10),
                   highlightColor: KColor.grey100,
-                  color: KColor.black,
+                  // color: KColor.primary,
                   onPressed: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                const AddShippingAddressPage()));
+                            builder: (context) => AddShippingAddressPage(
+                                  area: "",
+                                  city: "",
+                                  house: "",
+                                  region: "",
+                                  selectedValue: 0,
+                                )));
                   },
                   icon: const Icon(
-                    Icons.add_box_outlined,
+                    Icons.add_home_outlined,
                     size: 30,
                   )),
             ],
@@ -81,17 +87,36 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
                       itemCount: addressDetails.length,
                       itemBuilder: (ctx, index) {
                         return ShippingAddressCard(
+                          onTap: () {
+                            setState(() {
+                              selectedAddressIndex = index;
+                              setValue(selectedIndex, selectedAddressIndex);
+                            });
+                            NavigationService.navigateTo(SizeRoute(
+                                page: AddShippingAddressPage(
+                              area: addressDetails[index].area,
+                              city: addressDetails[index].city,
+                              house: addressDetails[index].address,
+                              region: addressDetails[index].address,
+                              selectedValue:
+                                  addressDetails[index].addressType == "Home"
+                                      ? 0
+                                      : 1,
+                            )));
+                          },
                           isChecked: index ==
                               selectedAddressIndex, // Check if this address is selected
                           // Other properties...
                           onSelect: () {
                             // Update the selected address index when an address is selected
+
                             setState(() {
                               selectedAddressIndex = index;
                               setValue(selectedIndex, selectedAddressIndex);
                             });
                           },
-                          userName: "${getStringAsync(firstName)} ${getStringAsync(lastName)}",
+                          userName:
+                              "${getStringAsync(firstName)} ${getStringAsync(lastName)}",
                           phone: addressDetails[index].phone,
                           address: addressDetails[index].address,
                           city: addressDetails[index].city,
@@ -124,7 +149,7 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
                             ),
                             Text(
                               "Add Shipping Address",
-                              style: TextStyles.subTitle,
+                              style: TextStyles.subTitle1,
                             ),
                           ]),
                     )),
@@ -151,7 +176,7 @@ class _ShippingAddressPageState extends State<ShippingAddressPage> {
               };
               saveAddressesToLocalStorage(addresses);
               widget.page == 'checkout'
-                  ? Navigator.push(
+                  ? Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const CheckoutPage()))

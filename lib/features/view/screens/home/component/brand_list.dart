@@ -1,4 +1,7 @@
+import 'package:ecommerce_app/constant/navigation_service.dart';
+import 'package:ecommerce_app/features/view/screens/all_brand/all_brand_page.dart';
 import 'package:ecommerce_app/utils/colors/app_colors.dart';
+import 'package:ecommerce_app/utils/size/k_size.dart';
 import 'package:flutter/material.dart';
 import '../../../../../utils/text_styles/text_styles.dart';
 
@@ -13,49 +16,70 @@ class _BrandSectionState extends State<BrandSection> {
   int selectIndex = -1;
   List<dynamic> categories = [
     {
-      'image':
-          "https://chaldn.com/asset/Egg.ChaldalWeb.Fabric/Egg.ChaldalWeb1/1.0.0+Deploy-Release-324/Default/stores/chaldal/components/landingPage2/LandingPage/images/pran.png?q=low&webp=1",
-      'name': "Pran",
+      'image': "assets/product/agora.png",
+      'name': "Agora",
     },
     {
-      'image':
-          "https://chaldn.com/asset/Egg.ChaldalWeb.Fabric/Egg.ChaldalWeb1/1.0.0+Deploy-Release-324/Default/stores/chaldal/components/landingPage2/LandingPage/images/uniliver.png?q=low&webp=1",
+      'image': "assets/product/grocery.png",
       'name': "Unilever",
     },
     {
-      'image':
-          "https://chaldn.com/asset/Egg.ChaldalWeb.Fabric/Egg.ChaldalWeb1/1.0.0+Deploy-Release-324/Default/stores/chaldal/components/landingPage2/LandingPage/images/nestle.png?q=low&webp=1",
-      'name': "Nestle",
+      'image': "assets/product/brand.png",
+      'name': "Jamuna",
     },
     {
-      'image':
-          "https://chaldn.com/asset/Egg.ChaldalWeb.Fabric/Egg.ChaldalWeb1/1.0.0+Deploy-Release-324/Default/stores/chaldal/components/landingPage2/LandingPage/images/nestle.png?q=low&webp=1",
-      'name': "Marico",
-    },
-    {
-      'image':
-          "https://brand.assets.adidas.com/image/upload/icon_smart_app_banner_3c2a6e1def.png",
-      'name': "Adidas",
-    },
-    {
-      'image':
-          "https://chaldn.com/asset/Egg.ChaldalWeb.Fabric/Egg.ChaldalWeb1/1.0.0+Deploy-Release-324/Default/stores/chaldal/components/landingPage2/LandingPage/images/fresh.png?q=low&webp=1",
-      'name': "Fresh",
+      'image': "assets/product/agora.png",
+      'name': "Agora",
     },
   ];
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 5, left: 10, right: 10),
+      padding: const EdgeInsets.only(
+        left: 13,
+        right: 13,
+      ),
       width: double.infinity,
+      // color: KColor.primary.withOpacity(0.2),
       child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Top Brand",
+                  style: TextStyles.subTitle1,
+                ),
+                GestureDetector(
+                    onTap: () {
+                      NavigationService.navigateTo(
+                          SlideRightRoute(page: const AllBrandPage()));
+                    },
+                    child: Row(
+                      children: [
+                        Text(
+                          "View All",
+                          style: TextStyles.bodyText2
+                              .copyWith(color: KColor.secondary),
+                        ),
+                        const Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          size: 15,
+                          color: KColor.secondary,
+                        ),
+                      ],
+                    ))
+              ],
+            ),
+            const SizedBox(
+              height: 6,
+            ),
             SizedBox(
               width: double.infinity,
-              height: 120,
+              height: KSize.getHeight(context, 90),
               child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: categories.length,
@@ -80,21 +104,15 @@ class _BrandSectionState extends State<BrandSection> {
                         child: Column(
                           children: [
                             Center(
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 8, right: 8, bottom: 5, top: 5),
-                                child:
-                                    Image.network(categories[index]['image']),
+                              child: Image.asset(
+                                categories[index]['image'],
+                                fit: BoxFit.contain,
+                                height: KSize.getHeight(context, 60),
+                                width: KSize.getWidth(context, 110),
                               ),
                             ),
-                            const SizedBox(
-                              width: 1,
-                            ),
                             Text(categories[index]['name'],
-                                style: TextStyles.bodyText3),
-                            const SizedBox(
-                              width: 8,
-                            ),
+                                style: TextStyles.bodyText1),
                           ],
                         ),
                       ),

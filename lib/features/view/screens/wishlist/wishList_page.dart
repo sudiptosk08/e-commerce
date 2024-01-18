@@ -35,9 +35,14 @@ class _WishListPageState extends State<WishListPage> {
           : [];
 
       return Scaffold(
-        appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(50),
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(50),
           child: KAppBar(
+            leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.arrow_back_ios)),
             checkTitle: true,
             title: "WishList",
           ),

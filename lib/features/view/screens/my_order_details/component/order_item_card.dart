@@ -35,8 +35,6 @@ class OrderItemCard extends StatelessWidget {
               padding: const EdgeInsets.all(5),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                    width: 1, color: KColor.textgrey.withOpacity(0.4)),
                 color: KColor.white,
               ),
               child: Row(
@@ -69,44 +67,59 @@ class OrderItemCard extends StatelessWidget {
                             maxLines: 1,
                             style: TextStyles.bodyText1
                               ..copyWith(color: KColor.black54)),
-                        const SizedBox(
-                          height: 5,
-                        ),
                         Row(
                           children: [
-                            SizedBox(
-                              width: 40,
-                              child: Text("Size",
-                                  style: TextStyles.bodyText1
-                                      .copyWith(color: KColor.black54)),
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 40,
+                                  child: Text("Size",
+                                      style: TextStyles.bodyText1
+                                          .copyWith(color: KColor.black54)),
+                                ),
+                                Text(": ",
+                                    style: TextStyles.bodyText1
+                                        .copyWith(color: KColor.black54)),
+                                Text(orderDetailsItem[index].variants[0].value,
+                                    style: TextStyles.bodyText1
+                                        .copyWith(color: KColor.black54)),
+                              ],
                             ),
-                            const SizedBox(
-                              width: 2,
-                            ),
-                            Text(
-                                ": ${orderDetailsItem[index].variant[1].value}",
+                            Text("   ||   ",
                                 style: TextStyles.bodyText1
-                                    .copyWith(color: KColor.green)),
+                                    .copyWith(color: KColor.black54)),
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 40,
+                                  child: Text("Color ",
+                                      style: TextStyles.bodyText1
+                                          .copyWith(color: KColor.black54)),
+                                ),
+                                Text(": ",
+                                    style: TextStyles.bodyText1
+                                        .copyWith(color: KColor.black54)),
+                                Text(orderDetailsItem[index].variants[1].value,
+                                    style: TextStyles.bodyText1
+                                        .copyWith(color: KColor.black54)),
+                              ],
+                            ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 5,
-                        ),
                         Row(
                           children: [
                             SizedBox(
                               width: 40,
-                              child: Text("Color ",
+                              child: Text("Qty",
                                   style: TextStyles.bodyText1
                                       .copyWith(color: KColor.black54)),
                             ),
-                            const SizedBox(
-                              width: 2,
-                            ),
-                            Text(
-                                ": ${orderDetailsItem[index].variant[0].value}",
+                            Text(": ",
                                 style: TextStyles.bodyText1
-                                    .copyWith(color: KColor.green)),
+                                    .copyWith(color: KColor.black54)),
+                            Text(orderDetailsItem[index].quantity,
+                                style: TextStyles.bodyText1
+                                    .copyWith(color: KColor.black54)),
                           ],
                         ),
                         Row(
@@ -120,12 +133,13 @@ class OrderItemCard extends StatelessWidget {
                                       style: TextStyles.bodyText1
                                           .copyWith(color: KColor.black54)),
                                 ),
-                                const SizedBox(
-                                  width: 2,
-                                ),
-                                Text(": ৳${orderDetailsItem[index].price}",
+                                Text(": ",
                                     style: TextStyles.bodyText1
-                                        .copyWith(color: KColor.errorRedText)),
+                                        .copyWith(color: KColor.black54)),
+                                Text("৳${orderDetailsItem[index].total}",
+                                    style: TextStyles.subTitle1.copyWith(
+                                        color: KColor.errorRedText,
+                                        height: 1.5)),
                               ],
                             ),
                             const SizedBox(
@@ -134,7 +148,8 @@ class OrderItemCard extends StatelessWidget {
                             KButton(
                               width: 90,
                               height: 29,
-                              radius: 8,
+                              radius: 4,
+                              color: KColor.errorRedText,
                               title: 'Write Review',
                               textStyle: TextStyles.bodyText2.copyWith(
                                   color: KColor.white,
@@ -144,7 +159,8 @@ class OrderItemCard extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => WriteReview(
-                                            id: orderDetailsItem[index].id)));
+                                            id: orderDetailsItem[index]
+                                                .productId)));
                               },
                             )
                           ],

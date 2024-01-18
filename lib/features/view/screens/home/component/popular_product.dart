@@ -32,27 +32,39 @@ class _NewArrivalsProductState extends State<NewArrivalsProduct> {
               ? shopState.popularProductModel!.data
               : [];
       return Container(
-        padding: const EdgeInsets.only(top: 5, left: 10, right: 10),
+        padding: const EdgeInsets.only(left: 13, right: 13),
         child: Column(children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 "Popular Product",
-                style: TextStyles.subTitle,
+                style: TextStyles.subTitle1,
               ),
               GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const ShopPage()));
-                },
-                child: Text(
-                  "view all",
-                  style: TextStyles.bodyText1.copyWith(color: KColor.secondary),
-                ),
-              )
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ShopPage(
+                                  index: "",
+                                  title: "Popular Product",
+                                )));
+                  },
+                  child: Row(
+                    children: [
+                      Text(
+                        "View All",
+                        style: TextStyles.bodyText1
+                            .copyWith(color: KColor.primary),
+                      ),
+                      const Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        size: 15,
+                        color: KColor.primary,
+                      ),
+                    ],
+                  ))
             ],
           ),
           const SizedBox(

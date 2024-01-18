@@ -27,29 +27,25 @@ class CouponCodeCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Text(title!, style: TextStyles.subTitle),
+        // Text(title!, style: TextStyles.subTitle1),
         const SizedBox(height: 2),
         Row(
           children: [
             Flexible(
               flex: 2,
-              child: Container(
-                color: KColor.grey300,
-                padding: const EdgeInsets.all(0.8),
-                child: KFillNormal(
-                  controller: controller!,
-                  hintText: hintText!,
-                  label: "",
-                  inputType: TextInputType.text,
-                  readOnly: readOnly!,
-                ),
+              child: KFillNormal(
+                controller: controller!,
+                hintText: hintText!,
+                label: "",
+                inputType: TextInputType.text,
+                readOnly: readOnly!,
               ),
             ),
             const SizedBox(width: 8),
             Flexible(
               child: KButton(
                 width: double.infinity,
-                height: 47,
+                height: 48,
                 isOutlineButton: false,
                 radius: 5,
                 color: KColor.primary,

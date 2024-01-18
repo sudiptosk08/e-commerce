@@ -89,7 +89,7 @@ class _ReportViewCardState extends State<ReportViewCard> {
                                     Text(
                                       "#OrId${widget.orderId}",
                                       textAlign: TextAlign.justify,
-                                      style: TextStyles.bodyText1
+                                      style: TextStyles.subTitle1
                                           .copyWith(color: KColor.black),
                                       maxLines: 2,
                                     ),
@@ -101,13 +101,13 @@ class _ReportViewCardState extends State<ReportViewCard> {
                                       "Date: ",
                                       textAlign: TextAlign.justify,
                                       style: TextStyles.bodyText1
-                                          .copyWith(color: KColor.black54),
+                                          .copyWith(color: KColor.textgrey),
                                     ),
                                     Text(
                                       " ${widget.date}",
                                       textAlign: TextAlign.justify,
                                       style: TextStyles.bodyText2
-                                          .copyWith(color: KColor.black54),
+                                          .copyWith(color: KColor.textgrey),
                                       maxLines: 2,
                                     ),
                                   ],
@@ -118,13 +118,13 @@ class _ReportViewCardState extends State<ReportViewCard> {
                                       "Reason: ",
                                       textAlign: TextAlign.justify,
                                       style: TextStyles.bodyText1
-                                          .copyWith(color: KColor.black54),
+                                          .copyWith(color: KColor.textgrey),
                                     ),
                                     Text(
                                       " ${widget.reason}",
                                       textAlign: TextAlign.justify,
                                       style: TextStyles.bodyText2
-                                          .copyWith(color: KColor.black54),
+                                          .copyWith(color: KColor.textgrey),
                                       maxLines: 2,
                                     ),
                                   ],
@@ -145,11 +145,12 @@ class _ReportViewCardState extends State<ReportViewCard> {
                         children: [
                           Container(
                             width: 75,
-                            height: 85,
+                            height: 70,
                             decoration: BoxDecoration(
-                              color: KColor.textgrey,
+                              color: KColor.white,
                               borderRadius: BorderRadius.circular(8),
                               image: DecorationImage(
+                                  fit: BoxFit.contain,
                                   image: AssetImage(widget.image.toString())),
                             ),
                           ),
@@ -160,8 +161,8 @@ class _ReportViewCardState extends State<ReportViewCard> {
                             child: Text(
                               widget.detailstxt!,
                               textAlign: TextAlign.justify,
-                              style: TextStyles.bodyText3
-                                  .copyWith(color: KColor.black54),
+                              style: TextStyles.bodyText2
+                                  .copyWith(color: KColor.textgrey),
                               maxLines: 6,
                             ),
                           ),

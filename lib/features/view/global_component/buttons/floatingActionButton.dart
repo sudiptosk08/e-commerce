@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable, file_names
 
 import 'package:ecommerce_app/constant/shared_preference_constant.dart';
-import 'package:ecommerce_app/features/view/screens/auth/login/login_page.dart';
 import 'package:ecommerce_app/features/view/screens/cart/cart_page.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -17,12 +16,8 @@ class FloatingActionBottom extends StatelessWidget {
       children: [
         InkWell(
           onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      checkLogin ? const CartPage() : const LoginPage(),
-                ));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const CartPage()));
           },
           child: Container(
             padding: const EdgeInsets.all((3.3)),

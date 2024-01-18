@@ -1,6 +1,5 @@
 // ignore_for_file: file_names, library_private_types_in_public_api
 
-import 'package:ecommerce_app/constant/base_state.dart';
 import 'package:ecommerce_app/constant/navigation_service.dart';
 import 'package:ecommerce_app/features/view/global_component/shimmer/placeholder_shimmer.dart';
 import 'package:ecommerce_app/features/view/screens/product_details/controller/product_details_controller.dart';
@@ -14,19 +13,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../../../../utils/colors/app_colors.dart';
 import '../../../../../utils/text_styles/text_styles.dart';
 import '../../../global_component/product_card.dart/product_card.dart';
-import '../../shop/view/shop_page.dart';
 
-class PopularProduct extends StatefulWidget {
-  const PopularProduct({super.key});
+class RelatedProduct extends StatefulWidget {
+  const RelatedProduct({super.key});
 
   @override
-  _PopularProductState createState() => _PopularProductState();
+  _RelatedProductState createState() => _RelatedProductState();
 }
 
-class _PopularProductState extends State<PopularProduct> {
+class _RelatedProductState extends State<RelatedProduct> {
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, _) {
@@ -36,32 +33,18 @@ class _PopularProductState extends State<PopularProduct> {
               ? shopState.productListModel!.data
               : [];
       return Container(
-          padding: const EdgeInsets.only(left: 10, right: 10),
+          padding: const EdgeInsets.only(left: 13, right: 13),
           child: Column(children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "New & Noteworthy",
-                  style: TextStyles.subTitle,
+                  "Related Product",
+                  style: TextStyles.subTitle1,
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context, SlideLeftRoute(page: const ShopPage()));
-                  },
-                  child: Text(
-                    "view all",
-                    style:
-                        TextStyles.bodyText1.copyWith(color: KColor.secondary),
-                  ),
-                )
               ],
             ),
-            const SizedBox(
-              height: 4,
-            ),
-            shopState is LoadingState
+            shopState is! ProductListSuccessState
                 ? Shimmer.fromColors(
                     baseColor: Colors.grey.shade300,
                     highlightColor: Colors.grey.shade100,
@@ -69,7 +52,7 @@ class _PopularProductState extends State<PopularProduct> {
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
+                        padding: const EdgeInsets.only(top: 5.0),
                         child: Row(
                           children: List.generate(
                               5,
@@ -89,8 +72,9 @@ class _PopularProductState extends State<PopularProduct> {
                           productListData.length,
                           (index) {
                             return ProductCard(
+                              type: "New adsfwsd",
                               id: productListData[index].id.toString(),
-                              imagePath: productListData[index].thumbnail,
+                              imagePath: "assets/product/product1.png",
                               productName: productListData[index].name,
                               appDiscount:
                                   productListData[index].discount.toInt(),

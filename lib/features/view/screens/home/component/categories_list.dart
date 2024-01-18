@@ -32,7 +32,7 @@ class _CategorySectionState extends State<CategorySection> {
                 ? categoryState.categoryModel!.data
                 : [];
         return Container(
-          padding: const EdgeInsets.only(top: 5, left: 10, right: 10),
+          padding: const EdgeInsets.only(left: 13, right: 13),
           width: double.infinity,
           child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -67,8 +67,11 @@ class _CategorySectionState extends State<CategorySection> {
                                     .fetchShopProductList(
                                       categoryID: categoryData[index].id,
                                     );
-                                NavigationService.navigateTo(
-                                    SizeRoute(page: const ShopPage()));
+                                NavigationService.navigateTo(SizeRoute(
+                                    page: ShopPage(
+                                  index: index,
+                                  title: "",
+                                )));
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(3.0),
@@ -90,7 +93,7 @@ class _CategorySectionState extends State<CategorySection> {
                                             categoryData[index].icon,
                                             height: 30,
                                             width: 30,
-                                            color: KColor.black54,
+                                            color: KColor.primary,
                                           ),
                                         ),
                                       ),

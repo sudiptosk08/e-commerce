@@ -70,6 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                           color: KColor.black54,
                         ),
                         controller: phoneController,
+                        padding: 10,
                       ),
                       const SizedBox(
                         height: 20,
@@ -144,7 +145,7 @@ class _LoginPageState extends State<LoginPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>const SignUpPage(),
+                              builder: (context) => const SignUpPage(),
                             ));
                       },
                       child: Text(

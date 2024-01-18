@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
-
 import 'package:ecommerce_app/constant/base_state.dart';
 import 'package:ecommerce_app/constant/navigation_service.dart';
 import 'package:ecommerce_app/features/view/screens/auth/login/model/user_model.dart';
@@ -39,6 +38,7 @@ class OrderPlaceController extends StateNotifier<BaseState> {
     required String phone,
     required String city,
     required String email,
+    required bool insideDhaka,
   }) async {
     state = const LoadingState();
     if (phone == "") {
@@ -62,6 +62,7 @@ class OrderPlaceController extends StateNotifier<BaseState> {
         'first_name': firstName,
         'last_name': lastName,
         'region': region,
+        'delivery_place': insideDhaka,
         'address': address,
         'area': area,
         'phone': phone,

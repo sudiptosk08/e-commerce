@@ -2,9 +2,6 @@
 
 import 'dart:convert';
 import 'package:ecommerce_app/constant/base_state.dart';
-import 'package:ecommerce_app/constant/navigation_service.dart';
-import 'package:ecommerce_app/constant/shared_preference_constant.dart';
-import 'package:ecommerce_app/features/view/screens/cart/cart_page.dart';
 import 'package:ecommerce_app/features/view/screens/cart/model/cart_list_model.dart';
 import 'package:ecommerce_app/utils/colors/app_colors.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -110,12 +107,8 @@ class CartController extends StateNotifier<BaseState> {
         cartItems.map((item) {
           return json.encode(item);
         }).toList());
-    bool checkLogin = getBoolAsync(isLoggedIn, defaultValue: false);
 
-    checkLogin
-        ? NavigationService.navigateToReplacement(SizeRoute(page: const CartPage()))
-        : toast("Product added to cart.Please login for confirm order.",
-            bgColor: KColor.green);
+    toast("Add to Cart Successfully !",bgColor: KColor.green);
   }
 
   Future<void> getCart() async {

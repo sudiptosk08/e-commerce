@@ -11,7 +11,7 @@ class BannerPlaceholder extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: height.toDouble(),
+      height: KSize.getHeight(context, height),
       margin: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(7.0),
@@ -70,34 +70,34 @@ class ContentPlaceholder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      padding: const EdgeInsets.symmetric(horizontal: 4.0),
       child: SizedBox(
-        width: KSize.getWidth(context, 152),
+        width: KSize.getWidth(context, 148),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
               width: KSize.getWidth(context, 152),
-              height: KSize.getWidth(context, 122),
+              height: KSize.getWidth(context, 115),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12.0),
                 color: Colors.white,
               ),
             ),
-            const SizedBox(
-              height: 10,
+            SizedBox(
+              height: KSize.getWidth(context, 8),
             ),
             Container(
               width: double.infinity,
-              height: 10.0,
+              height: KSize.getWidth(context, 8),
               color: Colors.white,
               margin: const EdgeInsets.only(bottom: 8.0),
             ),
             if (lineType == ContentLineType.threeLines)
               Container(
                 width: double.infinity,
-                height: 10.0,
+                height: KSize.getWidth(context, 8),
                 color: Colors.white,
                 margin: const EdgeInsets.only(bottom: 8.0),
               ),
@@ -106,12 +106,12 @@ class ContentPlaceholder extends StatelessWidget {
               children: [
                 Container(
                   width: 70.0,
-                  height: 10.0,
+                  height: KSize.getWidth(context, 8),
                   color: Colors.white,
                 ),
                 Container(
                   width: 70.0,
-                  height: 10.0,
+                  height: KSize.getWidth(context, 8),
                   color: Colors.white,
                 )
               ],
@@ -155,26 +155,26 @@ class WishListPlaceholder extends StatelessWidget {
               children: [
                 Container(
                   width: double.infinity,
-                  height: 10.0,
+                  height: KSize.getWidth(context, 8),
                   color: Colors.white,
                   margin: const EdgeInsets.only(bottom: 8.0),
                 ),
                 Container(
                   width: double.infinity,
-                  height: 10.0,
+                  height: KSize.getWidth(context, 8),
                   color: Colors.white,
                   margin: const EdgeInsets.only(bottom: 8.0),
                 ),
                 if (lineType == ContentLineType.threeLines)
                   Container(
                     width: double.infinity,
-                    height: 10.0,
+                    height: KSize.getWidth(context, 8),
                     color: Colors.white,
                     margin: const EdgeInsets.only(bottom: 8.0),
                   ),
                 Container(
                   width: 80.0,
-                  height: 10.0,
+                  height: KSize.getWidth(context, 8),
                   color: Colors.white,
                 )
               ],
@@ -209,20 +209,20 @@ class MyOrderPlaceholder extends StatelessWidget {
               children: [
                 Container(
                   width: double.infinity,
-                  height: 10.0,
+                  height: KSize.getWidth(context, 8),
                   color: Colors.white,
                   margin: const EdgeInsets.only(bottom: 8.0),
                 ),
                 Container(
                   width: double.infinity,
-                  height: 10.0,
+                  height: KSize.getWidth(context, 8),
                   color: Colors.white,
                   margin: const EdgeInsets.only(bottom: 8.0),
                 ),
                 if (lineType == ContentLineType.threeLines)
                   Container(
                     width: double.infinity,
-                    height: 10.0,
+                    height: KSize.getWidth(context, 8),
                     color: Colors.white,
                     margin: const EdgeInsets.only(bottom: 8.0),
                   ),
@@ -237,10 +237,10 @@ class MyOrderPlaceholder extends StatelessWidget {
                           decoration: const BoxDecoration(
                               color: Colors.white,
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
+                                  BorderRadius.all(Radius.circular(8))),
                         ),
                         const SizedBox(
-                          width: 10,
+                          width: 8,
                         ),
                         Container(
                           width: 80.0,
@@ -248,7 +248,7 @@ class MyOrderPlaceholder extends StatelessWidget {
                           decoration: const BoxDecoration(
                               color: Colors.white,
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
+                                  BorderRadius.all(Radius.circular(8))),
                         ),
                       ],
                     ),
@@ -256,7 +256,7 @@ class MyOrderPlaceholder extends StatelessWidget {
                       children: [
                         Container(
                           width: 80.0,
-                          height: 10.0,
+                          height: KSize.getWidth(context, 8),
                           decoration: const BoxDecoration(
                             color: Colors.white,
                           ),
@@ -266,7 +266,7 @@ class MyOrderPlaceholder extends StatelessWidget {
                         ),
                         Container(
                           width: 80.0,
-                          height: 10.0,
+                          height: KSize.getWidth(context, 8),
                           decoration: const BoxDecoration(
                             color: Colors.white,
                           ),
@@ -294,11 +294,11 @@ class CategoryPlaceholder extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5.0),
       child: Container(
-        width: 100.0,
+        width: 80.0,
         height: 52.0,
         decoration: const BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(10))),
+            borderRadius: BorderRadius.all(Radius.circular(8))),
       ),
     );
   }

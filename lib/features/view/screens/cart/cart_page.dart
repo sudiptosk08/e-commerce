@@ -1,36 +1,37 @@
 // ignore_for_file: unused_local_variable, avoid_print
 
 import 'dart:convert';
-import 'package:ecommerce_app/features/view/global_component/dialog/k_confirm_dialog.dart';
+import 'package:ecommerce_app/constant/shared_preference_constant.dart';
+import 'package:ecommerce_app/features/view/screens/auth/login/login_page.dart';
 import 'package:ecommerce_app/features/view/screens/cart/controller/cart_controller.dart';
+import 'package:ecommerce_app/features/view/screens/checkout/component/cupon_card.dart';
+import 'package:ecommerce_app/features/view/screens/shipping_address/controller/get_shipping_address_controller.dart';
 import 'package:ecommerce_app/utils/colors/app_colors.dart';
-import 'package:ecommerce_app/utils/extension/extension.dart';
 import 'package:ecommerce_app/utils/text_styles/text_styles.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nb_utils/nb_utils.dart';
-import '../../../../navigation_bar.dart';
 import '../../../../utils/size/k_size.dart';
 import '../../global_component/appBar/app_bar.dart';
 import '../../global_component/buttons/Kdrop_down_field.dart';
-import '../../global_component/gray_handle/gray_handle.dart';
 import '../checkout/checkout_page.dart';
 
 class CartPage extends ConsumerStatefulWidget {
   const CartPage({super.key});
-
   @override
   ConsumerState<CartPage> createState() => _CartPageState();
 }
 
 class _CartPageState extends ConsumerState<CartPage> {
-  List<Map<String, dynamic>> cartItems = [];
+  TextEditingController promoCode = TextEditingController();
 
+  List<Map<String, dynamic>> cartItems = [];
+  bool checkLogin = false;
   @override
   void initState() {
     super.initState();
     loadCartItems();
+    checkLogin = getBoolAsync(isLoggedIn, defaultValue: false);
   }
 
   Future<void> loadCartItems() async {
@@ -63,19 +64,9 @@ class _CartPageState extends ConsumerState<CartPage> {
       final cartState = ref.watch(cartProvider);
 
       return Scaffold(
-          appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(50),
+          appBar: const PreferredSize(
+            preferredSize: Size.fromHeight(50),
             child: KAppBar(
-              leading: IconButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const NavigationBarScreen(
-                                  page: "0",
-                                )));
-                  },
-                  icon: const Icon(Icons.arrow_back_ios)),
               checkTitle: true,
               title: "Cart",
             ),
@@ -85,6 +76,21 @@ class _CartPageState extends ConsumerState<CartPage> {
             scrollDirection: Axis.vertical,
             child: Column(
               children: [
+                Container(
+                  margin: const EdgeInsets.only(left: 10, right: 10, bottom: 5),
+                  width: double.infinity,
+                  height: 48,
+                  decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      color: Color(0xffE8E8E8)),
+                  child: Center(
+                    child: Text(
+                      "Estimated Delivery Time : 02 - 04 days",
+                      style: TextStyles.bodyText1.copyWith(color: KColor.black),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
                 cartItems.isEmpty
                     ? SizedBox(
                         height: KSize.getHeight(context, 400),
@@ -113,320 +119,309 @@ class _CartPageState extends ConsumerState<CartPage> {
                             scrollDirection: Axis.vertical,
                             itemCount: cartItems.length,
                             itemBuilder: (context, index) {
-                              return Dismissible(
-                                key: UniqueKey(),
-                                direction: DismissDirection.endToStart,
-                                dragStartBehavior: DragStartBehavior.start,
-                                movementDuration:
-                                    const Duration(milliseconds: 200),
-                                resizeDuration:
-                                    const Duration(milliseconds: 1000),
-                                onDismissed: (direction) {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return KConfirmDialog(
-                                          message: 'Delete product',
-                                          subMessage:
-                                              'Are you sure you want to remove this item?"',
-                                          onCancel: () {
-                                            Navigator.pop(context);
-                                          },
-                                          onDelete: () {
-                                            ref
-                                                .read(cartProvider.notifier)
-                                                .removeFromCart(
-                                                    cartItems[index]['id']);
-
-                                            loadCartItems();
-                                            Navigator.pop(context);
-                                          });
-                                    },
-                                  );
-                                },
-                                background: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 40, vertical: 20),
-                                  margin:
-                                      const EdgeInsets.only(top: 5, bottom: 5),
-                                  decoration: const BoxDecoration(
-                                    color: KColor.errorRedText,
-                                  ),
-                                  child: const Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [Icon(Icons.delete)],
-                                  ),
+                              return Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: const Color(0xffF9F9F9),
                                 ),
-                                child: Padding(
-                                    padding:
-                                        const EdgeInsets.symmetric(vertical: 3),
-                                    child: Container(
-                                      width: double.infinity,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
-                                        border: Border.all(
-                                            color: KColor.textgrey
-                                                .withOpacity(0.4)),
-                                        color: KColor.white,
-                                      ),
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
                                       child: Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(6.0),
-                                            child: Container(
-                                              width:
-                                                  KSize.getWidth(context, 125),
-                                              height:
-                                                  KSize.getHeight(context, 102),
-                                              decoration: BoxDecoration(
-                                                color: KColor.grey200!
-                                                    .withOpacity(1),
-                                                borderRadius:
-                                                    const BorderRadius.all(
-                                                        Radius.circular(7)),
+                                          Column(
+                                            children: [
+                                              Container(
+                                                width: KSize.getWidth(
+                                                    context, 110),
+                                                height: KSize.getHeight(
+                                                    context, 75.3),
+                                                decoration: BoxDecoration(
+                                                  color: KColor.white,
+                                                  image: const DecorationImage(
+                                                    //     image: NetworkImage(
+                                                    //   "${cartItems[index]['thumbnail']}",)
+                                                    fit: BoxFit.contain,
+                                                    image: AssetImage(
+                                                      "assets/product/product10.png",
+                                                    ),
+                                                  ),
+                                                  borderRadius:
+                                                      const BorderRadius.all(
+                                                          Radius.circular(5)),
+                                                ),
                                               ),
-                                              child: Container(
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                                  .all(
-                                                              Radius.circular(
-                                                                  7)),
-                                                      image: DecorationImage(
-                                                          image: NetworkImage(
-                                                        "${cartItems[index]['thumbnail']}",
-                                                      )))),
-                                            ),
+                                            ],
                                           ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 8.0, bottom: 8.0),
-                                            child: SizedBox(
-                                              width: context.screenWidth * 0.55,
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(cartItems[index]['name'],
-                                                      style:
-                                                          TextStyles.bodyText1),
-                                                  SizedBox(
-                                                      height: KSize.getHeight(
-                                                          context, 3)),
-                                                  Text(
-                                                    "Color:${cartItems[index]['color']}  Size :${cartItems[index]['size']}",
-                                                    style: TextStyles.bodyText1
-                                                        .copyWith(
-                                                            color: KColor.grey),
-                                                  ),
-                                                  SizedBox(
-                                                      height: KSize.getHeight(
-                                                          context, 6)),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Text(
-                                                        "\$${cartItems[index]['price']}",
-                                                        style: TextStyles
-                                                            .subTitle
-                                                            .copyWith(
-                                                                color: KColor
-                                                                    .errorRedText),
-                                                      ),
-                                                      Container(
-                                                        width: 115,
-                                                        decoration: BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8),
-                                                            border: Border.all(
-                                                                width: 0.9,
-                                                                color: KColor
-                                                                    .gray)),
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          children: [
-                                                            InkWell(
-                                                              onTap: () {
-                                                                cartItems[index]
-                                                                            [
-                                                                            'quantity'] ==
-                                                                        1
-                                                                    ? null
-                                                                    : setState(
-                                                                        () {
-                                                                        ref
-                                                                            .read(cartProvider.notifier)
-                                                                            .addToCart(
-                                                                              cartItems[index]['id'],
-                                                                              cartItems[index]['quantity'].toInt(),
-                                                                              cartItems[index]['name'],
-                                                                              cartItems[index]['category_name'],
-                                                                              cartItems[index]['sub_categroy_name'],
-                                                                              cartItems[index]['size'],
-                                                                              cartItems[index]['color'],
-                                                                              cartItems[index]['price'],
-                                                                              cartItems[index]['brand'],
-                                                                              cartItems[index]['thumbnail'],
-                                                                              cartItems[index]['colorId'],
-                                                                              cartItems[index]['sizeId'],
-                                                                            );
-                                                                        cartItems[index]['quantity'] ==
-                                                                                1
-                                                                            ? null
-                                                                            : ref.read(cartProvider.notifier).addQuantity =
-                                                                                false;
-                                                                        cartItems[index]['quantity'] ==
-                                                                                1
-                                                                            ? null
-                                                                            : ref.read(cartProvider.notifier).minusQuantity =
-                                                                                true;
-                                                                      });
-                                                                loadCartItems();
-                                                              },
-                                                              child: Container(
-                                                                decoration:
-                                                                    const BoxDecoration(
-                                                                        border:
-                                                                            Border(
-                                                                  right: BorderSide(
-                                                                      width:
-                                                                          0.9,
-                                                                      color: KColor
-                                                                          .gray),
-                                                                )),
-                                                                width: 35,
-                                                                height: 35,
-                                                                alignment:
-                                                                    Alignment
-                                                                        .center,
-                                                                child:
-                                                                    const Icon(
-                                                                  Icons.remove,
-                                                                  size: 18,
-                                                                  color: KColor
-                                                                      .black,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              decoration:
-                                                                  const BoxDecoration(
-                                                                color: Colors
-                                                                    .white,
-                                                              ),
-                                                              alignment:
-                                                                  Alignment
-                                                                      .center,
-                                                              width: 37,
-                                                              child: Text(
-                                                                cartItems[index]
-                                                                        [
-                                                                        'quantity']
-                                                                    .toString(),
-                                                                style: TextStyles
-                                                                    .bodyText1,
-                                                              ),
-                                                            ),
-                                                            InkWell(
-                                                              onTap: () {
-                                                                setState(() {
-                                                                  ref
-                                                                      .read(cartProvider
-                                                                          .notifier)
-                                                                      .addToCart(
-                                                                        cartItems[index]
-                                                                            [
-                                                                            'id'],
-                                                                        cartItems[index]
-                                                                            [
-                                                                            'quantity'],
-                                                                        cartItems[index]
-                                                                            [
-                                                                            'name'],
-                                                                        cartItems[index]
-                                                                            [
-                                                                            'category_name'],
-                                                                        cartItems[index]
-                                                                            [
-                                                                            'sub_categroy_name'],
-                                                                        cartItems[index]
-                                                                            [
-                                                                            'size'],
-                                                                        cartItems[index]
-                                                                            [
-                                                                            'color'],
-                                                                        cartItems[index]
-                                                                            [
-                                                                            'price'],
-                                                                        cartItems[index]
-                                                                            [
-                                                                            'brand'],
-                                                                        cartItems[index]
-                                                                            [
-                                                                            'thumbnail'],
-                                                                        cartItems[index]
-                                                                            [
-                                                                            'colorId'],
-                                                                        cartItems[index]
-                                                                            [
-                                                                            'sizeId'],
-                                                                      );
-
-                                                                  ref
-                                                                      .read(cartProvider
-                                                                          .notifier)
-                                                                      .addQuantity = true;
-                                                                  ref
-                                                                      .read(cartProvider
-                                                                          .notifier)
-                                                                      .minusQuantity = false;
-                                                                });
-                                                                loadCartItems();
-                                                              },
-                                                              child: Container(
-                                                                decoration:
-                                                                    const BoxDecoration(
-                                                                  border: Border(
-                                                                      left: BorderSide(
-                                                                          width:
-                                                                              0.9,
-                                                                          color:
-                                                                              KColor.gray)),
-                                                                ),
-                                                                alignment:
-                                                                    Alignment
-                                                                        .center,
-                                                                width: 35,
-                                                                height: 35,
-                                                                child:
-                                                                    const Icon(
-                                                                  Icons.add,
-                                                                  size: 18,
-                                                                  color: KColor
-                                                                      .black,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
+                                          const SizedBox(
+                                            width: 12,
+                                          ),
+                                          SizedBox(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(cartItems[index]['name'],
+                                                    style:
+                                                        TextStyles.bodyText1),
+                                                Text(
+                                                  "Color  : ${cartItems[index]['color']}   ||   Size : ${cartItems[index]['size']}",
+                                                  style: TextStyles.bodyText1
+                                                      .copyWith(
+                                                          color:
+                                                              KColor.textgrey),
+                                                ),
+                                                Text(
+                                                  "Brand : ${cartItems[index]['brand']}",
+                                                  style: TextStyles.bodyText1
+                                                      .copyWith(
+                                                          color:
+                                                              KColor.textgrey),
+                                                ),
+                                                Text(
+                                                  "Status : In Stock",
+                                                  style: TextStyles.bodyText1
+                                                      .copyWith(
+                                                          color:
+                                                              KColor.textgrey),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         ],
                                       ),
-                                    )),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 10.0,
+                                          right: 10.0,
+                                          bottom: 10.0),
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            width: KSize.getWidth(context, 110),
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(40),
+                                                color: const Color(0xffE9E9FA)),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    cartItems[index]
+                                                                ['quantity'] ==
+                                                            1
+                                                        ? null
+                                                        : setState(() {
+                                                            ref
+                                                                .read(cartProvider
+                                                                    .notifier)
+                                                                .addToCart(
+                                                                  cartItems[
+                                                                          index]
+                                                                      ['id'],
+                                                                  cartItems[index]
+                                                                          [
+                                                                          'quantity']
+                                                                      .toInt(),
+                                                                  cartItems[
+                                                                          index]
+                                                                      ['name'],
+                                                                  cartItems[
+                                                                          index]
+                                                                      [
+                                                                      'category_name'],
+                                                                  cartItems[
+                                                                          index]
+                                                                      [
+                                                                      'sub_categroy_name'],
+                                                                  cartItems[
+                                                                          index]
+                                                                      ['size'],
+                                                                  cartItems[
+                                                                          index]
+                                                                      ['color'],
+                                                                  cartItems[
+                                                                          index]
+                                                                      ['price'],
+                                                                  cartItems[
+                                                                          index]
+                                                                      ['brand'],
+                                                                  cartItems[
+                                                                          index]
+                                                                      [
+                                                                      'thumbnail'],
+                                                                  cartItems[
+                                                                          index]
+                                                                      [
+                                                                      'colorId'],
+                                                                  cartItems[
+                                                                          index]
+                                                                      [
+                                                                      'sizeId'],
+                                                                );
+                                                            cartItems[index][
+                                                                        'quantity'] ==
+                                                                    1
+                                                                ? null
+                                                                : ref
+                                                                    .read(cartProvider
+                                                                        .notifier)
+                                                                    .addQuantity = false;
+                                                            cartItems[index][
+                                                                        'quantity'] ==
+                                                                    1
+                                                                ? null
+                                                                : ref
+                                                                    .read(cartProvider
+                                                                        .notifier)
+                                                                    .minusQuantity = true;
+                                                          });
+                                                    loadCartItems();
+                                                  },
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      color: KColor.white,
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                    width: 30,
+                                                    height: 30,
+                                                    alignment: Alignment.center,
+                                                    child: const Icon(
+                                                      Icons.remove,
+                                                      size: 18,
+                                                      color: KColor.textgrey,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  decoration:
+                                                      const BoxDecoration(),
+                                                  alignment: Alignment.center,
+                                                  width: 30,
+                                                  child: Text(
+                                                    cartItems[index]['quantity']
+                                                        .toString(),
+                                                    style: TextStyles.bodyText1
+                                                        .copyWith(
+                                                            color: KColor
+                                                                .textgrey),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      ref
+                                                          .read(cartProvider
+                                                              .notifier)
+                                                          .addToCart(
+                                                            cartItems[index]
+                                                                ['id'],
+                                                            cartItems[index]
+                                                                ['quantity'],
+                                                            cartItems[index]
+                                                                ['name'],
+                                                            cartItems[index][
+                                                                'category_name'],
+                                                            cartItems[index][
+                                                                'sub_categroy_name'],
+                                                            cartItems[index]
+                                                                ['size'],
+                                                            cartItems[index]
+                                                                ['color'],
+                                                            cartItems[index]
+                                                                ['price'],
+                                                            cartItems[index]
+                                                                ['brand'],
+                                                            cartItems[index]
+                                                                ['thumbnail'],
+                                                            cartItems[index]
+                                                                ['colorId'],
+                                                            cartItems[index]
+                                                                ['sizeId'],
+                                                          );
+
+                                                      ref
+                                                          .read(cartProvider
+                                                              .notifier)
+                                                          .addQuantity = true;
+                                                      ref
+                                                              .read(cartProvider
+                                                                  .notifier)
+                                                              .minusQuantity =
+                                                          false;
+                                                    });
+                                                    loadCartItems();
+                                                  },
+                                                  child: Container(
+                                                    decoration:
+                                                        const BoxDecoration(
+                                                      color: KColor.primary,
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                    alignment: Alignment.center,
+                                                    width: 30,
+                                                    height: 30,
+                                                    child: Icon(
+                                                      Icons.add,
+                                                      size: 18,
+                                                      color: KColor.white,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 12,
+                                          ),
+                                          SizedBox(
+                                            width: KSize.getWidth(context, 210),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  "৳ ${cartItems[index]['price']}",
+                                                  style: TextStyles.subTitle1
+                                                      .copyWith(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 16,
+                                                          color: KColor.red123),
+                                                ),
+                                                Container(
+                                                  decoration:
+                                                      const BoxDecoration(
+                                                    color: KColor.primary,
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                  width: 30,
+                                                  height: 30,
+                                                  alignment: Alignment.center,
+                                                  child: Icon(
+                                                    Icons
+                                                        .delete_forever_rounded,
+                                                    size: 18,
+                                                    color: KColor.white,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               );
                             })),
                 SizedBox(
@@ -438,50 +433,103 @@ class _CartPageState extends ConsumerState<CartPage> {
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
           bottomSheet: Container(
-            height: KSize.getHeight(context, 170),
-            decoration: BoxDecoration(border: Border.all(color: KColor.white)),
+            height: KSize.getHeight(context, 246),
+            decoration: BoxDecoration(
+              color: KColor.containerColor,
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(
+                  15,
+                ),
+                topLeft: Radius.circular(
+                  15,
+                ),
+              ),
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                    color: const Color(0xff6C7285).withOpacity(0.3),
+                    offset: const Offset(4.0, 20.0),
+                    blurRadius: 16.0,
+                    spreadRadius: 20
+                    //blurStyle: BlurStyle.outer
+                    ),
+              ],
+            ),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 10.0, right: 10),
-                  child: Column(
-                    children: [
-                      const GrayHandle(),
-                      text("SubTotal",
-                          "৳${ref.read(cartProvider.notifier).subTotal}"),
-                      Divider(
-                        color: KColor.grey350,
-                        thickness: 1,
-                      ),
-                      const SizedBox(
-                        height: 3,
-                      ),
-                      text("Total",
-                          "৳${ref.read(cartProvider.notifier).subTotal}"),
-                    ],
+                  padding: const EdgeInsets.all(10.0),
+                  child: CouponCodeCard(
+                    buttonText: "Apply",
+                    controller: promoCode,
+                    hintText: "Voucher Code",
+                    readOnly: false,
+                    tap: () {},
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: KButton(
-                    width: double.infinity,
-                    height: 40,
-                    isOutlineButton: false,
-                    radius: 8,
-                    color: KColor.primary,
-                    textStyle: TextStyles.bodyText1.copyWith(
-                        color: KColor.white, fontWeight: FontWeight.w500),
-                    onPressedCallback: () {
-                      cartItems.isEmpty
-                          ? toast("Empty cart List!",
-                              bgColor: KColor.errorRedText)
-                          : Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const CheckoutPage()));
-                    },
-                    title: "CheckOut",
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(15),
+                  )),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: 10.0,
+                          right: 10,
+                        ),
+                        child: Column(
+                          children: [
+                            text("Sub Total",
+                                "৳${ref.read(cartProvider.notifier).subTotal}"),
+                            text("Discount", "0%"),
+                            Divider(
+                              color: KColor.grey350,
+                              thickness: 1,
+                            ),
+                            text("Total",
+                                "৳${ref.read(cartProvider.notifier).subTotal}"),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: KButton(
+                          width: double.infinity,
+                          height: 48,
+                          isOutlineButton: false,
+                          radius: 8,
+                          color: KColor.primary,
+                          textStyle: TextStyles.bodyText1.copyWith(
+                              color: KColor.white, fontWeight: FontWeight.w500),
+                          onPressedCallback: () {
+                            ref
+                                .read(addressListProvider.notifier)
+                                .fetchShppingAddressList();
+                            cartItems.isEmpty
+                                ? toast("Empty cart List!",
+                                    bgColor: KColor.errorRedText)
+                                : checkLogin
+                                    ? Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const CheckoutPage()))
+                                    : Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const LoginPage()));
+                          },
+                          title: "CheckOut",
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -492,17 +540,19 @@ class _CartPageState extends ConsumerState<CartPage> {
 
   text(String title, String price) {
     return Padding(
-      padding: const EdgeInsets.only(left: 3.0, bottom: 10),
+      padding: const EdgeInsets.only(left: 3.0, bottom: 3, right: 3),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             title,
-            style: TextStyles.bodyText1,
+            style: TextStyles.bodyText1.copyWith(color: KColor.textgrey),
           ),
           Text(
             price,
-            style: TextStyles.bodyText1,
+            style: TextStyles.bodyText1.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
           )
         ],
       ),

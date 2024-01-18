@@ -1,4 +1,6 @@
+import 'package:ecommerce_app/utils/text_styles/text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../../utils/colors/app_colors.dart';
 
@@ -25,8 +27,12 @@ class SearchTextField extends StatefulWidget {
 class _SearchTextFieldState extends State<SearchTextField> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 10, left: 10),
+    return Container(
+      padding: const EdgeInsets.only(
+        right: 10,
+        left: 10,
+      ),
+      margin: EdgeInsets.only(top: 5),
       child: TextFormField(
         validator: (value) {
           if (value == null || value.isEmpty) {
@@ -44,21 +50,22 @@ class _SearchTextFieldState extends State<SearchTextField> {
                 widget.onTap!();
               }
             : null,
-        textAlignVertical: TextAlignVertical.center,
+        textAlignVertical: TextAlignVertical.top,
         decoration: InputDecoration(
-          prefixIcon: const Padding(
-            padding: EdgeInsets.all(14.0),
-            child: Icon(
-              Icons.search,
-              color: KColor.black,
-            ),
+          prefixIcon: SvgPicture.asset(
+            "assets/svg/search.svg",
+            fit: BoxFit.contain,
           ),
+          prefixIconConstraints: BoxConstraints.tight(const Size(45, 20)),
           hintText: widget.hintText,
-          hintStyle:const TextStyle(color: KColor.textgrey),
+          hintStyle: TextStyles.bodyText2.copyWith(
+            color: KColor.textgrey,
+            fontSize: 13,
+          ),
           contentPadding:
-              const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12),
+              const EdgeInsets.symmetric(horizontal: 20.0, vertical: 14.5),
           border: const UnderlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            borderRadius: BorderRadius.all(Radius.circular(22.0)),
             borderSide: BorderSide.none,
           ),
           fillColor: KColor.white,

@@ -41,21 +41,25 @@ dependencies:
   sliding_sheet: ^0.5.2
   smooth_page_indicator: ^1.0.0+2
   pin_code_fields: ^7.4.0
-  carousel_pro_nullsafety: ^2.0.0
   sliding_up_panel: ^2.0.0+1
   smooth_star_rating_null_safety: ^1.0.4+2
   cached_network_image: ^3.2.3
-  image_picker: ^0.8.5+3
   flutter_riverpod: ^1.0.4
   nb_utils: ^4.6.20
   url_launcher: ^6.1.5
-  flutter_svg: ^1.1.2
+  flutter_svg: ^2.0.9
   dotted_line: ^3.1.0
   another_xlider: ^3.0.1
   shared_preferences: ^2.0.15
   http: ^0.13.5
   shimmer: ^3.0.0
-  mime_type: ^1.0.0
+  image_picker: ^0.8.5+3
+  mime_type: 
+  file_picker: ^5.0.1
+  image_cropper: ^1.4.1
+  path_provider: ^2.0.2
+  dotted_border: ^2.1.0
+  carousel_slider: ^4.2.1
 
 
 
@@ -90,6 +94,8 @@ flutter:
     - assets/svg/
     - assets/icons/
     - assets/product/
+    - assets/category/
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

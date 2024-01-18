@@ -56,11 +56,11 @@ class PopularProductCard extends StatelessWidget {
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
                     ),
                     child: Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             image: DecorationImage(
                                 fit: BoxFit.fitWidth,
-                                image: NetworkImage(
-                                  imagePath,
+                                image: AssetImage(
+                                  "assets/product/product1.png", //imagePath,
                                 )))),
                   ),
                   Positioned(
@@ -90,7 +90,7 @@ class PopularProductCard extends StatelessWidget {
                             EdgeInsets.only(right: appDiscount > 0 ? 3.5 : 0),
                         child: Text.rich(TextSpan(
                             text: appDiscount > 0 ? "৳ $discountPrice " : null,
-                            style: TextStyles.subTitle.copyWith(
+                            style: TextStyles.subTitle1.copyWith(
                               color: KColor.errorRedText,
                               fontWeight: FontWeight.w600,
                             ),
@@ -98,7 +98,7 @@ class PopularProductCard extends StatelessWidget {
                               appDiscount > 0
                                   ? TextSpan(
                                       text: "৳ $price",
-                                      style: TextStyles.subTitle.copyWith(
+                                      style: TextStyles.subTitle1.copyWith(
                                         color: KColor.primary,
                                         fontWeight: FontWeight.w600,
                                         decoration: TextDecoration.lineThrough,
@@ -106,7 +106,7 @@ class PopularProductCard extends StatelessWidget {
                                     )
                                   : TextSpan(
                                       text: "৳ $price",
-                                      style: TextStyles.subTitle.copyWith(
+                                      style: TextStyles.subTitle1.copyWith(
                                         fontWeight: FontWeight.w600,
                                         color: KColor.errorRedText,
                                         letterSpacing: 0.3,
@@ -125,7 +125,7 @@ class PopularProductCard extends StatelessWidget {
                           Text(
                             "4.9 ",
                             textAlign: TextAlign.center,
-                            style: TextStyles.subTitle,
+                            style: TextStyles.subTitle1,
                           ),
                         ],
                       ),

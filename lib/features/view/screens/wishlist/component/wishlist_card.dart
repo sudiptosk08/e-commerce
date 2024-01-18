@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:ecommerce_app/utils/assets/app_assets.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.dart';
@@ -54,215 +55,194 @@ class _WishListCardState extends State<WishListCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Dismissible(
-      key: UniqueKey(),
-      direction: DismissDirection.endToStart,
-      dragStartBehavior: DragStartBehavior.start,
-      movementDuration: const Duration(milliseconds: 200),
-      resizeDuration: const Duration(milliseconds: 1000),
-      onDismissed: (direction) {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return KConfirmDialog(
-              message: 'Delete product',
-              subMessage: 'Are you sure you want to remove this item?"',
-              onCancel: widget.cancel,
-              onDelete: widget.delete,
-            );
-          },
-        );
-      },
-      background: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-        margin: const EdgeInsets.only(bottom: 4),
-        decoration: const BoxDecoration(
-          color: KColor.errorRedText,
-        ),
-        child: const Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [Icon(Icons.delete)],
-        ),
-      ),
-      child: Stack(
+    return Container(
+      //padding: const EdgeInsets.all(8),
+      margin: const EdgeInsets.only(bottom: 8),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: KColor.containerColor,
+          border: Border.all(
+              color: KColor.containerColor.withOpacity(0.4), width: 1)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Container(
-            //padding: const EdgeInsets.all(8),
-            margin: const EdgeInsets.only(bottom: 4),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: KColor.white,
-                border: Border.all(
-                    color: KColor.textgrey.withOpacity(0.4), width: 1)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+          SizedBox(
+            width: context.screenWidth * 0.35,
+            height: context.screenHeight * 0.15,
+            child: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(4),
+                ),
+                // child: Image.network(
+                //   "${widget.img}",
+                //   fit: BoxFit.fill,
+                // ),
+                child: Image.asset(AppAssets.product1),
+              ),
+            ),
+          ),
+          const SizedBox(width: 4),
+          SizedBox(
+            width: KSize.getWidth(context, 205),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  width: context.screenWidth * 0.35,
-                  height: context.screenHeight * 0.14,
-                  child: Padding(
-                    padding: const EdgeInsets.all(6.0),
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(4),
-                      ),
-                      child: Image.network(
-                        '${widget.img}',
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ),
+                Text(
+                  '${widget.productName}',
+                  maxLines: 2,
+                  style: TextStyles.bodyText1.copyWith(color: KColor.black),
                 ),
-                const SizedBox(width: 10),
-                SizedBox(
-                  width: KSize.getWidth(context, 205),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '${widget.productName}',
-                        maxLines: 2,
-                        style:
-                            TextStyles.bodyText1.copyWith(color: KColor.black),
-                      ),
-                      Text(
-                        '${widget.group}',
-                        style: TextStyles.bodyText1
-                            .copyWith(color: KColor.black.withOpacity(0.3)),
-                      ),
-                      SmoothStarRating(
-                        color: KColor.primary,
-                        borderColor: KColor.primary,
-                        size: 15,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 0.0, right: 8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            // Text(
-                            //   "৳${widget.price.toString()}",
-                            //   style: TextStyles.headline4
-                            //       .copyWith(color: KColor.errorRedText),
-                            // ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  left: widget.appDiscount! > 0 ? 3.5 : 0),
-                              child: Text.rich(TextSpan(
-                                  text: widget.appDiscount! > 0
-                                      ? "৳ ${widget.disprice} "
-                                      : null,
-                                  style: TextStyles.subTitle.copyWith(
-                                    color: KColor.errorRedText,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                  children: [
-                                    widget.appDiscount! > 0
-                                        ? TextSpan(
-                                            text:
-                                                " ৳ ${widget.price.toString()}",
-                                            style: TextStyles.subTitle.copyWith(
-                                              color: KColor.primary,
-                                              fontWeight: FontWeight.w600,
-                                              decoration:
-                                                  TextDecoration.lineThrough,
-                                            ),
-                                          )
-                                        : TextSpan(
-                                            text: " ৳ ${widget.price}",
-                                            style: TextStyles.subTitle.copyWith(
-                                              fontWeight: FontWeight.w600,
-                                              color: KColor.errorRedText,
-                                              letterSpacing: 0.3,
-                                            ),
-                                          )
-                                  ])),
-                            ),
-                            widget.isChecked == true
-                                ? InkWell(
-                                    onTap: widget.add,
-                                    child: CustomButton(
-                                      textColor: KColor.white,
-                                      width: 80,
-                                      height: 35,
-                                      color: KColor.primary,
-                                      name: "Buy Now",
-                                      onTap: () {},
-                                    ))
-                                : Row(
-                                    children: [
-                                      InkWell(
-                                        borderRadius: BorderRadius.circular(8),
-                                        onTap: () {
-                                          setState(() {
-                                            widget.quantity =
-                                                (widget.quantity! + 1);
-                                          });
-                                        },
-                                        child: Container(
-                                          height: 32,
-                                          width: 32,
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: KColor.black, width: 1),
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                          child: const Center(
-                                            child: Icon(Icons.add,
-                                                size: 10,
-                                                color: KColor.textgrey),
-                                          ),
+                Text(
+                  '${widget.group}',
+                  style: TextStyles.bodyText1.copyWith(color: KColor.textgrey),
+                ),
+                SmoothStarRating(
+                  color: KColor.yellow,
+                  borderColor: KColor.yellow,
+                  size: 15,
+                ),
+                const SizedBox(
+                  height: 6,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // Text(
+                    //   "৳${widget.price.toString()}",
+                    //   style: TextStyles.headline4
+                    //       .copyWith(color: KColor.errorRedText),
+                    // ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: widget.appDiscount! > 0 ? 1 : 0),
+                          child: Text.rich(TextSpan(
+                              text: widget.appDiscount! > 0
+                                  ? "৳ ${widget.disprice} "
+                                  : null,
+                              style: TextStyles.subTitle1.copyWith(
+                                color: KColor.errorRedText,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              children: [
+                                widget.appDiscount! > 0
+                                    ? TextSpan(
+                                        text: " ৳ ${widget.price.toString()}",
+                                        style: TextStyles.subTitle1.copyWith(
+                                          color: KColor.textgrey,
+                                          fontWeight: FontWeight.w600,
+                                          decoration:
+                                              TextDecoration.lineThrough,
                                         ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 12.0),
-                                        child: Text(
-                                          widget.quantity.toString(),
-                                          style: TextStyles.headline4.copyWith(
-                                            color: KColor.black,
-                                          ),
+                                      )
+                                    : TextSpan(
+                                        text: " ৳ ${widget.price}",
+                                        style: TextStyles.subTitle1.copyWith(
+                                          fontWeight: FontWeight.w600,
+                                          color: KColor.errorRedText,
+                                          letterSpacing: 0.3,
                                         ),
-                                      ),
-                                      InkWell(
-                                        borderRadius: BorderRadius.circular(8),
-                                        onTap: () {
-                                          if (widget.quantity! > 1) {
-                                            setState(() {
-                                              widget.quantity =
-                                                  (widget.quantity! - 1);
-                                            });
-                                          }
-                                        },
-                                        child: Container(
-                                          height: 32,
-                                          width: 32,
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: KColor.white, width: 1),
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                          child: const Center(
-                                              child: Icon(Icons.remove,
-                                                  size: 10,
-                                                  color: KColor.black)),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                          ],
+                                      )
+                              ])),
                         ),
-                      ),
-                    ],
-                  ),
+                        Row(
+                          children: [
+                            Text(
+                              "Status : ",
+                              style: TextStyles.bodyText2
+                                  .copyWith(color: KColor.textgrey),
+                            ),
+                            Text(
+                              "In stock",
+                              style: TextStyles.bodyText2
+                                  .copyWith(color: KColor.primary),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                    widget.isChecked == true
+                        ? InkWell(
+                            onTap: widget.add,
+                            child: Container(
+                                width: 40,
+                                height: 32,
+                                decoration: const BoxDecoration(
+                                    color: KColor.background,
+                                    shape: BoxShape.circle),
+                                child: const Icon(
+                                  Icons.delete_forever_outlined,
+                                  color: KColor.errorRedText,
+                                  size: 19,
+                                )))
+                        : Row(
+                            children: [
+                              InkWell(
+                                borderRadius: BorderRadius.circular(8),
+                                onTap: () {
+                                  setState(() {
+                                    widget.quantity = (widget.quantity! + 1);
+                                  });
+                                },
+                                child: Container(
+                                  height: 32,
+                                  width: 32,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: KColor.black, width: 1),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: const Center(
+                                    child: Icon(Icons.add,
+                                        size: 10, color: KColor.textgrey),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 12.0),
+                                child: Text(
+                                  widget.quantity.toString(),
+                                  style: TextStyles.headline4.copyWith(
+                                    color: KColor.black,
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                borderRadius: BorderRadius.circular(8),
+                                onTap: () {
+                                  if (widget.quantity! > 1) {
+                                    setState(() {
+                                      widget.quantity = (widget.quantity! - 1);
+                                    });
+                                  }
+                                },
+                                child: Container(
+                                  height: 32,
+                                  width: 32,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: KColor.white, width: 1),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: const Center(
+                                      child: Icon(Icons.remove,
+                                          size: 10, color: KColor.black)),
+                                ),
+                              ),
+                            ],
+                          ),
+                  ],
                 ),
-                const SizedBox(height: 40),
               ],
             ),
           ),
+          const SizedBox(height: 40),
         ],
       ),
     );

@@ -53,15 +53,17 @@ class _NotificationPageState extends State<NotificationPage> {
                         ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount: notificationData.length,
+                          itemCount: 5, // notificationData.length,
                           itemBuilder: (BuildContext context, int index) {
                             return InkWell(
                               onTap: () {},
                               child: NotificationCard(
-                                title: notificationData[index].title,
-                                msg: notificationData[index].body,
-                                seen: notificationData[index].read,
-                                date: notificationData[index].time,
+                                title:
+                                    "Order Shipped", // notificationData[index].title,
+                                msg:
+                                    "Your Order Has Been Shipped", //notificationData[index].body,
+                                seen: "1", //notificationData[index].read,
+                                date: "1h ago", //notificationData[index].time,
                                 // seen:
                                 cancel: () {
                                   setState(() {

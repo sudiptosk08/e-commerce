@@ -35,10 +35,8 @@ class Data {
   int id;
   String orderId;
   String totalPrice;
-  String discount;
-  String payable;
-  String paid;
-  String due;
+  String deliveryCharge;
+  int subTotal;
   String status;
   BillingAddress billingAddress;
   Address userAddress;
@@ -46,17 +44,15 @@ class Data {
   List<Item> items;
   String paymentStatus;
   String paymentMethod;
-  String deliveryMethodId;
+  dynamic deliveryMethodId;
   String createdAt;
 
   Data({
     required this.id,
     required this.orderId,
     required this.totalPrice,
-    required this.discount,
-    required this.payable,
-    required this.paid,
-    required this.due,
+    required this.deliveryCharge,
+    required this.subTotal,
     required this.status,
     required this.billingAddress,
     required this.userAddress,
@@ -72,10 +68,8 @@ class Data {
         id: json["id"],
         orderId: json["order_id"],
         totalPrice: json["total_price"],
-        discount: json["discount"],
-        payable: json["payable"],
-        paid: json["paid"],
-        due: json["due"],
+        deliveryCharge: json["delivery_charge"],
+        subTotal: json["sub_total"],
         status: json["status"],
         billingAddress: BillingAddress.fromJson(json["billing_address"]),
         userAddress: Address.fromJson(json["user_address"]),
@@ -91,10 +85,8 @@ class Data {
         "id": id,
         "order_id": orderId,
         "total_price": totalPrice,
-        "discount": discount,
-        "payable": payable,
-        "paid": paid,
-        "due": due,
+        "delivery_charge": deliveryCharge,
+        "sub_total": subTotal,
         "status": status,
         "billing_address": billingAddress.toJson(),
         "user_address": userAddress.toJson(),
@@ -111,7 +103,7 @@ class BillingAddress {
   String firstName;
   String lastName;
   String phone;
-  dynamic email;
+  String email;
   dynamic region;
   dynamic address;
   dynamic area;
@@ -130,10 +122,10 @@ class BillingAddress {
         firstName: json["first_name"],
         lastName: json["last_name"],
         phone: json["phone"],
-        email: json["email"] as String?, // Use the null-aware operator
-        region: json["region"] as String?, // Use the null-aware operator
-        address: json["address"] as String?, // Use the null-aware operator
-        area: json["area"] as String?, // Use the null-aware operator
+        email: json["email"],
+        region: json["region"],
+        address: json["address"],
+        area: json["area"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -148,19 +140,21 @@ class BillingAddress {
 }
 
 class Item {
-  int id;
+  dynamic id;
+  dynamic productId;
   String name;
-  String quantity;
-  String price;
-  String discount;
-  int discountPrice;
-  String additionalPrice;
-  int total;
+  dynamic quantity;
+  dynamic price;
+  dynamic discount;
+  dynamic discountPrice;
+  dynamic additionalPrice;
+  dynamic total;
   String image;
-  List<Variant> variant;
+  List<Variant> variants;
 
   Item({
     required this.id,
+    required this.productId,
     required this.name,
     required this.quantity,
     required this.price,
@@ -169,11 +163,12 @@ class Item {
     required this.additionalPrice,
     required this.total,
     required this.image,
-    required this.variant,
+    required this.variants,
   });
 
   factory Item.fromJson(Map<String, dynamic> json) => Item(
         id: json["id"],
+        productId: json["product_id"],
         name: json["name"],
         quantity: json["quantity"],
         price: json["price"],
@@ -182,12 +177,15 @@ class Item {
         additionalPrice: json["additional_price"],
         total: json["total"],
         image: json["image"],
-        variant:
-            List<Variant>.from(json["variant"].map((x) => Variant.fromJson(x))),
+        variants: json["variants"] != null
+            ? List<Variant>.from(
+                json["variants"].map((x) => Variant.fromJson(x)))
+            : [],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
+        "product_id": productId,
         "name": name,
         "quantity": quantity,
         "price": price,
@@ -196,7 +194,7 @@ class Item {
         "additional_price": additionalPrice,
         "total": total,
         "image": image,
-        "variant": List<dynamic>.from(variant.map((x) => x.toJson())),
+        "variants": List<dynamic>.from(variants.map((x) => x.toJson())),
       };
 }
 
@@ -274,7 +272,7 @@ class UserDetails {
   String lastName;
   String username;
   String phone;
-  String email;
+  dynamic email;
   String role;
   List<Address> address;
 
@@ -291,19 +289,14 @@ class UserDetails {
 
   factory UserDetails.fromJson(Map<String, dynamic> json) => UserDetails(
         id: json["id"],
-        firstName:
-            json["firstName"] ?? "", // Handle null case with a default value
-        lastName:
-            json["lastName"] ?? "", // Handle null case with a default value
-        username:
-            json["username"] ?? "", // Handle null case with a default value
-        phone: json["phone"] ?? "", // Handle null case with a default value
-        email: json["email"] ?? "", // Handle null case with a default value
-        role: json["role"] ?? "", // Handle null case with a default value
-        address: (json["address"] as List<dynamic>?)
-                ?.map((x) => Address.fromJson(x))
-                .toList() ??
-            [], // Handle null case with an empty list
+        firstName: json["firstName"],
+        lastName: json["lastName"],
+        username: json["username"],
+        phone: json["phone"],
+        email: json["email"],
+        role: json["role"],
+        address:
+            List<Address>.from(json["address"].map((x) => Address.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {

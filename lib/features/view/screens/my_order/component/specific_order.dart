@@ -13,15 +13,15 @@ import 'package:shimmer/shimmer.dart';
 import '../model/my_order_list_model.dart';
 import 'my_order_card.dart';
 
-class SpecificOrder extends StatefulWidget {
+class SpecificOrder extends ConsumerStatefulWidget {
   final String orderStatus;
   const SpecificOrder({Key? key, required this.orderStatus}) : super(key: key);
 
   @override
-  State<SpecificOrder> createState() => _SpecificOrderState();
+  ConsumerState<SpecificOrder> createState() => _SpecificOrderState();
 }
 
-class _SpecificOrderState extends State<SpecificOrder> {
+class _SpecificOrderState extends ConsumerState<SpecificOrder> {
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, child) {
@@ -104,7 +104,9 @@ class _SpecificOrderState extends State<SpecificOrder> {
                                 paymentStatus: orderList[index].paymentStatus,
                                 grandTotal:
                                     orderList[index].totalPrice.toString(),
-                                deliveryType: orderList[index].deliveryMethodId,
+                                deliveryType:
+                                    orderList[index].deliveryMethodId ??
+                                        "Pathao",
                                 status: orderList[index].status),
                           ],
                         ),

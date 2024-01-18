@@ -1,5 +1,5 @@
-
 import 'package:ecommerce_app/features/view/screens/cart/controller/cart_controller.dart';
+import 'package:ecommerce_app/features/view/screens/product_details/component/related_product_card.dart';
 import 'package:ecommerce_app/features/view/screens/product_details/controller/product_details_controller.dart';
 import 'package:ecommerce_app/features/view/screens/product_details/state/product_details_state.dart';
 import 'package:ecommerce_app/features/view/screens/shop/controller/product_list_controller.dart';
@@ -47,7 +47,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           preferredSize: const Size.fromHeight(50),
           child: KAppBar(
             checkTitle: true,
-            color: KColor.white,
+            color: KColor.background,
             title: "Product Details",
             leading: IconButton(
                 onPressed: () {
@@ -67,10 +67,16 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       .typeAdditionalPrice = 0;
                   ref.read(productDetailsProvider.notifier).attributeList = [];
                 },
-                icon: const Icon(Icons.arrow_back_ios)),
+                icon: const Icon(
+                  Icons.arrow_back_ios,
+                  color: KColor.textgrey,
+                )),
             actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 12.0),
+              Container(
+                padding: const EdgeInsets.all(7),
+                margin: const EdgeInsets.only(right: 15),
+                decoration: BoxDecoration(
+                    color: KColor.containerColor, shape: BoxShape.circle),
                 child: InkWell(
                   onTap: () {
                     selectWishlist = true;
@@ -88,7 +94,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                         ? Icons.favorite_border
                         : Icons.favorite,
                     color: selectWishlist == false
-                        ? KColor.black
+                        ? KColor.textgrey
                         : KColor.errorRedText,
                     size: 25,
                   ),
@@ -118,12 +124,16 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     });
                   },
                 ),
+                const RelatedProduct(),
+                const SizedBox(
+                  height: 80,
+                ),
               ],
             ),
           ),
         ),
-        floatingActionButton: Padding(
-          padding: const EdgeInsets.only(left: 33.0),
+        bottomSheet: Padding(
+          padding: const EdgeInsets.all(8.0),
           child: InkWell(
             onTap: () {
               if (ref.read(productDetailsProvider.notifier).size == "") {
@@ -168,28 +178,26 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                 ref.read(productDetailsProvider.notifier).typeAdditionalPrice =
                     0;
                 ref.read(productDetailsProvider.notifier).attributeList = [];
-              
               }
             },
             child: Container(
-              height: 45,
+              height: 44,
               decoration: BoxDecoration(
                   color: KColor.primary,
                   borderRadius: BorderRadius.circular(8)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                    Icons.shopping_cart_checkout_outlined,
-                    color: KColor.white,
-                  ),
+                  Icon(Icons.shopping_cart_checkout_outlined,
+                      color: KColor.white),
                   const SizedBox(
                     width: 5,
                   ),
                   Text(
                     'Add to cart',
                     style: TextStyles.bodyText1.copyWith(
-                        color: KColor.white, fontWeight: FontWeight.w500),
+                      color: KColor.white,
+                    ),
                   ),
                 ],
               ),

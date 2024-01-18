@@ -1,3 +1,6 @@
+import 'package:ecommerce_app/constant/navigation_service.dart';
+import 'package:ecommerce_app/features/view/screens/notification/notification_page.dart';
+import 'package:ecommerce_app/features/view/screens/shop/view/shop_page.dart';
 import 'package:ecommerce_app/utils/extension/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -33,10 +36,10 @@ class KDrawer extends ConsumerWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(
+                        Icon(
                           Icons.shopify,
                           size: 90,
-                          color: KColor.secondary,
+                          color: KColor.white,
                         ),
                         Text(
                           'E-commerce',
@@ -46,14 +49,20 @@ class KDrawer extends ConsumerWidget {
                       ],
                     ),
                   ),
-                  drawerItem(() => Navigator.pushNamed(context, '/mainScreen'),
-                      Icons.home, "Home"),
-                  drawerItem(() => Navigator.pushNamed(context, '/contact'),
-                      Icons.shop, "Shop"),
-                  drawerItem(() => Navigator.pushNamed(context, '/about'),
-                      Icons.notification_important_rounded, "Notifications"),
-                  drawerItem(() => Navigator.pushNamed(context, '/about'),
-                      Icons.category, "Categories"),
+                  drawerItem(() => Navigator.pop(context), Icons.home, "Home"),
+                  drawerItem(
+                      () => NavigationService.navigateTo(SlideLeftRoute(
+                              page: ShopPage(
+                            index: "",
+                            title: "All Product",
+                          ))),
+                      Icons.shop,
+                      "Shop"),
+                  drawerItem(
+                      () => NavigationService.navigateTo(
+                          SlideLeftRoute(page: const NotificationPage())),
+                      Icons.notification_important_rounded,
+                      "Notifications"),
                   drawerItem(() => Navigator.pushNamed(context, '/contact'),
                       Icons.contact_page, "Contact Us"),
                   drawerItem(() => Navigator.pushNamed(context, '/about'),
@@ -78,9 +87,9 @@ class KDrawer extends ConsumerWidget {
                           // SvgPicture.asset('assets/images/phoneIcon.svg'),
                           const SizedBox(width: 10),
                           Text(
-                            '01998-685230',
-                            style: TextStyles.subTitle.copyWith(
-                                color: KColor.black54.withOpacity(0.8)),
+                            '01824-580966',
+                            style: TextStyles.subTitle1
+                                .copyWith(color: KColor.black),
                           )
                         ],
                       ),
@@ -97,10 +106,10 @@ class KDrawer extends ConsumerWidget {
                           // SvgPicture.asset('assets/images/emailIcon.svg'),
                           const SizedBox(width: 10),
                           Text(
-                            'e-commerce@gmail.com',
-                            style: TextStyles.subTitle.copyWith(
+                            'www.spinnertech.online',
+                            style: TextStyles.subTitle1.copyWith(
                               fontSize: 14,
-                              color: KColor.black54.withOpacity(0.8),
+                              color: KColor.black,
                             ),
                           ),
                         ],
@@ -169,26 +178,24 @@ class KDrawer extends ConsumerWidget {
     );
   }
 
-  Widget drawerItem(Function onTap, IconData icon, String text) {
+  Widget drawerItem(VoidCallback onTap, IconData icon, String text) {
     return InkWell(
-      onTap: () {
-        onTap;
-      },
+      onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(12),
         child: Row(
           children: [
             Icon(
               icon,
-              color: KColor.black54.withOpacity(0.8),
+              color: KColor.black,
             ),
             const SizedBox(
               width: 15,
             ),
             Text(
               text,
-              style: TextStyles.subTitle.copyWith(
-                color: KColor.black54.withOpacity(0.8),
+              style: TextStyles.bodyText1.copyWith(
+                color: KColor.black,
               ),
             ),
           ],

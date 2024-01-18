@@ -61,7 +61,7 @@ class _ReportIssueState extends State<ReportIssue> {
             children: [
               Text(
                 'Select Reason*',
-                style: TextStyles.subTitle.copyWith(
+                style: TextStyles.subTitle1.copyWith(
                   color: KColor.black,
                 ),
               ),
@@ -77,7 +77,7 @@ class _ReportIssueState extends State<ReportIssue> {
               const SizedBox(height: 12),
               Text(
                 'Order ID*',
-                style: TextStyles.subTitle.copyWith(
+                style: TextStyles.subTitle1.copyWith(
                   color: KColor.black,
                 ),
               ),
@@ -92,7 +92,7 @@ class _ReportIssueState extends State<ReportIssue> {
               const SizedBox(height: 12),
               Text(
                 'Description*',
-                style: TextStyles.subTitle.copyWith(
+                style: TextStyles.subTitle1.copyWith(
                   color: KColor.black,
                 ),
               ),
@@ -156,7 +156,7 @@ class _ReportIssueState extends State<ReportIssue> {
                   const SizedBox(height: 16),
                   KButton(
                     title: 'View Report List',
-                    textColor: KColor.black,
+                    textColor: KColor.white,
                     onPressedCallback: () {
                       Navigator.push(
                           context,

@@ -6,7 +6,7 @@ class TextFieldContainer extends StatelessWidget {
     super.key,
     this.label,
     required this.hint,
-    this.keyboardType ,
+    this.keyboardType,
     required this.controller,
     this.obscureText = false,
     this.suffixIcon,
@@ -33,7 +33,6 @@ class TextFieldContainer extends StatelessWidget {
         borderRadius: BorderRadius.circular(radius),
         color: KColor.white,
       ),
-      
       margin: EdgeInsets.symmetric(horizontal: padding),
       child: TextFormField(
         obscureText: obscureText,
@@ -41,22 +40,23 @@ class TextFieldContainer extends StatelessWidget {
         decoration: InputDecoration(
           suffixIcon: suffixIcon,
           labelText: label,
-          labelStyle: TextStyle(color: KColor.black54),
+          labelStyle: const TextStyle(color: KColor.textgrey),
           //labelStyle: ,//TextStyles.lightRubik16Gray94,
           hintText: hint,
           //hintStyle: TextStyles.lightRubik16Gray94,
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               width: 1,
-              color: KColor.black54.withOpacity(0.25),
+              color: KColor.textgrey.withOpacity(0.4),
             ),
             borderRadius: BorderRadius.circular(radius),
           ),
-          
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 9, horizontal: 8),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
               width: 1,
-              color: KColor.black54.withOpacity(0.25),
+              color: KColor.textgrey.withOpacity(0.4),
             ),
             borderRadius: BorderRadius.circular(radius),
           ),

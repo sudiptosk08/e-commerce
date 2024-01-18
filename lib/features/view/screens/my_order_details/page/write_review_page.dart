@@ -2,13 +2,12 @@
 
 import 'dart:io';
 
+import 'package:ecommerce_app/constant/asset_service.dart';
 import 'package:ecommerce_app/features/view/global_component/text_field_container/k_text_field.dart';
 import 'package:ecommerce_app/features/view/screens/my_order_details/controller/add_review_controller.dart';
-import 'package:ecommerce_app/utils/assets/app_assets.dart';
 import 'package:ecommerce_app/utils/extension/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.dart';
 
@@ -34,19 +33,7 @@ class _WriteReviewState extends State<WriteReview> {
 
   final ImagePicker imagePicker = ImagePicker();
 
-  List<XFile> imageFilelist = [];
-
-  void selectImages() async {
-    final pickedImages = await imagePicker.pickMultiImage();
-    if (pickedImages.isNotEmpty) {
-      imageFilelist.addAll(pickedImages);
-      print("ImageFile List : $pickedImages");
-    }
-    setState(() {
-      imageFilelist.addAll(pickedImages.map((pickedImage) => pickedImage));
-      print("Bogar $imageFilelist");
-    });
-  }
+  XFile? image;
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +54,7 @@ class _WriteReviewState extends State<WriteReview> {
         ),
         body: SingleChildScrollView(
           child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -76,8 +63,12 @@ class _WriteReviewState extends State<WriteReview> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('How much did you like the product?',
-                          style: TextStyles.subTitle),
+                      Text('How is Your Order ?',
+                          style: TextStyles.subTitle1.copyWith(
+                              color: const Color(0xff1F3F77), fontSize: 16)),
+                      Text('Your overall rating',
+                          style: TextStyles.bodyText2
+                              .copyWith(color: const Color(0xff495C95))),
                       Padding(
                         padding: const EdgeInsets.only(top: 12.0, bottom: 12),
                         child: SmoothStarRating(
@@ -88,11 +79,11 @@ class _WriteReviewState extends State<WriteReview> {
                               ratings = rating;
                             });
                           },
+                          size: 30,
                           rating: ratings,
                           borderColor: KColor.yellow,
                         ),
                       ),
-                      Text('Great!', style: TextStyles.bodyText1),
                     ],
                   ),
                 ),
@@ -101,7 +92,7 @@ class _WriteReviewState extends State<WriteReview> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Write a review', style: TextStyles.subTitle),
+                    Text('Write Detailed Review', style: TextStyles.subTitle1),
                     Text('(${message.text.length}/$maxLength)',
                         style: TextStyles.bodyText1),
                   ],
@@ -120,70 +111,93 @@ class _WriteReviewState extends State<WriteReview> {
                 SizedBox(
                   width: double.infinity,
                   height: 240,
-                  child: Center(
-                    child: Column(children: [
-                      Row(
-                        children: [
-                          Text("Upload Image :", style: TextStyles.subTitle),
-                          InkWell(
-                            onTap: () => selectImages(),
-                            child: Container(
-                              height: 25,
-                              width: 25,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color: KColor.background,
-                              ),
-                              child: SvgPicture.asset(
-                                AppAssets.camera,
-                                color: KColor.black54,
-                              ),
-                            ),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Upload Image :", style: TextStyles.subTitle1),
+                        const SizedBox(height: 30),
+                        Center(
+                          child: InkWell(
+                            onTap: () async {
+                              var pickedfile =
+                                  await AssetService.pickImageVideo(
+                                      false, context, ImageSource.gallery);
+                              image = pickedfile ?? image;
+                              setState(() {});
+                            },
+                            child: image == null
+                                ? Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Icon(
+                                        Icons.cloud_upload_outlined,
+                                        size: 24,
+                                      ),
+                                      const SizedBox(height: 8),
+                                      Text('Click here to upload image',
+                                          style: TextStyles.bodyText1),
+                                    ],
+                                  )
+                                : Image.file(
+                                    File(image!.path),
+                                    height: 70,
+                                    width: 70,
+                                    fit: BoxFit.fill,
+                                  ),
                           ),
-                          const SizedBox(width: 16),
-                        ],
-                      ),
-                      Expanded(
-                          child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: GridView.builder(
-                          itemCount: imageFilelist.length,
-                          itemBuilder: (context, index) {
-                            return Image.file(
-                              File(imageFilelist[index].path),
-                              fit: BoxFit.cover,
-                            );
-                          },
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 4,
-                                  crossAxisSpacing: 10,
-                                  mainAxisSpacing: 4),
                         ),
-                      )),
-                      const SizedBox(
-                        height: 5.0,
-                      ),
-                    ]),
-                  ),
+                        const SizedBox(
+                          height: 5.0,
+                        ),
+                      ]),
                 ),
                 SizedBox(height: context.screenHeight * 0.05),
-                KButton(
-                  onPressedCallback: () {
-                    ref.read(addReviewProvider.notifier).addReview(
-                          widget.id,
-                          ratings.toInt(),
-                          message.text,
-                          imageFilelist,
-                        );
-                  },
-                  title: 'Submit Review',
-                  radius: 8,
-                  height: 40,
-                  textStyle: TextStyles.bodyText1.copyWith(
-                      color: KColor.white, fontWeight: FontWeight.w500),
-                ),
-                const SizedBox(height: 30),
+                Container(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: KButton(
+                          onPressedCallback: () {
+                            ref.read(addReviewProvider.notifier).addReviews(
+                                id: widget.id,
+                                ratings: ratings.toInt(),
+                                message: message.text,
+                                image: image!.path);
+                          },
+                          title: 'Cancel',
+                          color: Color(0xffF25674).withOpacity(0.2),
+                          radius: 8,
+                          borderColor: Color(0xffF25674),
+                          isOutlineButton: true,
+                          height: 46,
+                          textStyle: TextStyles.bodyText1.copyWith(
+                              color: Color(0xffF25674),
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      Expanded(
+                        child: KButton(
+                          onPressedCallback: () {
+                            ref.read(addReviewProvider.notifier).addReviews(
+                                id: widget.id,
+                                ratings: ratings.toInt(),
+                                message: message.text,
+                                image: image!.path);
+                          },
+                          title: 'Submit Review',
+                          radius: 8,
+                          height: 46,
+                          textStyle: TextStyles.bodyText1.copyWith(
+                              color: KColor.white, fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
               ],
             ),
           ),
