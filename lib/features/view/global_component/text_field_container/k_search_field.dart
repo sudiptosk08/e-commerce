@@ -58,12 +58,11 @@ class _SearchTextFieldState extends State<SearchTextField> {
           ),
           prefixIconConstraints: BoxConstraints.tight(const Size(45, 20)),
           hintText: widget.hintText,
-          hintStyle: TextStyles.bodyText2.copyWith(
-            color: KColor.textgrey,
-            fontSize: 13,
+          hintStyle: TextStyles.bodyText2
+              .copyWith(color: KColor.textgrey, fontSize: 13, height: 2.5),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 20.0,
           ),
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 20.0, vertical: 14.5),
           border: const UnderlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(22.0)),
             borderSide: BorderSide.none,

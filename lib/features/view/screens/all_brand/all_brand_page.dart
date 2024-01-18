@@ -52,7 +52,7 @@ class _AllBrandPageState extends State<AllBrandPage> {
       return Scaffold(
         backgroundColor: KColor.background,
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(110),
+          preferredSize: const Size.fromHeight(115),
           child: Column(
             children: [
               KAppBar(
@@ -70,6 +70,8 @@ class _AllBrandPageState extends State<AllBrandPage> {
                 controller: controller,
                 readOnly: false,
                 hintText: 'Search here...',
+                
+              
               ),
             ],
           ),

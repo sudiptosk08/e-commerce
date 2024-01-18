@@ -9,6 +9,7 @@ import 'package:ecommerce_app/features/view/screens/home/controller/category_lis
 import 'package:ecommerce_app/features/view/screens/my_order/controller/my_order_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/shop/controller/product_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/wishlist/controller/wishlist_controller.dart';
+import 'package:ecommerce_app/utils/extension/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce_app/utils/colors/app_colors.dart';
 import 'package:ecommerce_app/utils/text_styles/text_styles.dart';
@@ -73,12 +74,15 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
             // floatingActionButtonLocation:
             //     FloatingActionButtonLocation.centerDocked,
             bottomNavigationBar: BottomAppBar(
-              padding: const EdgeInsets.all(0),
               color: KColor.white,
+              padding: EdgeInsets.all(0),
+              height: 55,
               child: Container(
                   decoration: const BoxDecoration(
                     color: Colors.white,
                   ),
+                  height: 55,
+                  width: context.screenWidth * 1,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,

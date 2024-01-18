@@ -2,9 +2,9 @@ import 'package:ecommerce_app/constant/app_mode.dart';
 
 class API {
   static const live =
-      'http://ecom.slashproduct.xyz/api'; // Live Production API URL
+      'http://ecom.slashproduct.xyz/api/v1'; // Live Production API URL
   static const test =
-      'http://ecom.slashproduct.xyz/api'; // Live Staging API URL
+      'http://ecom.slashproduct.xyz/api/v1'; // Live Staging API URL
   static const base = AppMode.PRODUCTION_MODE ? live : test;
 
   // //

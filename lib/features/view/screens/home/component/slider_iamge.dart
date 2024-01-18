@@ -5,6 +5,8 @@ import 'package:ecommerce_app/features/view/global_component/shimmer/placeholder
 import 'package:ecommerce_app/features/view/screens/home/controller/banner_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/home/model/banner_list_model.dart';
 import 'package:ecommerce_app/features/view/screens/home/state/banner_state.dart';
+import 'package:ecommerce_app/utils/extension/extension.dart';
+import 'package:ecommerce_app/utils/size/k_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shimmer/shimmer.dart';
@@ -39,38 +41,37 @@ class _ImageSliderState extends State<ImageSlider> {
                 height: 135,
               ),
             )
-          :
-            Container(
-                        child: CarouselSlider(
-                          items: sliderData
-                              .map<Widget>(
-                                (element) => ClipRRect(
-                                  child: Image.network(
-                                    element.image,
-                                    alignment: Alignment.center,
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                              )
-                              .toList(),
-                          options: CarouselOptions(
-                            height: 210,
-                            aspectRatio: 16 / 9,
-                            viewportFraction: 0.8,
-                            initialPage: 0,
-                            enableInfiniteScroll: true,
-                            reverse: false,
-                            autoPlay: true,
-                            autoPlayInterval: Duration(seconds: 3),
-                            autoPlayAnimationDuration:
-                                Duration(milliseconds: 800),
-                            autoPlayCurve: Curves.fastOutSlowIn,
-                            enlargeCenterPage: true,
-                            enlargeFactor: 0.3,
-                            scrollDirection: Axis.horizontal,
-                          ),
+          : SizedBox(
+              width: context.screenWidth * 1,
+              child: CarouselSlider(
+                items: sliderData
+                    .map<Widget>(
+                      (element) => ClipRRect(
+                        child: Image.network(
+                          element.image,
+                          alignment: Alignment.center,
+                          width: KSize.getWidth(context, 350),
+                          fit: BoxFit.cover,
                         ),
-                      );
+                      ),
+                    )
+                    .toList(),
+                options: CarouselOptions(
+                  height: KSize.getHeight(context, 135),
+                  viewportFraction: 5,
+                  initialPage: 0,
+                  enableInfiniteScroll: true,
+                  reverse: false,
+                  autoPlay: true,
+                  autoPlayInterval: const Duration(seconds: 3),
+                  autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  enlargeCenterPage: true,
+                  enlargeFactor: 0.3,
+                  scrollDirection: Axis.horizontal,
+                ),
+              ),
+            );
     });
   }
 }
