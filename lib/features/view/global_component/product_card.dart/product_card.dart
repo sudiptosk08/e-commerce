@@ -54,9 +54,9 @@ class ProductCard extends StatelessWidget {
                   child: Container(
                     height: KSize.getHeight(context, 115),
                     width: KSize.getHeight(context, 175),
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color(0xffF9F9F9),
-                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(15),

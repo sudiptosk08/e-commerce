@@ -1,6 +1,5 @@
 // ignore_for_file: file_names, library_private_types_in_public_api
 
-import 'package:ecommerce_app/constant/base_state.dart';
 import 'package:ecommerce_app/constant/navigation_service.dart';
 import 'package:ecommerce_app/features/view/global_component/shimmer/placeholder_shimmer.dart';
 import 'package:ecommerce_app/features/view/screens/product_details/controller/product_details_controller.dart';

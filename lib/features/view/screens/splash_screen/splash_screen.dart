@@ -1,4 +1,7 @@
 import 'package:ecommerce_app/constant/navigation_service.dart';
+import 'package:ecommerce_app/features/view/screens/home/controller/banner_list_controller.dart';
+import 'package:ecommerce_app/features/view/screens/home/controller/brand_list_controller.dart';
+import 'package:ecommerce_app/features/view/screens/shop/controller/product_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/splash_screen/intro_page/intro_page_1.dart';
 import 'package:ecommerce_app/features/view/screens/splash_screen/intro_page/intro_page_2.dart';
 import 'package:ecommerce_app/features/view/screens/splash_screen/intro_page/intro_page_3.dart';
@@ -6,18 +9,27 @@ import 'package:ecommerce_app/navigation_bar.dart';
 import 'package:ecommerce_app/utils/colors/app_colors.dart';
 import 'package:ecommerce_app/utils/text_styles/text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends ConsumerState<SplashScreen> {
   PageController _controller = PageController();
   bool onLastPage = false;
+  @override
+  void initState() {
+    super.initState();
+    ref.read(productListProvider.notifier).fetchShopProductList();
+    ref.read(brandProvider.notifier).fetchBrand();
+    ref.read(sliderProvider.notifier).fetchSliderDetails();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,9 +42,9 @@ class _SplashScreenState extends State<SplashScreen> {
             });
           },
           children: const [
-             IntroPage1(),
-             IntroPage2(),
-             IntroPage3(),
+            IntroPage1(),
+            IntroPage2(),
+            IntroPage3(),
           ],
         ),
         Container(
@@ -86,7 +98,7 @@ class _SplashScreenState extends State<SplashScreen> {
                                   boxShadow: <BoxShadow>[
                                     BoxShadow(
                                         color: KColor.primary.withOpacity(0.1),
-                                        offset: Offset(2.0, 4.0),
+                                        offset: const Offset(2.0, 4.0),
                                         blurRadius: 6.0,
                                         spreadRadius: 5
                                         //blurStyle: BlurStyle.outer
@@ -102,7 +114,7 @@ class _SplashScreenState extends State<SplashScreen> {
                           : GestureDetector(
                               onTap: () {
                                 _controller.nextPage(
-                                    duration: Duration(microseconds: 50),
+                                    duration: const Duration(microseconds: 50),
                                     curve: Curves.easeIn);
                               },
                               child: Container(
@@ -114,7 +126,7 @@ class _SplashScreenState extends State<SplashScreen> {
                                   boxShadow: <BoxShadow>[
                                     BoxShadow(
                                         color: KColor.primary.withOpacity(0.1),
-                                        offset: Offset(2.0, 4.0),
+                                        offset: const Offset(2.0, 4.0),
                                         blurRadius: 6.0,
                                         spreadRadius: 5
                                         //blurStyle: BlurStyle.outer

@@ -5,10 +5,8 @@ import 'package:ecommerce_app/features/view/screens/home/model/category_list_mod
 import 'package:ecommerce_app/features/view/screens/home/state/categories_state.dart';
 import 'package:ecommerce_app/features/view/screens/shop/controller/product_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/shop/view/shop_page.dart';
-import 'package:ecommerce_app/utils/size/k_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../utils/colors/app_colors.dart';
 import '../../../../utils/text_styles/text_styles.dart';

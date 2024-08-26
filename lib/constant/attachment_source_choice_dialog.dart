@@ -10,7 +10,7 @@ import 'package:image_picker/image_picker.dart';
 class AttachmentSourceChoiceDialog extends StatefulWidget {
   final bool isAllowFiles;
 
-   AttachmentSourceChoiceDialog({this.isAllowFiles = false});
+   const AttachmentSourceChoiceDialog({super.key, this.isAllowFiles = false});
 
   @override
   _AttachmentSourceChoiceDialogState createState() => _AttachmentSourceChoiceDialogState();

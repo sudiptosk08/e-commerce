@@ -182,7 +182,7 @@ class _ProductInfoState extends State<ProductInfo> {
                                       Text.rich(
                                         TextSpan(
                                             text:
-                                                "${productDetails.stock.toString()}",
+                                                productDetails.stock.toString(),
                                             style: TextStyles.bodyText1
                                                 .copyWith(
                                                     color: KColor.textgrey),
@@ -283,7 +283,7 @@ class _ProductInfoState extends State<ProductInfo> {
                             Container(
                               alignment: Alignment.centerRight,
                               decoration: BoxDecoration(
-                                  color: Color(0xffE9E9FA),
+                                  color: const Color(0xffE9E9FA),
                                   borderRadius: BorderRadius.circular(19)),
                               width: KSize.getWidth(context, 120),
                               child: Row(

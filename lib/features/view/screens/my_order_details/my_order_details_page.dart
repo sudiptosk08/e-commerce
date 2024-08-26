@@ -65,7 +65,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                               style: TextStyles.subTitle1),
                         ],
                       ),
-                      KStepper(),
+                      const KStepper(),
                       const SizedBox(height: 5),
                       const OrderItemCard(),
                       const SizedBox(height: 25),

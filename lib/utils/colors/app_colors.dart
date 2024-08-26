@@ -68,7 +68,7 @@ class KColor {
   normal color
   */
   static Color black87 = Colors.black87;
-  static Color black54 = Color(0xff677294);
+  static Color black54 = const Color(0xff677294);
   static const Color white38 = Color.fromARGB(255, 254, 254, 254);
   static Color white54 = Colors.white54;
   static Color white = const Color(0xffFFFFFF);
@@ -82,9 +82,9 @@ class KColor {
   static Color? grey300 = Colors.grey[300];
   static Color? grey400 = Colors.grey[400];
   static Color? grey800 = Colors.grey[800];
-  static Color? yellow800 = Color(0xffFFCE31);
+  static Color? yellow800 = const Color(0xffFFCE31);
   static Color blue = Colors.blue;
-  static Color red = Color(0xffF44848);
+  static Color red = const Color(0xffF44848);
   static Color? red900 = Colors.red[900];
   static Color transparent = Colors.transparent;
   static Color cyan = Colors.cyan;

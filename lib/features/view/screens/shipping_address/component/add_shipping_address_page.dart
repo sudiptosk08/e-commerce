@@ -83,8 +83,7 @@ class AddShippingAddressPageState extends State<AddShippingAddressPage> {
                                     Radio(
                                       value: index,
                                       activeColor: KColor.primary,
-                                      groupValue: widget.selectedValue ??
-                                          _selectedValue,
+                                      groupValue: widget.selectedValue,
                                       onChanged: (int? value) {
                                         setState(() {
                                           _selectedValue = value!;

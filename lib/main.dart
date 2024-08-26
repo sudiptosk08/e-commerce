@@ -2,10 +2,6 @@ import 'dart:io';
 
 import 'package:ecommerce_app/constant/logger.dart';
 import 'package:ecommerce_app/constant/navigation_service.dart';
-import 'package:ecommerce_app/constant/shared_preference_constant.dart';
-import 'package:ecommerce_app/features/view/screens/home/controller/banner_list_controller.dart';
-import 'package:ecommerce_app/features/view/screens/home/controller/brand_list_controller.dart';
-import 'package:ecommerce_app/features/view/screens/shop/controller/product_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/splash_screen/splash_screen.dart';
 import 'package:ecommerce_app/utils/colors/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -27,27 +23,8 @@ void main() async {
   runApp(ProviderScope(observers: [Logger()], child: const MyApp()));
 }
 
-class MyApp extends ConsumerStatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  @override
-  ConsumerState<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends ConsumerState<MyApp> {
-  bool checkLogin = getBoolAsync(isLoggedIn, defaultValue: false);
-
-  @override
-  void initState() {
-    super.initState();
-    initData();
-  }
-
-  initData() {
-    ref.read(productListProvider.notifier).fetchShopProductList();
-    ref.read(brandProvider.notifier).fetchBrand();
-    ref.read(sliderProvider.notifier).fetchSliderDetails();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +40,7 @@ class _MyAppState extends ConsumerState<MyApp> {
           iconTheme: IconThemeData(color: KColor.black),
         ),
       ),
-      home: SplashScreen(), // 
+      home: const SplashScreen(), //
       //
     );
   }

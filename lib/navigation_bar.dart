@@ -75,7 +75,7 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
             //     FloatingActionButtonLocation.centerDocked,
             bottomNavigationBar: BottomAppBar(
               color: KColor.white,
-              padding: EdgeInsets.all(0),
+              padding: const EdgeInsets.all(0),
               height: 55,
               child: Container(
                   decoration: const BoxDecoration(

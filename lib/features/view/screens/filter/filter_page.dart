@@ -222,7 +222,7 @@ class _KFilterState extends State<KFilter> {
                                                               cateSelectIndex ==
                                                                       index
                                                                   ? KColor.white
-                                                                  : Color(
+                                                                  :const Color(
                                                                       0xFF697089),
                                                           fontWeight: FontWeight
                                                               .normal),
@@ -487,7 +487,7 @@ class _KFilterState extends State<KFilter> {
                         radius: 7,
                         textColor: KColor.black,
                         color: KColor.transparent,
-                        borderColor: Color(0xff697089).withOpacity(0.6),
+                        borderColor:const Color(0xff697089).withOpacity(0.6),
                         height: 34,
                         onPressedCallback: () {},
                         isOutlineButton: true,

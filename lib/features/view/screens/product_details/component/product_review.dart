@@ -241,7 +241,7 @@ class _ProductReviewState extends State<ProductReview> {
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
-                      margin: EdgeInsets.only(top: 8),
+                      margin: const EdgeInsets.only(top: 8),
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                           color: KColor.white,

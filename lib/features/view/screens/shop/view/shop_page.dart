@@ -266,7 +266,6 @@ class _ShopPageState extends State<ShopPage> {
                                                   .icon,
                                               height: 30,
                                               width: 30,
-                                              color: KColor.black54,
                                             ),
                                           ),
                                         ),

@@ -32,7 +32,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
         right: 10,
         left: 10,
       ),
-      margin: EdgeInsets.only(top: 5),
+      margin: const EdgeInsets.only(top: 5),
       child: TextFormField(
         validator: (value) {
           if (value == null || value.isEmpty) {

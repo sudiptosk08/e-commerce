@@ -2,12 +2,10 @@
 
 import 'package:ecommerce_app/utils/assets/app_assets.dart';
 import 'package:ecommerce_app/utils/extension/extension.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../utils/colors/app_colors.dart';
 import '../../../../../utils/text_styles/text_styles.dart';
-import '../../../global_component/dialog/k_confirm_dialog.dart';
 
 class NotificationCard extends StatefulWidget {
   final String? msg;
