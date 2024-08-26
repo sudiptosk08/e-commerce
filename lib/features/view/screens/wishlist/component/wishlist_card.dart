@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:ecommerce_app/utils/assets/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.dart';
 
@@ -76,7 +75,7 @@ class _WishListCardState extends State<WishListCard> {
                 //   "${widget.img}",
                 //   fit: BoxFit.fill,
                 // ),
-                child: Image.asset(AppAssets.product1),
+                child: Image.network("${widget.img}"),
               ),
             ),
           ),

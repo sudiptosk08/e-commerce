@@ -103,7 +103,7 @@ class _NewArrivalState extends State<NewArrival> {
                             return ProductCard(
                               type: "New Arrival",
                               id: productListData[index].id.toString(),
-                              imagePath: "assets/product/product4.png",
+                              imagePath: productListData[index].thumbnail,
                               productName: productListData[index].name,
                               appDiscount:
                                   productListData[index].discount.toInt(),

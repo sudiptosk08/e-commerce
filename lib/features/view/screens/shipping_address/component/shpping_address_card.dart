@@ -179,6 +179,7 @@ class _ShippingAddressCardState extends State<ShippingAddressCard> {
                 IconButton(
                   onPressed: widget.onTap,
                   icon: const FaIcon(
+                    // ignore: deprecated_member_use
                     FontAwesomeIcons.edit,
                     size: 20,
                     color: Color(0xff677294),

@@ -19,8 +19,6 @@ class OrderDetailsPage extends StatefulWidget {
 }
 
 class _OrderDetailsPageState extends State<OrderDetailsPage> {
-  int _currentStep = 0;
-  List<String> _steps = ['Order Placed', 'In Progress', 'Shipped', 'Delivered'];
 
   @override
   Widget build(BuildContext context) {
@@ -189,7 +187,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                             _getTotal(
                                 "Payment Method", orderDetails.paymentMethod),
                             const SizedBox(height: 8),
-                            _getTotal("Discount", orderDetails.deliveryCharge),
+                            _getTotal("Discount",
+                                orderDetails.deliveryCharge.toString()),
                             const SizedBox(height: 8),
                             _getTotal("Total Amount", orderDetails.totalPrice),
                           ],
@@ -258,7 +257,7 @@ class StepWidget extends StatelessWidget {
   final String title;
   final bool isActive;
 
-  const StepWidget({
+  const StepWidget({super.key, 
     required this.title,
     required this.isActive,
   });

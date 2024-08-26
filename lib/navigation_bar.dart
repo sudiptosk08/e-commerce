@@ -1,11 +1,11 @@
 // ignore_for_file: unrelated_type_equality_checks, library_private_types_in_public_api
 
 import 'package:ecommerce_app/constant/shared_preference_constant.dart';
-import 'package:ecommerce_app/features/view/screens/all_categories/all_categories_page.dart';
+import 'package:ecommerce_app/features/view/screens/all_categories/controller/category_list_controller.dart';
+import 'package:ecommerce_app/features/view/screens/all_categories/view/all_categories_page.dart';
 import 'package:ecommerce_app/features/view/screens/auth/login/login_page.dart';
 import 'package:ecommerce_app/features/view/screens/home/controller/banner_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/home/controller/brand_list_controller.dart';
-import 'package:ecommerce_app/features/view/screens/home/controller/category_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/my_order/controller/my_order_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/shop/controller/product_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/wishlist/controller/wishlist_controller.dart';
@@ -147,8 +147,8 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
                             currentScreen = const AllCategoryPage();
                             currentTab = 1;
                             ref
-                                .read(categoryProvider.notifier)
-                                .fetchCategoryDetails();
+                                .read(categorylistProvider.notifier)
+                                .fetchAllCategorylistProducts();
                           });
                         },
                         child: Column(

@@ -27,6 +27,7 @@ import '../../../../../utils/text_styles/text_styles.dart';
 import '../../../global_component/product_card.dart/product_card.dart';
 import '../../../global_component/text_field_container/k_search_field.dart';
 
+// ignore: must_be_immutable
 class ShopPage extends StatefulWidget {
   dynamic index;
   String title;
@@ -87,7 +88,11 @@ class _ShopPageState extends State<ShopPage> {
                           margin: const EdgeInsets.only(top: 0),
                           alignment: Alignment.center,
                           child: SearchTextField(
-                            callbackFunction: (query) {},
+                            callbackFunction: (query) => ref
+                                .read(productListProvider.notifier)
+                                .fetchShopProductList(
+                                  str: query, 
+                                ),
                             controller: controller,
                             readOnly: false,
                             hintText: 'Search here...',
@@ -335,12 +340,15 @@ class _ShopPageState extends State<ShopPage> {
                                     return ProductCard(
                                       id: productListData[index].id.toString(),
                                       type: "Shop",
-                                      imagePath: "assets/product/product3.png",
+                                      imagePath:
+                                          productListData[index].thumbnail,
                                       productName: productListData[index].name,
                                       discountPrice: productListData[index]
                                           .discountPrice
                                           .toString(),
-                                      price: productListData[index].price,
+                                      price: productListData[index]
+                                          .price
+                                          .toString(),
                                       appDiscount: productListData[index]
                                           .discount
                                           .toInt(),

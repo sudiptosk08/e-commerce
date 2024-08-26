@@ -273,6 +273,7 @@ class _KStepperState extends State<KStepper> {
   }
 }
 
+// ignore: must_be_immutable
 class StepperComponent extends StatelessWidget {
   int index;
   int currentIndex;
@@ -386,7 +387,7 @@ class StepperComponent extends StatelessWidget {
                                       Color(0xffABE6C9),
                                       Color.fromARGB(255, 133, 227, 182)
                                     ])
-                              : LinearGradient(
+                              : const LinearGradient(
                                   begin: Alignment.topCenter,
                                   end: Alignment(0.9, 0.1),
                                   colors: [

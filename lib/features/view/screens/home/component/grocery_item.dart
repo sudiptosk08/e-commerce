@@ -101,7 +101,7 @@ class _GroceryItemState extends State<GroceryItem> {
                             return ProductCard(
                               id: productListData[index].id.toString(),
                               type: "New awkh",
-                              imagePath: "assets/product/product3.png",
+                              imagePath: productListData[index].thumbnail,
                               productName: productListData[index].name,
                               appDiscount:
                                   productListData[index].discount.toInt(),

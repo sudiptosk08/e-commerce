@@ -38,9 +38,9 @@ class Data {
   Category category;
   Category subcategory;
   String description;
-  String price;
+  int price;
   String brand;
-  String discount;
+  int discount;
   int discountPrice;
   int saved;
   int stock;

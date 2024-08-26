@@ -74,7 +74,7 @@ class _RelatedProductState extends State<RelatedProduct> {
                             return ProductCard(
                               type: "New adsfwsd",
                               id: productListData[index].id.toString(),
-                              imagePath: "assets/product/product1.png",
+                              imagePath: productListData[index].thumbnail,
                               productName: productListData[index].name,
                               appDiscount:
                                   productListData[index].discount.toInt(),

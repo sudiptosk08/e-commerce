@@ -24,6 +24,7 @@ import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.da
 import '../../../../utils/colors/app_colors.dart';
 import '../../../../utils/text_styles/text_styles.dart';
 
+// ignore: must_be_immutable
 class KFilter extends StatefulWidget {
   String title;
   KFilter({required this.title, super.key});

@@ -39,7 +39,7 @@ class Datum {
   int id;
   String orderId;
   String totalPrice;
-  String deliveryCharge;
+  int deliveryCharge;
   int subTotal;
   String status;
   BillingAddress billingAddress;

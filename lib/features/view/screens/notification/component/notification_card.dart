@@ -108,7 +108,7 @@ class _NotificationCardState extends State<NotificationCard> {
     );
   }
 
-  Container _startToEndBackground() {
+  Container startToEndBackground() {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 4),
       margin: const EdgeInsets.only(top: 4, bottom: 4, left: 2, right: 2),
@@ -131,7 +131,7 @@ class _NotificationCardState extends State<NotificationCard> {
     );
   }
 
-  Container _endToStartBackground() {
+  Container endToStartBackground() {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 4),
       margin: const EdgeInsets.only(top: 4, bottom: 4, left: 2, right: 2),

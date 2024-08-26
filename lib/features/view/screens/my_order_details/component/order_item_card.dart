@@ -117,7 +117,7 @@ class OrderItemCard extends StatelessWidget {
                             Text(": ",
                                 style: TextStyles.bodyText1
                                     .copyWith(color: KColor.black54)),
-                            Text(orderDetailsItem[index].quantity,
+                            Text(orderDetailsItem[index].quantity.toString(),
                                 style: TextStyles.bodyText1
                                     .copyWith(color: KColor.black54)),
                           ],

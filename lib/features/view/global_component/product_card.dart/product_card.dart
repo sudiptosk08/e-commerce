@@ -41,7 +41,7 @@ class ProductCard extends StatelessWidget {
         width: KSize.getWidth(context, 144),
         decoration: const BoxDecoration(
           color: Color(0xffF9F9F9),
-          borderRadius:  BorderRadius.all(Radius.circular(8)),
+          borderRadius: BorderRadius.all(Radius.circular(8)),
         ),
         child: GestureDetector(
           onTap: tap,
@@ -54,17 +54,17 @@ class ProductCard extends StatelessWidget {
                   child: Container(
                     height: KSize.getHeight(context, 115),
                     width: KSize.getHeight(context, 175),
-                    decoration: const BoxDecoration(
-                      color: Color(0xffF9F9F9),
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Image.asset(
-                        imagePath,
-                        fit: BoxFit.contain,
-                      ),
-                    ),
+                    decoration: BoxDecoration(
+                        color: const Color(0xffF9F9F9),
+                        borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(8),
+                            topRight: Radius.circular(8)),
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            imagePath,
+                          ),
+                          fit: BoxFit.cover,
+                        )),
                   ),
                 ),
                 type == "New Arrival"
@@ -129,7 +129,7 @@ class ProductCard extends StatelessWidget {
                 ),
               ]),
               Padding(
-                padding: const EdgeInsets.only(left: 4.0, right: 4.0, top: 4),
+                padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -154,7 +154,7 @@ class ProductCard extends StatelessWidget {
                       ),
                       Padding(
                         padding:
-                            EdgeInsets.only(left: appDiscount > 0 ? 3.5 : 0),
+                            EdgeInsets.only(left: appDiscount > 0 ? 7.5 : 0),
                         child: Text.rich(TextSpan(
                             text: appDiscount > 0 ? "৳ $discountPrice " : null,
                             style: TextStyles.bodyText2.copyWith(
@@ -182,7 +182,7 @@ class ProductCard extends StatelessWidget {
                             ])),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 2.0),
+                        padding: const EdgeInsets.only(left: 6.0, bottom: 8.0),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           mainAxisAlignment: MainAxisAlignment.end,
