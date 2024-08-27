@@ -7,6 +7,7 @@ import 'package:ecommerce_app/features/view/screens/auth/login/login_page.dart';
 import 'package:ecommerce_app/features/view/screens/home/controller/banner_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/home/controller/brand_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/my_order/controller/my_order_list_controller.dart';
+import 'package:ecommerce_app/features/view/screens/profile/controller/profile_controller.dart';
 import 'package:ecommerce_app/features/view/screens/shop/controller/product_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/wishlist/controller/wishlist_controller.dart';
 import 'package:ecommerce_app/utils/extension/extension.dart';
@@ -250,6 +251,7 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
                             ref
                                 .read(myOrderProvider.notifier)
                                 .fetchMyOrders("Pending");
+                            ref.read(profileProvider.notifier).getProfile();
                           });
                         },
                         child: Column(

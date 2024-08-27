@@ -294,8 +294,8 @@ class CategoryPlaceholder extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5.0),
       child: Container(
-        width: 80.0,
-        height: 52.0,
+        width: KSize.getHeight(context, 113),
+        height: KSize.getHeight(context, 90),
         decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.all(Radius.circular(8))),

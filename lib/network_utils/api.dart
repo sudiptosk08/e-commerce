@@ -8,9 +8,8 @@ class API {
   static const base = AppMode.PRODUCTION_MODE ? live : test;
 
   // //
-  static const updateUser = '/user/update';
-  static const user = '/user';
-  static const userBalance = '/user/balance';
+  static const userProfile = '/user/profile';
+  static const userProfileUpdate = '/user/profile/update';
 
   ///// Banner
   static const banner = '/banner';

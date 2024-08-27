@@ -2,10 +2,11 @@ import 'package:ecommerce_app/constant/navigation_service.dart';
 import 'package:ecommerce_app/features/view/screens/auth/login/controller/login_controller.dart';
 import 'package:ecommerce_app/features/view/screens/coupon/coupon_page.dart';
 import 'package:ecommerce_app/features/view/screens/my_order/my_order_page.dart';
+import 'package:ecommerce_app/features/view/screens/profile/controller/profile_controller.dart';
+import 'package:ecommerce_app/features/view/screens/profile/state/user_profile_state.dart';
 import 'package:ecommerce_app/features/view/screens/shipping_address/controller/get_shipping_address_controller.dart';
 import 'package:ecommerce_app/features/view/screens/update_profile/update_profile.dart';
 import 'package:ecommerce_app/features/view/screens/wishlist/wishList_page.dart';
-import 'package:ecommerce_app/utils/assets/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../utils/colors/app_colors.dart';
@@ -34,6 +35,13 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
+        final profileState = ref.watch(profileProvider);
+        String? userName = profileState is ProfileSuccessState
+            ? "${profileState.profileModel!.data.firstName}  ${profileState.profileModel!.data.lastName}"
+            : ".....";
+        String? userEmail = profileState is ProfileSuccessState
+            ? profileState.profileModel!.data.phone
+            : ".....";
         return Scaffold(
           backgroundColor: KColor.background,
           body: SafeArea(
@@ -52,10 +60,17 @@ class _ProfilePageState extends State<ProfilePage> {
                         width: KSize.getWidth(context, 90),
                         height: KSize.getHeight(context, 100),
                         decoration: BoxDecoration(
-                            color: KColor.white,
-                            shape: BoxShape.circle,
-                            image: const DecorationImage(
-                                image: AssetImage(AppAssets.product1))),
+                          // border: Border.all(width: 2, color: KColor.grey),
+                          color: KColor.primary.withOpacity(0.9),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(KSize.getHeight(context, 10)),
+                          child: Image.asset(
+                            "assets/icons/user.png",
+                            color: KColor.grey100,
+                          ),
+                        ),
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -66,13 +81,13 @@ class _ProfilePageState extends State<ProfilePage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Sudipto Sarker",
+                              userName.toString(),
                               style: TextStyles.headline5.copyWith(
                                 color: KColor.black,
                               ),
                             ),
                             Text(
-                              "sudiptosarker05@gmail.com",
+                              userEmail.toString(),
                               style: TextStyles.bodyText1.copyWith(
                                 color: KColor.black,
                               ),
