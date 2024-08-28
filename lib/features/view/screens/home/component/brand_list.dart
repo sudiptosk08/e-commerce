@@ -20,24 +20,6 @@ class BrandSection extends StatefulWidget {
 
 class _BrandSectionState extends State<BrandSection> {
   int selectIndex = -1;
-  // List<dynamic> categories = [
-  //   {
-  //     'image': "assets/product/agora.png",
-  //     'name': "Agora",
-  //   },
-  //   {
-  //     'image': "assets/product/grocery.png",
-  //     'name': "Unilever",
-  //   },
-  //   {
-  //     'image': "assets/product/brand.png",
-  //     'name': "Jamuna",
-  //   },
-  //   {
-  //     'image': "assets/product/agora.png",
-  //     'name': "Agora",
-  //   },
-  // ];
 
   @override
   Widget build(BuildContext context) {

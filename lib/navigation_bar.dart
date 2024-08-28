@@ -33,12 +33,13 @@ class NavigationBarScreen extends StatefulWidget {
 
 class _NavigationBarScreenState extends State<NavigationBarScreen> {
   bool? checkLogin;
+  String? accessToken;
   @override
   void initState() {
     currentScreen = widget.page == 2 ? const CartPage() : const HomePage();
     currentTab = widget.page == 2 ? 2 : 0;
     checkLogin = getBoolAsync(isLoggedIn, defaultValue: false);
-
+    accessToken = getStringAsync(token);
     super.initState();
   }
 
@@ -245,13 +246,21 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
                                 : const LoginPage();
 
                             currentTab = 3;
-                            ref
-                                .read(wishlistProvider.notifier)
-                                .fetchWishlistProducts();
-                            ref
-                                .read(myOrderProvider.notifier)
-                                .fetchMyOrders("Pending");
-                            ref.read(profileProvider.notifier).getProfile();
+                            accessToken == ""
+                                ? null
+                                : ref
+                                    .read(wishlistProvider.notifier)
+                                    .fetchWishlistProducts();
+                            accessToken == ""
+                                ? null
+                                : ref
+                                    .read(myOrderProvider.notifier)
+                                    .fetchMyOrders("Pending");
+                            accessToken == ""
+                                ? null
+                                : ref
+                                    .read(profileProvider.notifier)
+                                    .getProfile();
                           });
                         },
                         child: Column(
