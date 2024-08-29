@@ -76,37 +76,43 @@ class _CartPageState extends ConsumerState<CartPage> {
             scrollDirection: Axis.vertical,
             child: Column(
               children: [
-                Container(
-                  margin: const EdgeInsets.only(left: 10, right: 10, bottom: 5),
-                  width: double.infinity,
-                  height: 48,
-                  decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                      color: Color(0xffE8E8E8)),
-                  child: Center(
-                    child: Text(
-                      "Estimated Delivery Time : 02 - 04 days",
-                      style: TextStyles.bodyText1.copyWith(color: KColor.black),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
+                cartItems.isEmpty
+                    ? Container(
+                        height: KSize.getHeight(context, 1),
+                      )
+                    : Container(
+                        margin: const EdgeInsets.only(
+                            left: 10, right: 10, bottom: 5),
+                        width: double.infinity,
+                        height: 48,
+                        decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            color: Color(0xffE8E8E8)),
+                        child: Center(
+                          child: Text(
+                            "Estimated Delivery Time : 02 - 04 days",
+                            style: TextStyles.bodyText1
+                                .copyWith(color: KColor.black),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
                 cartItems.isEmpty
                     ? SizedBox(
-                        height: KSize.getHeight(context, 400),
+                        height: KSize.getHeight(context, 600),
                         width: double.infinity,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(
-                              Icons.shop_outlined,
-                              size: 35,
-                              color: KColor.grey,
+                            Image.asset(
+                              "assets/images/emptyCart.png",
+                              width: KSize.getWidth(context, 220),
                             ),
                             Text(
-                              "Empty Cart List ",
-                              style: TextStyles.bodyText1
-                                  .copyWith(color: KColor.grey),
+                              "Your cart is empty",
+                              style: TextStyles.headline3.copyWith(
+                                  color: KColor.grey,
+                                  fontWeight: FontWeight.w100),
                             )
                           ],
                         ),
@@ -142,12 +148,13 @@ class _CartPageState extends ConsumerState<CartPage> {
                                                     context, 75.3),
                                                 decoration: BoxDecoration(
                                                   color: KColor.white,
-                                                  image: const DecorationImage(
+                                                  image: DecorationImage(
                                                     //     image: NetworkImage(
                                                     //   "${cartItems[index]['thumbnail']}",)
                                                     fit: BoxFit.contain,
-                                                    image: AssetImage(
-                                                      "assets/product/product10.png",
+                                                    image: NetworkImage(
+                                                      cartItems[index]
+                                                          ['thumbnail'],
                                                     ),
                                                   ),
                                                   borderRadius:
@@ -432,109 +439,114 @@ class _CartPageState extends ConsumerState<CartPage> {
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
-          bottomSheet: Container(
-            height: KSize.getHeight(context, 246),
-            decoration: BoxDecoration(
-              color: KColor.containerColor,
-              borderRadius: const BorderRadius.only(
-                topRight: Radius.circular(
-                  15,
-                ),
-                topLeft: Radius.circular(
-                  15,
-                ),
-              ),
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                    color: const Color(0xff6C7285).withOpacity(0.3),
-                    offset: const Offset(4.0, 20.0),
-                    blurRadius: 16.0,
-                    spreadRadius: 20
-                    //blurStyle: BlurStyle.outer
+          bottomSheet: cartItems.isEmpty
+              ? Container(
+                  height: KSize.getHeight(context, 1),
+                )
+              : Container(
+                  height: KSize.getHeight(context, 246),
+                  decoration: BoxDecoration(
+                    color: KColor.containerColor,
+                    borderRadius: const BorderRadius.only(
+                      topRight: Radius.circular(
+                        15,
+                      ),
+                      topLeft: Radius.circular(
+                        15,
+                      ),
                     ),
-              ],
-            ),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: CouponCodeCard(
-                    buttonText: "Apply",
-                    controller: promoCode,
-                    hintText: "Voucher Code",
-                    readOnly: false,
-                    tap: () {},
+                    boxShadow: <BoxShadow>[
+                      BoxShadow(
+                          color: const Color(0xff6C7285).withOpacity(0.3),
+                          offset: const Offset(4.0, 20.0),
+                          blurRadius: 16.0,
+                          spreadRadius: 20
+                          //blurStyle: BlurStyle.outer
+                          ),
+                    ],
                   ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(15),
-                    topRight: Radius.circular(15),
-                  )),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(
-                          left: 10.0,
-                          right: 10,
-                        ),
-                        child: Column(
-                          children: [
-                            text("Sub Total",
-                                "৳${ref.read(cartProvider.notifier).subTotal}"),
-                            text("Discount", "0%"),
-                            Divider(
-                              color: KColor.grey350,
-                              thickness: 1,
-                            ),
-                            text("Total",
-                                "৳${ref.read(cartProvider.notifier).subTotal}"),
-                          ],
+                        padding: const EdgeInsets.all(10.0),
+                        child: CouponCodeCard(
+                          buttonText: "Apply",
+                          controller: promoCode,
+                          hintText: "Voucher Code",
+                          readOnly: false,
+                          tap: () {},
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: KButton(
-                          width: double.infinity,
-                          height: 48,
-                          isOutlineButton: false,
-                          radius: 8,
-                          color: KColor.primary,
-                          textStyle: TextStyles.bodyText1.copyWith(
-                              color: KColor.white, fontWeight: FontWeight.w500),
-                          onPressedCallback: () {
-                            ref
-                                .read(addressListProvider.notifier)
-                                .fetchShppingAddressList();
-                            cartItems.isEmpty
-                                ? toast("Empty cart List!",
-                                    bgColor: KColor.errorRedText)
-                                : checkLogin
-                                    ? Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const CheckoutPage()))
-                                    : Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const LoginPage()));
-                          },
-                          title: "CheckOut",
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(15),
+                          topRight: Radius.circular(15),
+                        )),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                left: 10.0,
+                                right: 10,
+                              ),
+                              child: Column(
+                                children: [
+                                  text("Sub Total",
+                                      "৳${ref.read(cartProvider.notifier).subTotal}"),
+                                  text("Discount", "0%"),
+                                  Divider(
+                                    color: KColor.grey350,
+                                    thickness: 1,
+                                  ),
+                                  text("Total",
+                                      "৳${ref.read(cartProvider.notifier).subTotal}"),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: KButton(
+                                width: double.infinity,
+                                height: 48,
+                                isOutlineButton: false,
+                                radius: 8,
+                                color: KColor.primary,
+                                textStyle: TextStyles.bodyText1.copyWith(
+                                    color: KColor.white,
+                                    fontWeight: FontWeight.w500),
+                                onPressedCallback: () {
+                                  ref
+                                      .read(addressListProvider.notifier)
+                                      .fetchShppingAddressList();
+                                  cartItems.isEmpty
+                                      ? toast("Empty cart List!",
+                                          bgColor: KColor.errorRedText)
+                                      : checkLogin
+                                          ? Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const CheckoutPage()))
+                                          : Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const LoginPage()));
+                                },
+                                title: "CheckOut",
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
-                ),
-              ],
-            ),
-          ));
+                ));
     });
   }
 

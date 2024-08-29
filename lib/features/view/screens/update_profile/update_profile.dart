@@ -115,8 +115,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       children: [
                         Expanded(
                           child: TextFieldContainer(
-                            hint: 'First Name',
-                            label: 'first name',
+                            hint: '',
+                            label: '  First Name ',
                             keyboardType: TextInputType.name,
                             suffixIcon: Icon(
                               Icons.person,
@@ -127,8 +127,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         ),
                         Expanded(
                           child: TextFieldContainer(
-                            hint: 'Last Name',
-                            label: 'last name',
+                            hint: '',
+                            label: '  Last Name ',
                             keyboardType: TextInputType.name,
                             suffixIcon: Icon(
                               Icons.person,
@@ -143,8 +143,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       height: 20,
                     ),
                     TextFieldContainer(
-                      hint: 'phone',
-                      label: 'phone',
+                      hint: '',
+                      label: '  Phone ',
                       keyboardType: TextInputType.phone,
                       suffixIcon: Icon(
                         Icons.call,
@@ -156,8 +156,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       height: 20,
                     ),
                     TextFieldContainer(
-                      hint: 'email',
-                      label: 'email',
+                      hint: '',
+                      label: '  Email ',
                       keyboardType: TextInputType.phone,
                       suffixIcon: Icon(
                         Icons.mail,
@@ -169,8 +169,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       height: 20,
                     ),
                     TextFieldContainer(
-                      hint: 'new password',
-                      label: 'password',
+                      hint: '',
+                      label: '  New Password ',
                       suffixIcon: IconButton(
                           onPressed: () {
                             setState(() {

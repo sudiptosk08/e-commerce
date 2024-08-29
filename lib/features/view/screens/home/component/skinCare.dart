@@ -116,7 +116,7 @@ class _SkinCareState extends State<SkinCare> {
                                   .discountPrice
                                   .toString(),
                               tap: () {
-                                NavigationService.navigateTo(SizeRoute(
+                                NavigationService.navigateTo(FadeRoute(
                                   page: const ProductDetailsPage(),
                                 ));
                                 ref

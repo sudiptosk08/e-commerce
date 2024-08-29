@@ -1,8 +1,10 @@
 // ignore_for_file: file_names, library_private_types_in_public_api
 
 import 'package:ecommerce_app/constant/navigation_service.dart';
+import 'package:ecommerce_app/features/view/global_component/product_card.dart/popular_product_card.dart';
 import 'package:ecommerce_app/features/view/global_component/shimmer/placeholder_shimmer.dart';
 import 'package:ecommerce_app/features/view/screens/product_details/controller/product_details_controller.dart';
+import 'package:ecommerce_app/features/view/screens/shop/controller/all_product_pagination_controller.dart';
 import 'package:ecommerce_app/features/view/screens/shop/controller/product_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/shop/model/product_list_model.dart';
 import 'package:ecommerce_app/features/view/screens/shop/state/product_list_state.dart';
@@ -41,7 +43,7 @@ class _AllProductState extends State<AllProduct> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "All Product",
+                  "All Products",
                   style: TextStyles.subTitle1,
                 ),
                 GestureDetector(
@@ -70,6 +72,9 @@ class _AllProductState extends State<AllProduct> {
                     ))
               ],
             ),
+            const SizedBox(
+              height: 8,
+            ),
             shopState is! ProductListSuccessState
                 ? Shimmer.fromColors(
                     baseColor: Colors.grey.shade300,
@@ -88,44 +93,45 @@ class _AllProductState extends State<AllProduct> {
                         ),
                       ),
                     ))
-                : SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    physics: const BouncingScrollPhysics(
-                        decelerationRate: ScrollDecelerationRate.fast),
-                    child: Row(
-                      children: [
-                        ...List.generate(
-                          productListData.length,
-                          (index) {
-                            return ProductCard(
-                              type: "New adsfwsd",
-                              id: productListData[index].id.toString(),
-                              imagePath: productListData[index].thumbnail,
-                              productName: productListData[index].name,
-                              appDiscount:
-                                  productListData[index].discount.toInt(),
-                              price: productListData[index].price.toString(),
-                              ratingStar: productListData[index].rating.toInt(),
-                              category: productListData[index].category.slug,
-                              wishList: productListData[index].wishlist,
-                              discountPrice: productListData[index]
-                                  .discountPrice
-                                  .toString(),
-                              tap: () {
-                                NavigationService.navigateTo(SizeRoute(
-                                  page: const ProductDetailsPage(),
-                                ));
-                                ref
-                                    .read(productDetailsProvider.notifier)
-                                    .fetchProductsDetails(
-                                        productListData[index].slug);
-                              },
-                            );
-                            // here by default width and height is 0
-                          },
-                        ),
-                      ],
+                : GridView.builder(
+                    // padding: const EdgeInsets.all(6),
+                    physics: const ScrollPhysics(),
+                    // controller:
+                    shrinkWrap: true,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 4.0,
+                      mainAxisSpacing: 4.0,
+                      childAspectRatio: 8.9 / 10,
                     ),
+                    itemCount: productListData.length,
+                    scrollDirection: Axis.vertical,
+                    itemBuilder: (context, index) {
+                      return ProductCard(
+                        type: "",
+                        id: productListData[index].id.toString(),
+                        imagePath: productListData[index].thumbnail,
+                        productName: productListData[index].name,
+                        appDiscount: productListData[index].discount.toInt(),
+                        price: productListData[index].price.toString(),
+                        ratingStar: productListData[index].rating.toInt(),
+                        category: productListData[index].category.slug,
+                        wishList: productListData[index].wishlist,
+                        discountPrice:
+                            productListData[index].discountPrice.toString(),
+                        tap: () {
+                          NavigationService.navigateTo(FadeRoute(
+                            page: const ProductDetailsPage(),
+                          ));
+                          ref
+                              .read(productDetailsProvider.notifier)
+                              .fetchProductsDetails(
+                                  productListData[index].slug);
+                        },
+                      );
+                      // here by default width and height is 0
+                    },
                   )
           ]));
     });

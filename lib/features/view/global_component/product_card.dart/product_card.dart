@@ -38,7 +38,7 @@ class ProductCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(3),
       child: Container(
-        width: KSize.getWidth(context, 144),
+        width: KSize.getWidth(context, 112),
         decoration: const BoxDecoration(
           color: Color(0xffF9F9F9),
           borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -133,11 +133,14 @@ class ProductCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      productName,
-                      maxLines: 2,
-                      textAlign: TextAlign.justify,
-                      style: TextStyles.bodyText2,
+                    SizedBox(
+                      height: 35,
+                      child: Text(
+                        productName,
+                        maxLines: 2,
+                        textAlign: TextAlign.justify,
+                        style: TextStyles.bodyText2,
+                      ),
                     ),
                   ],
                 ),

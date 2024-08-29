@@ -67,8 +67,8 @@ class _SignUpPageState extends State<SignUpPage> {
                           children: [
                             Expanded(
                               child: TextFieldContainer(
-                                hint: 'First Name',
-                                label: 'first name',
+                                hint: '',
+                                label: '  First Name ',
                                 keyboardType: TextInputType.name,
                                 suffixIcon: Icon(
                                   Icons.person,
@@ -79,8 +79,8 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                             Expanded(
                               child: TextFieldContainer(
-                                hint: 'Last Name',
-                                label: 'last name',
+                                hint: '',
+                                label: '  Last Name ',
                                 keyboardType: TextInputType.name,
                                 suffixIcon: Icon(
                                   Icons.person,
@@ -95,8 +95,8 @@ class _SignUpPageState extends State<SignUpPage> {
                           height: 20,
                         ),
                         TextFieldContainer(
-                          hint: 'phone',
-                          label: 'phone',
+                          hint: '',
+                          label: '  Phone ',
                           keyboardType: TextInputType.phone,
                           suffixIcon: Icon(
                             Icons.call,
@@ -108,8 +108,8 @@ class _SignUpPageState extends State<SignUpPage> {
                           height: 20,
                         ),
                         TextFieldContainer(
-                          hint: 'password',
-                          label: 'password',
+                          hint: '',
+                          label: '  Password ',
                           suffixIcon: IconButton(
                               onPressed: () {
                                 setState(() {
@@ -132,8 +132,8 @@ class _SignUpPageState extends State<SignUpPage> {
                           height: 20,
                         ),
                         TextFieldContainer(
-                          hint: 'confirm passwrod',
-                          label: 'confirm password',
+                          hint: '',
+                          label: '  Confirm Password ',
                           suffixIcon: IconButton(
                               onPressed: () {
                                 setState(() {

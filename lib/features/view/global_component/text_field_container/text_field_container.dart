@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/utils/text_styles/text_styles.dart';
 import 'package:flutter/material.dart';
 import '../../../../utils/colors/app_colors.dart';
 
@@ -38,29 +39,32 @@ class TextFieldContainer extends StatelessWidget {
         obscureText: obscureText,
         keyboardType: keyboardType,
         decoration: InputDecoration(
-          suffixIcon: suffixIcon,
-          labelText: label,
-          labelStyle: const TextStyle(color: KColor.textgrey),
-          //labelStyle: ,//TextStyles.lightRubik16Gray94,
-          hintText: hint,
-          //hintStyle: TextStyles.lightRubik16Gray94,
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              width: 1,
-              color: KColor.textgrey.withOpacity(0.4),
+            suffixIcon: suffixIcon,
+            labelText: label,
+            labelStyle: const TextStyle(color: KColor.textgrey),
+            //labelStyle: ,//TextStyles.lightRubik16Gray94,
+            hintText: hint,
+            hintStyle: TextStyles.bodyText1.copyWith(color: KColor.textgrey),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                width: 1,
+                color: KColor.textgrey.withOpacity(0.4),
+              ),
+              borderRadius: BorderRadius.circular(radius),
             ),
-            borderRadius: BorderRadius.circular(radius),
-          ),
-          contentPadding:
-              const EdgeInsets.symmetric(vertical: 9, horizontal: 8),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              width: 1,
-              color: KColor.textgrey.withOpacity(0.4),
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 9, horizontal: 8),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                width: 1,
+                color: KColor.textgrey.withOpacity(0.4),
+              ),
+              borderRadius: BorderRadius.circular(radius),
             ),
-            borderRadius: BorderRadius.circular(radius),
-          ),
-        ),
+            floatingLabelAlignment: FloatingLabelAlignment.start,
+            prefix: SizedBox(
+              width: 10,
+            )),
         controller: controller,
         autovalidateMode: AutovalidateMode.onUserInteraction,
       ),

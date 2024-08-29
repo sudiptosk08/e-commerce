@@ -77,13 +77,12 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
             //     FloatingActionButtonLocation.centerDocked,
             bottomNavigationBar: BottomAppBar(
               color: KColor.white,
-              padding: const EdgeInsets.all(0),
-              height: 55,
+              padding: const EdgeInsets.only(top: 2),
+              height: 60,
               child: Container(
                   decoration: const BoxDecoration(
                     color: Colors.white,
                   ),
-                  height: 55,
                   width: context.screenWidth * 1,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -150,7 +149,7 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
                             currentTab = 1;
                             ref
                                 .read(categorylistProvider.notifier)
-                                .fetchAllCategorylistProducts();
+                                .fetchAllCategorylist();
                           });
                         },
                         child: Column(

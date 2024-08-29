@@ -73,6 +73,9 @@ class _NewArrivalState extends State<NewArrival> {
                     ))
               ],
             ),
+            const SizedBox(
+              height: 8,
+            ),
             shopState is! ProductListSuccessState
                 ? Shimmer.fromColors(
                     baseColor: Colors.grey.shade300,
@@ -115,7 +118,7 @@ class _NewArrivalState extends State<NewArrival> {
                                   .discountPrice
                                   .toString(),
                               tap: () {
-                                NavigationService.navigateTo(SizeRoute(
+                                NavigationService.navigateTo(FadeRoute(
                                   page: const ProductDetailsPage(),
                                 ));
                                 ref

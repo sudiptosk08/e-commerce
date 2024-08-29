@@ -20,7 +20,7 @@ class CategorylistController extends StateNotifier<BaseState> {
   CategoryListModel? categoryListModel;
 
   
-  Future fetchAllCategorylistProducts() async {
+  Future fetchAllCategorylist() async {
     state = const LoadingState();
 
     dynamic responseBody;

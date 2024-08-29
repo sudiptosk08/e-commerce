@@ -144,15 +144,19 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   height: 15,
                 ),
-                AllProduct(),
                 BrandSection(),
+                SizedBox(
+                  height: 15,
+                ),
+                NewArrival(),
+
                 SizedBox(
                   height: 8,
                 ),
-                NewArrival(),
-                GroceryItem(),
-                SkinCare(),
 
+                // GroceryItem(),
+                // SkinCare(),
+                AllProduct(),
                 SizedBox(
                   height: 5,
                 ),

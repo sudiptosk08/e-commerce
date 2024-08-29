@@ -47,6 +47,7 @@ class _ImageSliderState extends State<ImageSlider> {
                 items: sliderData
                     .map<Widget>(
                       (element) => ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
                         child: Image.network(
                           element.image,
                           alignment: Alignment.center,

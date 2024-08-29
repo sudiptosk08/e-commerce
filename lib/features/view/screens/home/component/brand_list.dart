@@ -43,7 +43,7 @@ class _BrandSectionState extends State<BrandSection> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Top Brand",
+                    "Top Brands",
                     style: TextStyles.subTitle1,
                   ),
                   GestureDetector(
