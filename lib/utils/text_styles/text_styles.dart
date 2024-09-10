@@ -9,8 +9,8 @@ FontWeight _regular = FontWeight.w400;
 const FontWeight _medium = FontWeight.w500;
 const FontWeight _bold = FontWeight.w700;
 const FontWeight _extraBold = FontWeight.w900;
-TextStyle _poppins = GoogleFonts.poppins();
-TextStyle _ptSans = GoogleFonts.ptSans();
+TextStyle _poppins = GoogleFonts.kanit();
+TextStyle racingSansOne = GoogleFonts.racingSansOne();
 // Naming: Camelcase
 // FontWeight..fontclass..Size..Color
 // normal18Red3c

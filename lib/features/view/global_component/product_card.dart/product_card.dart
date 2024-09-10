@@ -1,5 +1,7 @@
 import 'package:ecommerce_app/utils/colors/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.dart';
 import '../../../../utils/size/k_size.dart';
 import '../../../../utils/text_styles/text_styles.dart';
 
@@ -42,6 +44,8 @@ class ProductCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(5),
       child: Card(
         clipBehavior: Clip.antiAliasWithSaveLayer,
+        shadowColor: KColor.background,
+        color: KColor.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -69,7 +73,7 @@ class ProductCard extends StatelessWidget {
                 children: [
                   Container(
                     width: 50,
-                    height: 40,
+                    height: 30,
                     margin: const EdgeInsets.only(top: 7, right: 3),
                     decoration: const BoxDecoration(
                       color: KColor.background,
@@ -78,13 +82,18 @@ class ProductCard extends StatelessWidget {
                     child: Icon(
                       Icons.favorite_border,
                       color: KColor.red,
+                      size: 19,
                     ),
                   ),
                 ],
               ),
             ),
+            Container(
+              height: 0.9,
+              color: KColor.background,
+            ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5),
+              padding: const EdgeInsets.only(left: 8.0, top: 7, bottom: 13),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -97,7 +106,8 @@ class ProductCard extends StatelessWidget {
                     TextSpan(
                         text: appDiscount > 0 ? "৳ $discountPrice " : null,
                         style: TextStyles.subTitle1.copyWith(
-                          color: KColor.errorRedText,
+                          fontSize: 17,
+                          color: KColor.red,
                           fontWeight: FontWeight.bold,
                         ),
                         children: [
@@ -107,6 +117,7 @@ class ProductCard extends StatelessWidget {
                                   style: TextStyles.subTitle1.copyWith(
                                       color: KColor.grey,
                                       fontWeight: FontWeight.bold,
+                                      fontSize: 17,
                                       decoration: TextDecoration.lineThrough,
                                       decorationColor: KColor.grey),
                                 )
@@ -114,7 +125,9 @@ class ProductCard extends StatelessWidget {
                                   text: " ৳ $price",
                                   style: TextStyles.subTitle1.copyWith(
                                     fontWeight: FontWeight.bold,
-                                    color: KColor.errorRedText,
+                                    fontSize: 17,
+                                    color: KColor.red,
+                                   
                                     letterSpacing: 0.3,
                                   ),
                                 )
@@ -123,23 +136,31 @@ class ProductCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      const Icon(
-                        Icons.star,
-                        size: 17,
-                        color: KColor.yellow,
-                      ),
-                      Text(
-                        " $ratingStar",
-                        style: TextStyles.bodyText2.copyWith(
-                          color: KColor.grey,
-                        ),
-                      ),
-                      Text(
-                        " ($stock)",
-                        style: TextStyles.bodyText2.copyWith(
-                          color: KColor.grey,
-                        ),
-                      ),
+                      type == "New Arrival"
+                          ? const Icon(
+                              Icons.star,
+                              size: 17,
+                              color: KColor.yellow,
+                            )
+                          : SmoothStarRating(
+                              rating: ratingStar.toDouble(),
+                              size: 15,
+                              color: KColor.yellow,
+                              borderColor: KColor.yellow,
+                            ),
+                      type == "New Arrival"
+                          ? Text(
+                              " 4.2",
+                              style: TextStyles.bodyText2.copyWith(
+                                color: KColor.grey,
+                              ),
+                            )
+                          : Text(
+                              " ($stock)",
+                              style: TextStyles.bodyText2.copyWith(
+                                color: KColor.grey,
+                              ),
+                            ),
                     ],
                   ),
                 ],

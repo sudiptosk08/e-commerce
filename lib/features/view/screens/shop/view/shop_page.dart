@@ -329,12 +329,11 @@ class _ShopPageState extends State<ShopPage> {
                                       .controller,
                                   shrinkWrap: true,
                                   gridDelegate:
-                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
                                     crossAxisSpacing: 4.0,
                                     mainAxisSpacing: 4.0,
-                                    mainAxisExtent:
-                                        KSize.getHeight(context, 218),
+                                    mainAxisExtent: 268,
                                   ),
                                   itemCount: productListData.length,
                                   scrollDirection: Axis.vertical,

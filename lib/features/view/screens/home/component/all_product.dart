@@ -93,11 +93,12 @@ class _AllProductState extends State<AllProduct> {
                 : GridView.builder(
                     physics: const ScrollPhysics(),
                     shrinkWrap: true,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 4.0,
-                        mainAxisSpacing: 4.0,
-                        mainAxisExtent: KSize.getHeight(context, 218)),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 4.0,
+                            mainAxisSpacing: 4.0,
+                            mainAxisExtent: 268),
                     itemCount: productListData.length,
                     scrollDirection: Axis.vertical,
                     itemBuilder: (context, index) {
