@@ -5,7 +5,6 @@ import 'package:ecommerce_app/features/view/global_component/text_field_containe
 import 'package:ecommerce_app/features/view/screens/profile/controller/profile_controller.dart';
 import 'package:ecommerce_app/features/view/screens/profile/state/user_profile_state.dart';
 import 'package:ecommerce_app/features/view/screens/update_profile/controller/update_profile_controller.dart';
-import 'package:ecommerce_app/utils/assets/app_assets.dart';
 import 'package:ecommerce_app/utils/colors/app_colors.dart';
 import 'package:ecommerce_app/utils/size/k_size.dart';
 import 'package:ecommerce_app/utils/text_styles/text_styles.dart';
@@ -76,7 +75,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                     Container(
                       width: KSize.getWidth(context, 140),
                       height: KSize.getHeight(context, 140),
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: KColor.primary,
                         shape: BoxShape.circle,
                       ),

@@ -2,6 +2,7 @@
 
 import 'package:ecommerce_app/constant/base_state.dart';
 import 'package:ecommerce_app/features/view/global_component/product_card.dart/product_card_shimmer/product_card_shimmer.dart';
+import 'package:ecommerce_app/features/view/global_component/shimmer/placeholder_shimmer.dart';
 import 'package:ecommerce_app/features/view/screens/filter/filter_page.dart';
 import 'package:ecommerce_app/features/view/screens/home/controller/category_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/home/model/category_list_model.dart';
@@ -91,7 +92,7 @@ class _ShopPageState extends State<ShopPage> {
                             callbackFunction: (query) => ref
                                 .read(productListProvider.notifier)
                                 .fetchShopProductList(
-                                  str: query, 
+                                  str: query,
                                 ),
                             controller: controller,
                             readOnly: false,
@@ -305,7 +306,7 @@ class _ShopPageState extends State<ShopPage> {
                         const Expanded(
                           child: SingleChildScrollView(
                               scrollDirection: Axis.vertical,
-                              child: ProductCardShimmer()),
+                              child: AllProductPlaceHolder()),
                         ),
                       ],
                       if (shopState is ProductListSuccessState) ...[
@@ -328,11 +329,12 @@ class _ShopPageState extends State<ShopPage> {
                                       .controller,
                                   shrinkWrap: true,
                                   gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                      SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
                                     crossAxisSpacing: 4.0,
                                     mainAxisSpacing: 4.0,
-                                    childAspectRatio: 8.9 / 10,
+                                    mainAxisExtent:
+                                        KSize.getHeight(context, 218),
                                   ),
                                   itemCount: productListData.length,
                                   scrollDirection: Axis.vertical,
@@ -349,11 +351,15 @@ class _ShopPageState extends State<ShopPage> {
                                       price: productListData[index]
                                           .price
                                           .toString(),
+                                      width: 200,
                                       appDiscount: productListData[index]
                                           .discount
                                           .toInt(),
                                       ratingStar:
                                           productListData[index].rating.toInt(),
+                                      stock: productListData[index]
+                                          .stock
+                                          .toString(),
                                       category: productListData[index]
                                           .category
                                           .slug

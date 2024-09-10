@@ -2,8 +2,6 @@ import 'package:ecommerce_app/constant/base_state.dart';
 import 'package:ecommerce_app/constant/navigation_service.dart';
 import 'package:ecommerce_app/features/view/screens/home/controller/banner_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/home/controller/brand_list_controller.dart';
-import 'package:ecommerce_app/features/view/screens/home/state/banner_state.dart';
-import 'package:ecommerce_app/features/view/screens/home/state/brands_state.dart';
 import 'package:ecommerce_app/features/view/screens/shop/controller/product_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/splash_screen/intro_page/intro_page_1.dart';
 import 'package:ecommerce_app/features/view/screens/splash_screen/intro_page/intro_page_2.dart';

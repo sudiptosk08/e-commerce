@@ -62,7 +62,7 @@ class TextFieldContainer extends StatelessWidget {
               borderRadius: BorderRadius.circular(radius),
             ),
             floatingLabelAlignment: FloatingLabelAlignment.start,
-            prefix: SizedBox(
+            prefix: const SizedBox(
               width: 10,
             )),
         controller: controller,

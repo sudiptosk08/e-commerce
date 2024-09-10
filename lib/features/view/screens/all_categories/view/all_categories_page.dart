@@ -1,11 +1,9 @@
-import 'package:ecommerce_app/constant/base_state.dart';
 import 'package:ecommerce_app/constant/navigation_service.dart';
 import 'package:ecommerce_app/features/view/global_component/shimmer/placeholder_shimmer.dart';
 import 'package:ecommerce_app/features/view/global_component/text_field_container/k_search_field.dart';
 import 'package:ecommerce_app/features/view/screens/all_categories/controller/category_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/all_categories/model/category_list_model.dart';
 import 'package:ecommerce_app/features/view/screens/all_categories/state/categories_state.dart';
-import 'package:ecommerce_app/features/view/screens/home/state/categories_state.dart';
 import 'package:ecommerce_app/features/view/screens/shop/controller/product_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/shop/view/shop_page.dart';
 import 'package:ecommerce_app/utils/size/k_size.dart';

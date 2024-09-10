@@ -1,8 +1,6 @@
 import 'package:ecommerce_app/features/view/global_component/drawer/drawer.dart';
 import 'package:ecommerce_app/features/view/screens/home/component/brand_list.dart';
-import 'package:ecommerce_app/features/view/screens/home/component/grocery_item.dart';
 import 'package:ecommerce_app/features/view/screens/home/component/new_arival.dart';
-import 'package:ecommerce_app/features/view/screens/home/component/skinCare.dart';
 import 'package:ecommerce_app/features/view/screens/notification/controller/notification_controller.dart';
 import 'package:ecommerce_app/utils/assets/app_assets.dart';
 import 'package:ecommerce_app/utils/colors/app_colors.dart';
@@ -34,7 +32,7 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: KColor.background,
           drawer: const SizedBox(child: KDrawer()),
           appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(52),
+            preferredSize: const Size.fromHeight(60),
             child: Builder(builder: (context) {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -51,6 +49,7 @@ class _HomePageState extends State<HomePage> {
                       Container(
                         width: KSize.getWidth(context, 275),
                         height: KSize.getHeight(context, 50),
+                        margin: const EdgeInsets.symmetric(vertical: 6),
                         alignment: Alignment.center,
                         child: SearchTextField(
                           callbackFunction: (query) {},

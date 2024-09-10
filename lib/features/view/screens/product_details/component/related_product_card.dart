@@ -80,11 +80,13 @@ class _RelatedProductState extends State<RelatedProduct> {
                                   productListData[index].discount.toInt(),
                               price: productListData[index].price.toString(),
                               ratingStar: productListData[index].rating.toInt(),
+                              stock: productListData[index].stock.toString(),
                               category: productListData[index].category.slug,
                               wishList: productListData[index].wishlist,
                               discountPrice: productListData[index]
                                   .discountPrice
                                   .toString(),
+                              width: 112,
                               tap: () {
                                 NavigationService.navigateTo(SizeRoute(
                                   page: const ProductDetailsPage(),

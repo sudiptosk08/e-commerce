@@ -72,14 +72,14 @@ class ContentPlaceholder extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4.0),
       child: SizedBox(
-        width: KSize.getWidth(context, 148),
+        width: KSize.getWidth(context, 111),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              width: KSize.getWidth(context, 152),
-              height: KSize.getWidth(context, 115),
+              width: KSize.getWidth(context, 110),
+              height: KSize.getWidth(context, 125),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12.0),
                 color: Colors.white,
@@ -101,6 +101,66 @@ class ContentPlaceholder extends StatelessWidget {
                 color: Colors.white,
                 margin: const EdgeInsets.only(bottom: 8.0),
               ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  width: 70.0,
+                  height: KSize.getWidth(context, 8),
+                  color: Colors.white,
+                ),
+                Container(
+                  width: 70.0,
+                  height: KSize.getWidth(context, 8),
+                  color: Colors.white,
+                )
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class AllProductPlaceHolder extends StatelessWidget {
+  const AllProductPlaceHolder({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+      child: SizedBox(
+        width: KSize.getWidth(context, 168),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              width: KSize.getWidth(context, 166),
+              height: KSize.getWidth(context, 125),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12.0),
+                color: Colors.white,
+              ),
+            ),
+            SizedBox(
+              height: KSize.getWidth(context, 8),
+            ),
+            Container(
+              width: double.infinity,
+              height: KSize.getWidth(context, 8),
+              color: Colors.white,
+              margin: const EdgeInsets.only(bottom: 8.0),
+            ),
+            Container(
+              width: double.infinity,
+              height: KSize.getWidth(context, 8),
+              color: Colors.white,
+              margin: const EdgeInsets.only(bottom: 8.0),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -292,10 +352,10 @@ class CategoryPlaceholder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+      padding: const EdgeInsets.symmetric(horizontal: 4.0),
       child: Container(
-        width: KSize.getHeight(context, 113),
-        height: KSize.getHeight(context, 90),
+        width: KSize.getHeight(context, 83),
+        height: KSize.getHeight(context, 60),
         decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.all(Radius.circular(8))),

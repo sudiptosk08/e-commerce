@@ -44,7 +44,8 @@ class _BrandSectionState extends State<BrandSection> {
                 children: [
                   Text(
                     "Top Brands",
-                    style: TextStyles.subTitle1,
+                    style: TextStyles.subTitle1
+                        .copyWith(fontWeight: FontWeight.w800),
                   ),
                   GestureDetector(
                       onTap: () {
@@ -89,13 +90,18 @@ class _BrandSectionState extends State<BrandSection> {
                             baseColor: Colors.grey.shade100,
                             highlightColor: Colors.grey.shade300,
                             child: const CategoryPlaceholder(),
-                          )
+                          ),
+                          Shimmer.fromColors(
+                            baseColor: Colors.grey.shade100,
+                            highlightColor: Colors.grey.shade300,
+                            child: const CategoryPlaceholder(),
+                          ),
                         ],
                       ),
                     )
                   : SizedBox(
                       width: double.infinity,
-                      height: KSize.getHeight(context, 90),
+                      height: KSize.getHeight(context, 70),
                       child: ListView.builder(
                         shrinkWrap: true,
                         itemCount: brandListData.length,
@@ -117,19 +123,11 @@ class _BrandSectionState extends State<BrandSection> {
                                   color: KColor.white,
                                   borderRadius: BorderRadius.circular(8),
                                 ),
-                                child: Column(
-                                  children: [
-                                    Center(
-                                      child: Image.network(
-                                        brandListData[index].image,
-                                        fit: BoxFit.contain,
-                                        height: KSize.getHeight(context, 60),
-                                        width: KSize.getWidth(context, 110),
-                                      ),
-                                    ),
-                                    Text(brandListData[index].name,
-                                        style: TextStyles.bodyText1),
-                                  ],
+                                child: Image.network(
+                                  brandListData[index].image,
+                                  fit: BoxFit.scaleDown,
+                                  height: KSize.getHeight(context, 60),
+                                  width: KSize.getWidth(context, 83),
                                 ),
                               ),
                             ),

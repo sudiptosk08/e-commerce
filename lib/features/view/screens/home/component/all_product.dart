@@ -1,13 +1,12 @@
 // ignore_for_file: file_names, library_private_types_in_public_api
 
 import 'package:ecommerce_app/constant/navigation_service.dart';
-import 'package:ecommerce_app/features/view/global_component/product_card.dart/popular_product_card.dart';
 import 'package:ecommerce_app/features/view/global_component/shimmer/placeholder_shimmer.dart';
 import 'package:ecommerce_app/features/view/screens/product_details/controller/product_details_controller.dart';
-import 'package:ecommerce_app/features/view/screens/shop/controller/all_product_pagination_controller.dart';
 import 'package:ecommerce_app/features/view/screens/shop/controller/product_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/shop/model/product_list_model.dart';
 import 'package:ecommerce_app/features/view/screens/shop/state/product_list_state.dart';
+import 'package:ecommerce_app/utils/size/k_size.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ecommerce_app/features/view/screens/product_details/product_details_page.dart';
@@ -44,7 +43,8 @@ class _AllProductState extends State<AllProduct> {
               children: [
                 Text(
                   "All Products",
-                  style: TextStyles.subTitle1,
+                  style: TextStyles.subTitle1
+                      .copyWith(fontWeight: FontWeight.w800),
                 ),
                 GestureDetector(
                     onTap: () {
@@ -86,36 +86,31 @@ class _AllProductState extends State<AllProduct> {
                         padding: const EdgeInsets.only(top: 5.0),
                         child: Row(
                           children: List.generate(
-                              5,
-                              (index) => const ContentPlaceholder(
-                                    lineType: ContentLineType.threeLines,
-                                  )),
+                              5, (index) => const AllProductPlaceHolder()),
                         ),
                       ),
                     ))
                 : GridView.builder(
-                    // padding: const EdgeInsets.all(6),
                     physics: const ScrollPhysics(),
-                    // controller:
                     shrinkWrap: true,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 4.0,
-                      mainAxisSpacing: 4.0,
-                      childAspectRatio: 8.9 / 10,
-                    ),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 4.0,
+                        mainAxisSpacing: 4.0,
+                        mainAxisExtent: KSize.getHeight(context, 218)),
                     itemCount: productListData.length,
                     scrollDirection: Axis.vertical,
                     itemBuilder: (context, index) {
                       return ProductCard(
                         type: "",
+                        width: 200,
                         id: productListData[index].id.toString(),
                         imagePath: productListData[index].thumbnail,
                         productName: productListData[index].name,
                         appDiscount: productListData[index].discount.toInt(),
                         price: productListData[index].price.toString(),
                         ratingStar: productListData[index].rating.toInt(),
+                        stock: productListData[index].stock.toString(),
                         category: productListData[index].category.slug,
                         wishList: productListData[index].wishlist,
                         discountPrice:

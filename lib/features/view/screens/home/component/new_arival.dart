@@ -6,6 +6,7 @@ import 'package:ecommerce_app/features/view/screens/product_details/controller/p
 import 'package:ecommerce_app/features/view/screens/shop/controller/product_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/shop/model/product_list_model.dart';
 import 'package:ecommerce_app/features/view/screens/shop/state/product_list_state.dart';
+import 'package:ecommerce_app/utils/size/k_size.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ecommerce_app/features/view/screens/product_details/product_details_page.dart';
@@ -45,7 +46,8 @@ class _NewArrivalState extends State<NewArrival> {
               children: [
                 Text(
                   "New Arrival",
-                  style: TextStyles.subTitle1,
+                  style: TextStyles.subTitle1
+                      .copyWith(fontWeight: FontWeight.w800),
                 ),
                 GestureDetector(
                     onTap: () {
@@ -103,29 +105,35 @@ class _NewArrivalState extends State<NewArrival> {
                         ...List.generate(
                           productListData.length,
                           (index) {
-                            return ProductCard(
-                              type: "New Arrival",
-                              id: productListData[index].id.toString(),
-                              imagePath: productListData[index].thumbnail,
-                              productName: productListData[index].name,
-                              appDiscount:
-                                  productListData[index].discount.toInt(),
-                              price: productListData[index].price.toString(),
-                              ratingStar: productListData[index].rating.toInt(),
-                              category: productListData[index].category.slug,
-                              wishList: productListData[index].wishlist,
-                              discountPrice: productListData[index]
-                                  .discountPrice
-                                  .toString(),
-                              tap: () {
-                                NavigationService.navigateTo(FadeRoute(
-                                  page: const ProductDetailsPage(),
-                                ));
-                                ref
-                                    .read(productDetailsProvider.notifier)
-                                    .fetchProductsDetails(
-                                        productListData[index].slug);
-                              },
+                            return SizedBox(
+                              width: KSize.getWidth(context, 117.5),
+                              child: ProductCard(
+                                type: "New Arrival",
+                                width: 117,
+                                id: productListData[index].id.toString(),
+                                imagePath: productListData[index].thumbnail,
+                                productName: productListData[index].name,
+                                appDiscount:
+                                    productListData[index].discount.toInt(),
+                                price: productListData[index].price.toString(),
+                                ratingStar:
+                                    productListData[index].rating.toInt(),
+                                stock: productListData[index].stock.toString(),
+                                category: productListData[index].category.slug,
+                                wishList: productListData[index].wishlist,
+                                discountPrice: productListData[index]
+                                    .discountPrice
+                                    .toString(),
+                                tap: () {
+                                  NavigationService.navigateTo(FadeRoute(
+                                    page: const ProductDetailsPage(),
+                                  ));
+                                  ref
+                                      .read(productDetailsProvider.notifier)
+                                      .fetchProductsDetails(
+                                          productListData[index].slug);
+                                },
+                              ),
                             );
                             // here by default width and height is 0
                           },

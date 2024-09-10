@@ -103,6 +103,7 @@ class _SkinCareState extends State<SkinCare> {
                           (index) {
                             return ProductCard(
                               type: "New asd",
+                            width: 90,
                               id: productListData[index].id.toString(),
                               imagePath: productListData[index].thumbnail,
                               productName: productListData[index].name,
@@ -110,6 +111,7 @@ class _SkinCareState extends State<SkinCare> {
                                   productListData[index].discount.toInt(),
                               price: productListData[index].price.toString(),
                               ratingStar: productListData[index].rating.toInt(),
+                              stock:  productListData[index].stock.toString(),
                               category: productListData[index].category.slug,
                               wishList: productListData[index].wishlist,
                               discountPrice: productListData[index]
