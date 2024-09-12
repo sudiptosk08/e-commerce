@@ -150,7 +150,7 @@ class _ShopPageState extends State<ShopPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 10.0),
+                      padding: const EdgeInsets.only(left: 13.0),
                       child: Text(
                         widget.title,
                         style: TextStyles.subTitle1,
@@ -183,7 +183,7 @@ class _ShopPageState extends State<ShopPage> {
                           width: 12,
                         ),
                         Container(
-                          padding: const EdgeInsets.all(12),
+                          padding: const EdgeInsets.all(13),
                           decoration: BoxDecoration(
                             color: KColor.white,
                             borderRadius: BorderRadius.circular(20),
@@ -322,7 +322,7 @@ class _ShopPageState extends State<ShopPage> {
                                         .copyWith(color: KColor.black54),
                                   ))
                               : GridView.builder(
-                                  padding: const EdgeInsets.all(8),
+                                  padding: const EdgeInsets.all(13),
                                   physics: const ScrollPhysics(),
                                   controller: ref
                                       .read(allProductScrollProvider.notifier)
@@ -331,7 +331,7 @@ class _ShopPageState extends State<ShopPage> {
                                   gridDelegate:
                                       const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
-                                    crossAxisSpacing: 4.0,
+                                    crossAxisSpacing: 9.0,
                                     mainAxisSpacing: 4.0,
                                     mainAxisExtent: 268,
                                   ),

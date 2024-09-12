@@ -10,9 +10,8 @@ class BannerPlaceholder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
+      width: KSize.getWidth(context, 380),
       height: KSize.getHeight(context, height),
-      margin: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(7.0),
         color: Colors.white,
@@ -70,7 +69,7 @@ class ContentPlaceholder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+      padding: const EdgeInsets.symmetric(horizontal: 5.0),
       child: SizedBox(
         width: KSize.getWidth(context, 111),
         child: Column(
@@ -78,44 +77,34 @@ class ContentPlaceholder extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              width: KSize.getWidth(context, 110),
-              height: KSize.getWidth(context, 125),
+              width: KSize.getWidth(context, 111),
+              height: KSize.getWidth(context, 150),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12.0),
-                color: Colors.white,
+                color: Colors.green,
               ),
             ),
             SizedBox(
               height: KSize.getWidth(context, 8),
             ),
             Container(
-              width: double.infinity,
+              width: KSize.getWidth(context, 111),
+              height: KSize.getWidth(context, 8),
+              color: Colors.green,
+              margin: const EdgeInsets.only(bottom: 8.0),
+            ),
+            Container(
+              width: KSize.getWidth(context, 111),
               height: KSize.getWidth(context, 8),
               color: Colors.white,
               margin: const EdgeInsets.only(bottom: 8.0),
             ),
-            if (lineType == ContentLineType.threeLines)
-              Container(
-                width: double.infinity,
-                height: KSize.getWidth(context, 8),
-                color: Colors.white,
-                margin: const EdgeInsets.only(bottom: 8.0),
-              ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  width: 70.0,
-                  height: KSize.getWidth(context, 8),
-                  color: Colors.white,
-                ),
-                Container(
-                  width: 70.0,
-                  height: KSize.getWidth(context, 8),
-                  color: Colors.white,
-                )
-              ],
-            )
+            Container(
+              width: KSize.getWidth(context, 111),
+              height: KSize.getWidth(context, 8),
+              color: Colors.white,
+              margin: const EdgeInsets.only(bottom: 8.0),
+            ),
           ],
         ),
       ),

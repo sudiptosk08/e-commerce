@@ -41,35 +41,36 @@ class _ImageSliderState extends State<ImageSlider> {
                 height: 135,
               ),
             )
-          : SizedBox(
-              width: context.screenWidth * 1,
-              child: CarouselSlider(
-                items: sliderData
-                    .map<Widget>(
-                      (element) => ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
-                        child: Image.network(
+          : ClipRRect(
+              borderRadius: BorderRadius.circular(8.0),
+              child: SizedBox(
+                width: context.screenWidth * 1,
+                child: CarouselSlider(
+                  items: sliderData
+                      .map<Widget>(
+                        (element) => Image.network(
                           element.image,
                           alignment: Alignment.center,
-                          width: KSize.getWidth(context, 350),
-                          fit: BoxFit.cover,
+                          width: context.screenWidth * 1,
+                          fit: BoxFit.fill,
                         ),
-                      ),
-                    )
-                    .toList(),
-                options: CarouselOptions(
-                  height: KSize.getHeight(context, 135),
-                  viewportFraction: 5,
-                  initialPage: 0,
-                  enableInfiniteScroll: true,
-                  reverse: false,
-                  autoPlay: true,
-                  autoPlayInterval: const Duration(seconds: 6),
-                  autoPlayAnimationDuration: const Duration(milliseconds: 1200),
-                  autoPlayCurve: Curves.fastOutSlowIn,
-                  enlargeCenterPage: true,
-                  enlargeFactor: 0.3,
-                  scrollDirection: Axis.horizontal,
+                      )
+                      .toList(),
+                  options: CarouselOptions(
+                    height: KSize.getHeight(context, 135),
+                    viewportFraction: 5,
+                    initialPage: 0,
+                    enableInfiniteScroll: true,
+                    reverse: false,
+                    autoPlay: true,
+                    autoPlayInterval: const Duration(seconds: 6),
+                    autoPlayAnimationDuration:
+                        const Duration(milliseconds: 1200),
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    enlargeCenterPage: true,
+                    enlargeFactor: 0.3,
+                    scrollDirection: Axis.horizontal,
+                  ),
                 ),
               ),
             );

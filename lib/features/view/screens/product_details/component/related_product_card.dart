@@ -6,6 +6,7 @@ import 'package:ecommerce_app/features/view/screens/product_details/controller/p
 import 'package:ecommerce_app/features/view/screens/shop/controller/product_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/shop/model/product_list_model.dart';
 import 'package:ecommerce_app/features/view/screens/shop/state/product_list_state.dart';
+import 'package:ecommerce_app/utils/size/k_size.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ecommerce_app/features/view/screens/product_details/product_details_page.dart';
@@ -33,7 +34,7 @@ class _RelatedProductState extends State<RelatedProduct> {
               ? shopState.productListModel!.data
               : [];
       return Container(
-          padding: const EdgeInsets.only(left: 13, right: 13),
+          padding: const EdgeInsets.only(left: 13, right: 13, top: 13),
           child: Column(children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -71,31 +72,42 @@ class _RelatedProductState extends State<RelatedProduct> {
                         ...List.generate(
                           productListData.length,
                           (index) {
-                            return ProductCard(
-                              type: "New adsfwsd",
-                              id: productListData[index].id.toString(),
-                              imagePath: productListData[index].thumbnail,
-                              productName: productListData[index].name,
-                              appDiscount:
-                                  productListData[index].discount.toInt(),
-                              price: productListData[index].price.toString(),
-                              ratingStar: productListData[index].rating.toInt(),
-                              stock: productListData[index].stock.toString(),
-                              category: productListData[index].category.slug,
-                              wishList: productListData[index].wishlist,
-                              discountPrice: productListData[index]
-                                  .discountPrice
-                                  .toString(),
-                              width: 112,
-                              tap: () {
-                                NavigationService.navigateTo(SizeRoute(
-                                  page: const ProductDetailsPage(),
-                                ));
-                                ref
-                                    .read(productDetailsProvider.notifier)
-                                    .fetchProductsDetails(
-                                        productListData[index].slug);
-                              },
+                            return SizedBox(
+                              width: KSize.getWidth(context, 140),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 14.0, right: 10),
+                                child: ProductCard(
+                                  type: "New Arrival",
+                                  id: productListData[index].id.toString(),
+                                  imagePath: productListData[index].thumbnail,
+                                  productName: productListData[index].name,
+                                  appDiscount:
+                                      productListData[index].discount.toInt(),
+                                  price:
+                                      productListData[index].price.toString(),
+                                  ratingStar:
+                                      productListData[index].rating.toInt(),
+                                  stock:
+                                      productListData[index].stock.toString(),
+                                  category:
+                                      productListData[index].category.slug,
+                                  wishList: productListData[index].wishlist,
+                                  discountPrice: productListData[index]
+                                      .discountPrice
+                                      .toString(),
+                                  width: 112,
+                                  tap: () {
+                                    NavigationService.navigateTo(SizeRoute(
+                                      page: const ProductDetailsPage(),
+                                    ));
+                                    ref
+                                        .read(productDetailsProvider.notifier)
+                                        .fetchProductsDetails(
+                                            productListData[index].slug);
+                                  },
+                                ),
+                              ),
                             );
                             // here by default width and height is 0
                           },

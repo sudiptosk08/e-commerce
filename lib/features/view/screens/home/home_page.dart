@@ -97,73 +97,76 @@ class _HomePageState extends State<HomePage> {
             }),
           ),
           body: const SingleChildScrollView(
-            child: Column(
-              children: [
-                // Row(
-                //   crossAxisAlignment: CrossAxisAlignment.center,
-                //   children: [
-                //     SizedBox(
-                //       width: KSize.getWidth(context, 297),
-                //       child: SearchTextField(
-                //         callbackFunction: (query) {},
-                //         controller: controller,
-                //         readOnly: false,
-                //         hintText: 'Search here...',
-                //       ),
-                //     ),
-                //     GestureDetector(
-                //       onTap: () {
-                //         Navigator.push(
-                //             context,
-                //             MaterialPageRoute(
-                //                 builder: ((context) => const AllCategoryPage())));
-                //       },
-                //       child: Container(
-                //           width: KSize.getWidth(context, 67),
-                //           padding: const EdgeInsets.symmetric(
-                //               horizontal: 20.0, vertical: 14),
-                //           decoration: BoxDecoration(
-                //               color: KColor.primary,
-                //               borderRadius: BorderRadius.circular(8)),
-                //           child: Icon(
-                //             Icons.category_outlined,
-                //             color: KColor.white,
-                //           )),
-                //     ),
-                //   ],
-                // ),
-                // SizedBox(
-                //   height: 10,
-                // ),
-                // CategorySection(),
-                SizedBox(
-                  height: 12,
-                ),
-                ImageSlider(),
-                SizedBox(
-                  height: 15,
-                ),
-                BrandSection(),
-                SizedBox(
-                  height: 15,
-                ),
-                NewArrival(),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 13),
+              child: Column(
+                children: [
+                  // Row(
+                  //   crossAxisAlignment: CrossAxisAlignment.center,
+                  //   children: [
+                  //     SizedBox(
+                  //       width: KSize.getWidth(context, 297),
+                  //       child: SearchTextField(
+                  //         callbackFunction: (query) {},
+                  //         controller: controller,
+                  //         readOnly: false,
+                  //         hintText: 'Search here...',
+                  //       ),
+                  //     ),
+                  //     GestureDetector(
+                  //       onTap: () {
+                  //         Navigator.push(
+                  //             context,
+                  //             MaterialPageRoute(
+                  //                 builder: ((context) => const AllCategoryPage())));
+                  //       },
+                  //       child: Container(
+                  //           width: KSize.getWidth(context, 67),
+                  //           padding: const EdgeInsets.symmetric(
+                  //               horizontal: 20.0, vertical: 14),
+                  //           decoration: BoxDecoration(
+                  //               color: KColor.primary,
+                  //               borderRadius: BorderRadius.circular(8)),
+                  //           child: Icon(
+                  //             Icons.category_outlined,
+                  //             color: KColor.white,
+                  //           )),
+                  //     ),
+                  //   ],
+                  // ),
+                  // SizedBox(
+                  //   height: 10,
+                  // ),
+                  // CategorySection(),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  ImageSlider(),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  BrandSection(),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  NewArrival(),
 
-                SizedBox(
-                  height: 8,
-                ),
+                  SizedBox(
+                    height: 8,
+                  ),
 
-                // GroceryItem(),
-                // SkinCare(),
-                AllProduct(),
-                SizedBox(
-                  height: 5,
-                ),
-                // NewArrivalsProduct(),
-                SizedBox(
-                  height: 30,
-                ),
-              ],
+                  // GroceryItem(),
+                  // SkinCare(),
+                  AllProduct(),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  // NewArrivalsProduct(),
+                  SizedBox(
+                    height: 30,
+                  ),
+                ],
+              ),
             ),
           )),
     );
