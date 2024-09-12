@@ -60,7 +60,7 @@ class _ProductInfoState extends State<ProductInfo> {
                   margin:
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(8),
                     color: KColor.white,
                   ),
                   padding: const EdgeInsets.only(left: 12, bottom: 10),
@@ -127,7 +127,7 @@ class _ProductInfoState extends State<ProductInfo> {
                 Container(
                   decoration: BoxDecoration(
                       color: KColor.white,
-                      borderRadius: BorderRadius.circular(12)),
+                      borderRadius: BorderRadius.circular(8)),
                   margin: const EdgeInsets.symmetric(horizontal: 12.0),
                   padding: const EdgeInsets.only(
                       left: 12, right: 12, bottom: 5, top: 12),
@@ -376,7 +376,7 @@ class _ProductInfoState extends State<ProductInfo> {
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 2.5, horizontal: 2.5),
                                   decoration: BoxDecoration(
-                                      color: KColor.containerColor,
+                                      color: KColor.background,
                                       border: Border.all(
                                           width: 1,
                                           color: selectIndex == index
@@ -500,8 +500,7 @@ class _ProductInfoState extends State<ProductInfo> {
                                                         vertical: 3,
                                                         horizontal: 10),
                                                 decoration: BoxDecoration(
-                                                    color:
-                                                        KColor.containerColor,
+                                                    color: KColor.background,
                                                     border: Border.all(
                                                         width: 1,
                                                         color: selectSize == idx
@@ -613,8 +612,8 @@ class _ProductInfoState extends State<ProductInfo> {
                                                         vertical: 3,
                                                         horizontal: 10),
                                                     decoration: BoxDecoration(
-                                                        color: KColor
-                                                            .containerColor,
+                                                        color:
+                                                            KColor.background,
                                                         border: Border.all(
                                                             width: 1,
                                                             color:
@@ -776,7 +775,7 @@ class _ProductInfoState extends State<ProductInfo> {
                                     decoration: BoxDecoration(
                                       color: index == currentIndex
                                           ? KColor.primary
-                                          : KColor.containerColor,
+                                          : KColor.background,
                                       borderRadius: BorderRadius.circular(7),
                                     ),
                                     child: Center(

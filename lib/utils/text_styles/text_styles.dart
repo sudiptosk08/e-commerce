@@ -14,7 +14,6 @@ TextStyle racingSansOne = GoogleFonts.racingSansOne();
 TextStyle opensans = GoogleFonts.openSans();
 TextStyle nunitoSans = GoogleFonts.nunitoSans();
 
-
 class TextStyles {
   static TextStyle headline1 = TextStyle(
       fontSize: 31,

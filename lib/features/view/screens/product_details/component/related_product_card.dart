@@ -41,7 +41,8 @@ class _RelatedProductState extends State<RelatedProduct> {
               children: [
                 Text(
                   "Related Product",
-                  style: TextStyles.subTitle1,
+                  style: TextStyles.subTitle1
+                      .copyWith(fontSize: 16.5, fontWeight: FontWeight.bold),
                 ),
               ],
             ),

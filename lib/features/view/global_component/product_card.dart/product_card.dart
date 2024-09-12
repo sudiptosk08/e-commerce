@@ -1,6 +1,5 @@
 import 'package:ecommerce_app/utils/colors/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:nb_utils/nb_utils.dart';
 import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.dart';
 import '../../../../utils/size/k_size.dart';
 import '../../../../utils/text_styles/text_styles.dart';
@@ -43,14 +42,14 @@ class ProductCard extends StatelessWidget {
       padding: EdgeInsets.only(bottom: KSize.getWidth(context, 7)),
       child: InkWell(
         onTap: tap,
-        borderRadius: BorderRadius.circular(5),
+        borderRadius: BorderRadius.circular(8),
         child: Card(
           margin: EdgeInsets.zero,
           clipBehavior: Clip.antiAliasWithSaveLayer,
           shadowColor: KColor.background,
           color: KColor.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
