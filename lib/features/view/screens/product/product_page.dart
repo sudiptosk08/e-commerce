@@ -143,7 +143,7 @@ class _ProductPageState extends State<ProductPage> {
                                           const ProductDetailsPage(),
                                     ));
                               },
-                              category: '',
+                              category: '', stock: '', width: null,
                             );
                           },
                         ),
