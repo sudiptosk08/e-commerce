@@ -70,7 +70,6 @@ class _GroceryItemState extends State<GroceryItem> {
                     ))
               ],
             ),
-           
             shopState is! ProductListSuccessState
                 ? Shimmer.fromColors(
                     baseColor: Colors.grey.shade300,
@@ -101,19 +100,21 @@ class _GroceryItemState extends State<GroceryItem> {
                             return ProductCard(
                               id: productListData[index].id.toString(),
                               type: "New awkh",
-                              imagePath: productListData[index].thumbnail.toString(),
+                              imagePath: productListData[index].thumbnail,
                               productName: productListData[index].name,
                               appDiscount:
                                   productListData[index].discount.toInt(),
                               price: productListData[index].price.toString(),
                               ratingStar: productListData[index].rating.toInt(),
+                              stock: productListData[index].stock.toString(),
                               category: productListData[index].category.slug,
                               wishList: productListData[index].wishlist,
                               discountPrice: productListData[index]
                                   .discountPrice
                                   .toString(),
+                              width: 90,
                               tap: () {
-                                NavigationService.navigateTo(SizeRoute(
+                                NavigationService.navigateTo(FadeRoute(
                                   page: const ProductDetailsPage(),
                                 ));
                                 ref

@@ -1,6 +1,4 @@
-import 'package:ecommerce_app/features/view/screens/notification/controller/notification_controller.dart';
-import 'package:ecommerce_app/features/view/screens/notification/model/notification_model.dart';
-import 'package:ecommerce_app/features/view/screens/notification/state/notification_state.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -21,11 +19,11 @@ class _NotificationPageState extends State<NotificationPage> {
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, child) {
-      final notificationState = ref.watch(notificationListProvider);
-      final List<Datum> notificationData =
-          notificationState is NotificationSuccessState
-              ? notificationState.notificationModel!.data
-              : [];
+      // final notificationState = ref.watch(notificationListProvider);
+      // final List<Datum> notificationData =
+      //     notificationState is NotificationSuccessState
+      //         ? notificationState.notificationModel!.data
+      //         : [];
 
       return Scaffold(
         backgroundColor: KColor.background,

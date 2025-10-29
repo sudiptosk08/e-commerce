@@ -63,7 +63,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                               style: TextStyles.subTitle1),
                         ],
                       ),
-                      KStepper(),
+                      const KStepper(),
                       const SizedBox(height: 5),
                       const OrderItemCard(),
                       const SizedBox(height: 25),
@@ -187,7 +187,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                             _getTotal(
                                 "Payment Method", orderDetails.paymentMethod),
                             const SizedBox(height: 8),
-                            _getTotal("Discount", orderDetails.deliveryCharge),
+                            _getTotal("Discount",
+                                orderDetails.deliveryCharge.toString()),
                             const SizedBox(height: 8),
                             _getTotal("Total Amount", orderDetails.totalPrice),
                           ],
@@ -256,7 +257,7 @@ class StepWidget extends StatelessWidget {
   final String title;
   final bool isActive;
 
-  const StepWidget({
+  const StepWidget({super.key, 
     required this.title,
     required this.isActive,
   });

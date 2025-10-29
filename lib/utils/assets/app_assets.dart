@@ -24,15 +24,7 @@ class AppAssets {
 
   static const String banner = 'assets/icons/banner.png';
 
-  static const String product1 = 'assets/product/product1.png';
-  static const String product2 = 'assets/product/product2.png';
-  static const String product3 = 'assets/product/product3.png';
-  static const String shoe1 = 'assets/product/shoe1.png';
-  static const String shoe2 = 'assets/product/shoe2.png';
-  static const String shoe3 = 'assets/product/shoe3.png';
-  static const String shoe4 = 'assets/product/shoe4.png';
 
-  static const String shoe5 = 'assets/product/shoe5.png';
-  static const String shoe6 = 'assets/product/shoe6.png';
+
   static const String card = 'assets/icons/credit-card.png';
 }

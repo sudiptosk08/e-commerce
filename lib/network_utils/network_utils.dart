@@ -83,6 +83,7 @@ class Network {
       throw noInternetMessage;
     }
   }
+
   static multiPartRequest(String endPoint, String methodName,
       {body, List<File>? files, String filedName = 'images'}) async {
     if (await isNetworkAvailable()) {
@@ -124,7 +125,7 @@ class Network {
       throw noInternetMessage;
     }
   }
-  
+
   static multiPartRequestSingle(
     String endPoint,
     String methodName, {

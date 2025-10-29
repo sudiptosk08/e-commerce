@@ -108,7 +108,7 @@ class _NotificationCardState extends State<NotificationCard> {
     );
   }
 
-  Container _startToEndBackground() {
+  Container startToEndBackground() {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 4),
       margin: const EdgeInsets.only(top: 4, bottom: 4, left: 2, right: 2),
@@ -131,21 +131,21 @@ class _NotificationCardState extends State<NotificationCard> {
     );
   }
 
-  // Container _endToStartBackground() {
-  //   return Container(
-  //     padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 4),
-  //     margin: const EdgeInsets.only(top: 4, bottom: 4, left: 2, right: 2),
-  //     decoration: BoxDecoration(
-  //       color: KColor.red,
-  //       borderRadius: const BorderRadius.only(
-  //         topRight: Radius.circular(4.0),
-  //         bottomRight: Radius.circular(4.0),
-  //       ),
-  //     ),
-  //     child: const Row(
-  //       mainAxisAlignment: MainAxisAlignment.end,
-  //       children: [Icon(Icons.delete)],
-  //     ),
-  //   );
-  // }
+  Container endToStartBackground() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 4),
+      margin: const EdgeInsets.only(top: 4, bottom: 4, left: 2, right: 2),
+      decoration: BoxDecoration(
+        color: KColor.red,
+        borderRadius: const BorderRadius.only(
+          topRight: Radius.circular(4.0),
+          bottomRight: Radius.circular(4.0),
+        ),
+      ),
+      child: const Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [Icon(Icons.delete)],
+      ),
+    );
+  }
 }

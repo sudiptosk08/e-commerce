@@ -6,6 +6,7 @@ import 'package:ecommerce_app/features/view/screens/product_details/controller/p
 import 'package:ecommerce_app/features/view/screens/shop/controller/product_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/shop/model/product_list_model.dart';
 import 'package:ecommerce_app/features/view/screens/shop/state/product_list_state.dart';
+import 'package:ecommerce_app/utils/size/k_size.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ecommerce_app/features/view/screens/product_details/product_details_page.dart';
@@ -34,74 +35,78 @@ class _NewArrivalState extends State<NewArrival> {
           shopState is ProductListSuccessState
               ? shopState.productListModel!.data
               : [];
-      return Container(
-          padding: const EdgeInsets.only(
-            left: 13,
-            right: 13,
-          ),
-          child: Column(children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "New Arrival",
-                  style: TextStyles.subTitle1,
-                ),
-                GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          SlideLeftRoute(
-                              page: ShopPage(
-                            index: "",
-                            title: "New Arival",
-                          )));
-                    },
-                    child: Row(
-                      children: [
-                        Text(
-                          "View All",
-                          style: TextStyles.bodyText2
-                              .copyWith(color: KColor.secondary),
-                        ),
-                        const Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          size: 15,
-                          color: KColor.secondary,
-                        ),
-                      ],
-                    ))
-              ],
+      return Column(children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "New Arrival",
+              style: TextStyles.subTitle1
+                  .copyWith(fontWeight: FontWeight.bold, fontSize: 16.5),
             ),
-            shopState is! ProductListSuccessState
-                ? Shimmer.fromColors(
-                    baseColor: Colors.grey.shade300,
-                    highlightColor: Colors.grey.shade100,
-                    enabled: true,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
-                        child: Row(
-                          children: List.generate(
-                              5,
-                              (index) => const ContentPlaceholder(
-                                    lineType: ContentLineType.threeLines,
-                                  )),
-                        ),
-                      ),
-                    ))
-                : SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    physics: const BouncingScrollPhysics(
-                        decelerationRate: ScrollDecelerationRate.fast),
+            GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      SlideLeftRoute(
+                          page: ShopPage(
+                        index: "",
+                        title: "New Arival",
+                      )));
+                },
+                child: Row(
+                  children: [
+                    Text(
+                      "View All",
+                      style: TextStyles.bodyText2
+                          .copyWith(color: KColor.secondary),
+                    ),
+                    const Icon(
+                      Icons.arrow_forward_ios_rounded,
+                      size: 15,
+                      color: KColor.secondary,
+                    ),
+                  ],
+                ))
+          ],
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        shopState is! ProductListSuccessState
+            ? Shimmer.fromColors(
+                baseColor: Colors.grey.shade300,
+                highlightColor: Colors.grey.shade100,
+                enabled: false,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
                     child: Row(
-                      children: [
-                        ...List.generate(
-                          productListData.length,
-                          (index) {
-                            return ProductCard(
+                      children: List.generate(
+                          5,
+                          (index) => const ContentPlaceholder(
+                                lineType: ContentLineType.threeLines,
+                              )),
+                    ),
+                  ),
+                ))
+            : SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                physics: const BouncingScrollPhysics(
+                    decelerationRate: ScrollDecelerationRate.fast),
+                child: Row(
+                  children: [
+                    ...List.generate(
+                      productListData.length,
+                      (index) {
+                        return SizedBox(
+                          width: KSize.getWidth(context, 120),
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 9.0),
+                            child: ProductCard(
                               type: "New Arrival",
+                              width: 112,
                               id: productListData[index].id.toString(),
                               imagePath: productListData[index].thumbnail,
                               productName: productListData[index].name,
@@ -109,13 +114,14 @@ class _NewArrivalState extends State<NewArrival> {
                                   productListData[index].discount.toInt(),
                               price: productListData[index].price.toString(),
                               ratingStar: productListData[index].rating.toInt(),
+                              stock: productListData[index].stock.toString(),
                               category: productListData[index].category.slug,
                               wishList: productListData[index].wishlist,
                               discountPrice: productListData[index]
                                   .discountPrice
                                   .toString(),
                               tap: () {
-                                NavigationService.navigateTo(SizeRoute(
+                                NavigationService.navigateTo(FadeRoute(
                                   page: const ProductDetailsPage(),
                                 ));
                                 ref
@@ -123,14 +129,16 @@ class _NewArrivalState extends State<NewArrival> {
                                     .fetchProductsDetails(
                                         productListData[index].slug);
                               },
-                            );
-                            // here by default width and height is 0
-                          },
-                        ),
-                      ],
+                            ),
+                          ),
+                        );
+                        // here by default width and height is 0
+                      },
                     ),
-                  )
-          ]));
+                  ],
+                ),
+              )
+      ]);
     });
   }
 }

@@ -44,10 +44,10 @@ class AssetService {
   static pickImageVideo(bool allowCrop, context, imageSource,
       {isVideo = false}) async {
     if (imageSource != null) {
-      final ImagePicker _picker = ImagePicker();
+      final ImagePicker picker = ImagePicker();
       XFile? result = isVideo
-          ? await _picker.pickVideo(source: imageSource)
-          : await _picker.pickImage(source: imageSource);
+          ? await picker.pickVideo(source: imageSource)
+          : await picker.pickImage(source: imageSource);
 
       if (result != null && !isVideo) {
         XFile image = result;

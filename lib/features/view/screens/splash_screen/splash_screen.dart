@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/constant/base_state.dart';
 import 'package:ecommerce_app/constant/navigation_service.dart';
 import 'package:ecommerce_app/features/view/screens/home/controller/banner_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/home/controller/brand_list_controller.dart';
@@ -12,152 +13,156 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
-  PageController _controller = PageController();
+class _SplashScreenState extends ConsumerState<SplashScreen> {
+  final PageController _controller = PageController();
   bool onLastPage = false;
+
   @override
   Widget build(BuildContext context) {
-    return Consumer(
-      builder: (context, ref, child) {
-        return Scaffold(
-          body: Stack(children: [
-            PageView(
-              controller: _controller,
-              onPageChanged: (value) {
-                setState(() {
-                  onLastPage = (value == 2);
-                });
-              },
-              children: const [
-                IntroPage1(),
-                IntroPage2(),
-                IntroPage3(),
-              ],
-            ),
-            Container(
-                alignment: const Alignment(0, 6),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    SmoothPageIndicator(
-                      controller: _controller,
-                      count: 3,
-                      effect: ExpandingDotsEffect(
-                          spacing: 8.0,
-                          radius: 8.0,
-                          dotWidth: 20.0,
-                          dotHeight: 12.0,
-                          dotColor: KColor.textgrey.withOpacity(0.4),
-                          activeDotColor: KColor.primary),
-                    ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              _controller.jumpToPage(2);
-                            },
-                            child: Text(
-                              "skip",
-                              style: TextStyles.bodyText1.copyWith(
-                                  color: KColor.textgrey, fontSize: 16),
-                            ),
+    return Consumer(builder: (context, ref, _) {
+      final sliderState = ref.watch(sliderProvider);
+      final brandState = ref.watch(brandProvider);
+      return Scaffold(
+        body: Stack(children: [
+          PageView(
+            controller: _controller,
+            onPageChanged: (value) {
+              setState(() {
+                onLastPage = (value == 2);
+              });
+            },
+            children: const [
+              IntroPage1(),
+              IntroPage2(),
+              IntroPage3(),
+            ],
+          ),
+          Container(
+              alignment: const Alignment(0, 6),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  SmoothPageIndicator(
+                    controller: _controller,
+                    count: 3,
+                    effect: ExpandingDotsEffect(
+                        spacing: 8.0,
+                        radius: 8.0,
+                        dotWidth: 20.0,
+                        dotHeight: 12.0,
+                        dotColor: KColor.textgrey.withOpacity(0.4),
+                        activeDotColor: KColor.primary),
+                  ),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            _controller.jumpToPage(2);
+                          },
+                          child: Text(
+                            "skip",
+                            style: TextStyles.bodyText1
+                                .copyWith(color: KColor.textgrey, fontSize: 16),
                           ),
-                          onLastPage
-                              ? GestureDetector(
-                                  onTap: () {
-                                    NavigationService.navigateTo(
-                                        SlideRightRoute(
-                                            page: const NavigationBarScreen(
-                                      page: "0",
-                                    )));
-                                    ref
-                                        .read(productListProvider.notifier)
-                                        .fetchShopProductList();
-
-                                    ref
-                                        .read(brandProvider.notifier)
-                                        .fetchBrand();
-                                    ref
-                                        .read(sliderProvider.notifier)
-                                        .fetchSliderDetails();
-                                  },
-                                  child: Container(
-                                    width: 70,
-                                    height: 45,
-                                    decoration: BoxDecoration(
-                                      color: KColor.primary,
-                                      borderRadius: BorderRadius.circular(40),
-                                      boxShadow: <BoxShadow>[
-                                        BoxShadow(
-                                            color:
-                                                KColor.primary.withOpacity(0.1),
-                                            offset: const Offset(2.0, 4.0),
-                                            blurRadius: 6.0,
-                                            spreadRadius: 5
-                                            //blurStyle: BlurStyle.outer
-                                            ),
-                                      ],
-                                    ),
-                                    child: Icon(
-                                      Icons.arrow_forward_outlined,
-                                      color: KColor.white,
-                                    ),
+                        ),
+                        onLastPage
+                            ? GestureDetector(
+                                onTap: () {
+                                  NavigationService.navigateAndRemoveUntil(
+                                      SlideRightRoute(
+                                          page: const NavigationBarScreen(
+                                    page: "0",
+                                  )));
+                                  ref
+                                      .read(productListProvider.notifier)
+                                      .fetchShopProductList();
+                                  ref.read(brandProvider.notifier).fetchBrand();
+                                  ref
+                                      .read(sliderProvider.notifier)
+                                      .fetchSliderDetails();
+                                },
+                                child: Container(
+                                  width: 70,
+                                  height: 45,
+                                  decoration: BoxDecoration(
+                                    color: KColor.primary,
+                                    borderRadius: BorderRadius.circular(40),
+                                    boxShadow: <BoxShadow>[
+                                      BoxShadow(
+                                          color:
+                                              KColor.primary.withOpacity(0.1),
+                                          offset: const Offset(2.0, 4.0),
+                                          blurRadius: 6.0,
+                                          spreadRadius: 5
+                                          //blurStyle: BlurStyle.outer
+                                          ),
+                                    ],
                                   ),
-                                )
-                              : GestureDetector(
-                                  onTap: () {
-                                    _controller.nextPage(
-                                        duration:
-                                            const Duration(microseconds: 20),
-                                        curve: Curves.easeIn);
-                                  },
-                                  child: Container(
-                                    width: 70,
-                                    height: 45,
-                                    decoration: BoxDecoration(
-                                      color: KColor.primary,
-                                      borderRadius: BorderRadius.circular(40),
-                                      boxShadow: <BoxShadow>[
-                                        BoxShadow(
-                                            color:
-                                                KColor.primary.withOpacity(0.1),
-                                            offset: const Offset(2.0, 4.0),
-                                            blurRadius: 6.0,
-                                            spreadRadius: 5
-                                            //blurStyle: BlurStyle.outer
-                                            ),
-                                      ],
-                                    ),
-                                    child: Icon(
-                                      Icons.arrow_forward_outlined,
-                                      color: KColor.white,
-                                    ),
+                                  child: sliderState is LoadingState &&
+                                          brandState is LoadingState
+                                      ? Icon(
+                                          Icons.autorenew,
+                                          color: KColor.white,
+                                        )
+                                      : Icon(
+                                          Icons.arrow_forward_outlined,
+                                          color: KColor.white,
+                                        ),
+                                ),
+                              )
+                            : GestureDetector(
+                                onTap: () {
+                                  _controller.nextPage(
+                                      duration:
+                                          const Duration(microseconds: 50),
+                                      curve: Curves.easeIn);
+                                },
+                                child: Container(
+                                  width: 70,
+                                  height: 45,
+                                  decoration: BoxDecoration(
+                                    color: KColor.primary,
+                                    borderRadius: BorderRadius.circular(40),
+                                    boxShadow: <BoxShadow>[
+                                      BoxShadow(
+                                          color:
+                                              KColor.primary.withOpacity(0.1),
+                                          offset: const Offset(2.0, 4.0),
+                                          blurRadius: 6.0,
+                                          spreadRadius: 5
+                                          //blurStyle: BlurStyle.outer
+                                          ),
+                                    ],
+                                  ),
+                                  child: Icon(
+                                    Icons.arrow_forward_outlined,
+                                    color: KColor.white,
                                   ),
                                 ),
-                        ],
-                      ),
+                              ),
+                      ],
                     ),
-                    const SizedBox(
-                      height: 40,
-                    )
-                  ],
-                )),
-          ]),
-        );
-      },
-    );
+                  ),
+                  const SizedBox(
+                    height: 40,
+                  )
+                ],
+              )),
+        ]),
+      );
+    });
   }
 }

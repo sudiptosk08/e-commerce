@@ -10,10 +10,9 @@ const FontWeight _medium = FontWeight.w500;
 const FontWeight _bold = FontWeight.w700;
 const FontWeight _extraBold = FontWeight.w900;
 TextStyle _poppins = GoogleFonts.poppins();
-TextStyle _ptSans = GoogleFonts.ptSans();
-// Naming: Camelcase
-// FontWeight..fontclass..Size..Color
-// normal18Red3c
+TextStyle racingSansOne = GoogleFonts.racingSansOne();
+TextStyle opensans = GoogleFonts.openSans();
+TextStyle nunitoSans = GoogleFonts.nunitoSans();
 
 class TextStyles {
   static TextStyle headline1 = TextStyle(

@@ -6,6 +6,7 @@ import 'package:ecommerce_app/utils/text_styles/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+// ignore: must_be_immutable
 class CouponCard extends StatelessWidget {
   String couponTitle;
   String couponDetails;
@@ -87,7 +88,7 @@ class CouponCard extends StatelessWidget {
               width: context.screenWidth * 0.91,
               isOutlineButton: false,
               radius: 8,
-              color: Color(0xff00CEB4),
+              color: const Color(0xff00CEB4),
               textStyle: TextStyles.bodyText1
                   .copyWith(color: KColor.white, fontWeight: FontWeight.w500),
               onPressedCallback: () {},

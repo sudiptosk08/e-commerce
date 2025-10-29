@@ -10,9 +10,8 @@ class BannerPlaceholder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
+      width: KSize.getWidth(context, 380),
       height: KSize.getHeight(context, height),
-      margin: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(7.0),
         color: Colors.white,
@@ -70,16 +69,67 @@ class ContentPlaceholder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+      padding: const EdgeInsets.symmetric(horizontal: 5.0),
       child: SizedBox(
-        width: KSize.getWidth(context, 148),
+        width: KSize.getWidth(context, 111),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              width: KSize.getWidth(context, 152),
-              height: KSize.getWidth(context, 115),
+              width: KSize.getWidth(context, 111),
+              height: KSize.getWidth(context, 150),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12.0),
+                color: Colors.green,
+              ),
+            ),
+            SizedBox(
+              height: KSize.getWidth(context, 8),
+            ),
+            Container(
+              width: KSize.getWidth(context, 111),
+              height: KSize.getWidth(context, 8),
+              color: Colors.green,
+              margin: const EdgeInsets.only(bottom: 8.0),
+            ),
+            Container(
+              width: KSize.getWidth(context, 111),
+              height: KSize.getWidth(context, 8),
+              color: Colors.white,
+              margin: const EdgeInsets.only(bottom: 8.0),
+            ),
+            Container(
+              width: KSize.getWidth(context, 111),
+              height: KSize.getWidth(context, 8),
+              color: Colors.white,
+              margin: const EdgeInsets.only(bottom: 8.0),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class AllProductPlaceHolder extends StatelessWidget {
+  const AllProductPlaceHolder({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+      child: SizedBox(
+        width: KSize.getWidth(context, 168),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              width: KSize.getWidth(context, 166),
+              height: KSize.getWidth(context, 125),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12.0),
                 color: Colors.white,
@@ -94,13 +144,12 @@ class ContentPlaceholder extends StatelessWidget {
               color: Colors.white,
               margin: const EdgeInsets.only(bottom: 8.0),
             ),
-            if (lineType == ContentLineType.threeLines)
-              Container(
-                width: double.infinity,
-                height: KSize.getWidth(context, 8),
-                color: Colors.white,
-                margin: const EdgeInsets.only(bottom: 8.0),
-              ),
+            Container(
+              width: double.infinity,
+              height: KSize.getWidth(context, 8),
+              color: Colors.white,
+              margin: const EdgeInsets.only(bottom: 8.0),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -292,10 +341,10 @@ class CategoryPlaceholder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+      padding: const EdgeInsets.symmetric(horizontal: 4.0),
       child: Container(
-        width: 80.0,
-        height: 52.0,
+        width: KSize.getHeight(context, 83),
+        height: KSize.getHeight(context, 60),
         decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.all(Radius.circular(8))),

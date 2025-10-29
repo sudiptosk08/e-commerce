@@ -2,6 +2,7 @@
 
 import 'package:ecommerce_app/constant/base_state.dart';
 import 'package:ecommerce_app/features/view/global_component/product_card.dart/product_card_shimmer/product_card_shimmer.dart';
+import 'package:ecommerce_app/features/view/global_component/shimmer/placeholder_shimmer.dart';
 import 'package:ecommerce_app/features/view/screens/filter/filter_page.dart';
 import 'package:ecommerce_app/features/view/screens/home/controller/category_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/home/model/category_list_model.dart';
@@ -27,6 +28,7 @@ import '../../../../../utils/text_styles/text_styles.dart';
 import '../../../global_component/product_card.dart/product_card.dart';
 import '../../../global_component/text_field_container/k_search_field.dart';
 
+// ignore: must_be_immutable
 class ShopPage extends StatefulWidget {
   dynamic index;
   String title;
@@ -87,7 +89,11 @@ class _ShopPageState extends State<ShopPage> {
                           margin: const EdgeInsets.only(top: 0),
                           alignment: Alignment.center,
                           child: SearchTextField(
-                            callbackFunction: (query) {},
+                            callbackFunction: (query) => ref
+                                .read(productListProvider.notifier)
+                                .fetchShopProductList(
+                                  str: query,
+                                ),
                             controller: controller,
                             readOnly: false,
                             hintText: 'Search here...',
@@ -144,7 +150,7 @@ class _ShopPageState extends State<ShopPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 10.0),
+                      padding: const EdgeInsets.only(left: 13.0),
                       child: Text(
                         widget.title,
                         style: TextStyles.subTitle1,
@@ -177,7 +183,7 @@ class _ShopPageState extends State<ShopPage> {
                           width: 12,
                         ),
                         Container(
-                          padding: const EdgeInsets.all(12),
+                          padding: const EdgeInsets.all(13),
                           decoration: BoxDecoration(
                             color: KColor.white,
                             borderRadius: BorderRadius.circular(20),
@@ -266,7 +272,6 @@ class _ShopPageState extends State<ShopPage> {
                                                   .icon,
                                               height: 30,
                                               width: 30,
-                                              color: KColor.black54,
                                             ),
                                           ),
                                         ),
@@ -301,7 +306,7 @@ class _ShopPageState extends State<ShopPage> {
                         const Expanded(
                           child: SingleChildScrollView(
                               scrollDirection: Axis.vertical,
-                              child: ProductCardShimmer()),
+                              child: AllProductPlaceHolder()),
                         ),
                       ],
                       if (shopState is ProductListSuccessState) ...[
@@ -317,7 +322,7 @@ class _ShopPageState extends State<ShopPage> {
                                         .copyWith(color: KColor.black54),
                                   ))
                               : GridView.builder(
-                                  padding: const EdgeInsets.all(8),
+                                  padding: const EdgeInsets.all(13),
                                   physics: const ScrollPhysics(),
                                   controller: ref
                                       .read(allProductScrollProvider.notifier)
@@ -326,9 +331,9 @@ class _ShopPageState extends State<ShopPage> {
                                   gridDelegate:
                                       const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
-                                    crossAxisSpacing: 4.0,
+                                    crossAxisSpacing: 9.0,
                                     mainAxisSpacing: 4.0,
-                                    childAspectRatio: 8.9 / 10,
+                                    mainAxisExtent: 268,
                                   ),
                                   itemCount: productListData.length,
                                   scrollDirection: Axis.vertical,
@@ -336,17 +341,24 @@ class _ShopPageState extends State<ShopPage> {
                                     return ProductCard(
                                       id: productListData[index].id.toString(),
                                       type: "Shop",
-                                      imagePath: "assets/product/product3.png",
+                                      imagePath:
+                                          productListData[index].thumbnail,
                                       productName: productListData[index].name,
                                       discountPrice: productListData[index]
                                           .discountPrice
                                           .toString(),
-                                      price: productListData[index].price,
+                                      price: productListData[index]
+                                          .price
+                                          .toString(),
+                                      width: 200,
                                       appDiscount: productListData[index]
                                           .discount
                                           .toInt(),
                                       ratingStar:
                                           productListData[index].rating.toInt(),
+                                      stock: productListData[index]
+                                          .stock
+                                          .toString(),
                                       category: productListData[index]
                                           .category
                                           .slug

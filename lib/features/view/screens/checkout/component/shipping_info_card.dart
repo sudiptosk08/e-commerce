@@ -10,6 +10,7 @@ import 'package:nb_utils/nb_utils.dart';
 
 import '../../../../../utils/colors/app_colors.dart';
 
+// ignore: must_be_immutable
 class ShippingInfoCard extends StatefulWidget {
   String? city;
   String? address;
@@ -17,6 +18,7 @@ class ShippingInfoCard extends StatefulWidget {
   String? area;
   String? phone;
   String? region;
+  // ignore: prefer_typing_uninitialized_variables
   var addressDetails;
   ShippingInfoCard(
       {required this.city,
@@ -159,6 +161,7 @@ class _ShippingInfoCardState extends State<ShippingInfoCard> {
                                       )));
                     },
                     child: const FaIcon(
+                      // ignore: deprecated_member_use
                       FontAwesomeIcons.edit,
                       size: 20,
                       color: Color(0xff677294),

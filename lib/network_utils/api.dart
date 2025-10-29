@@ -2,15 +2,14 @@ import 'package:ecommerce_app/constant/app_mode.dart';
 
 class API {
   static const live =
-      'https://ecom.slashproduct.xyz/api/v1'; // Live Production API URL
+      'https://ecom.slashsofttech.xyz/api/v1'; // Live Production API URL
   static const test =
-      'https://ecom.slashproduct.xyz/api/v1'; // Live Staging API URL
+      'https://ecom.slashsofttech.xyz/api/v1'; // Live Staging API URL
   static const base = AppMode.PRODUCTION_MODE ? live : test;
 
   // //
-  static const updateUser = '/user/update';
-  static const user = '/user';
-  static const userBalance = '/user/balance';
+  static const userProfile = '/user/profile';
+  static const userProfileUpdate = '/user/profile/update';
 
   ///// Banner
   static const banner = '/banner';

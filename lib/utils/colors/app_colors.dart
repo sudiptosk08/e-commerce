@@ -4,7 +4,7 @@ class KColor {
   static const primary = Color(0xff019E8B);
   static const secondary = Color(0xff5C6BE9);
 
-  static const background = Color(0xFFF0F0F5);
+  static const background = Color(0xFFf1f2f4);
   static const textgrey = Color(0xff677294);
   static const black = Color(0xff131245);
   static const Color errorRedText = Color(0xffF17660);

@@ -273,6 +273,7 @@ class _KStepperState extends State<KStepper> {
   }
 }
 
+// ignore: must_be_immutable
 class StepperComponent extends StatelessWidget {
   int index;
   int currentIndex;

@@ -24,6 +24,7 @@ import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.da
 import '../../../../utils/colors/app_colors.dart';
 import '../../../../utils/text_styles/text_styles.dart';
 
+// ignore: must_be_immutable
 class KFilter extends StatefulWidget {
   String title;
   KFilter({required this.title, super.key});
@@ -222,7 +223,7 @@ class _KFilterState extends State<KFilter> {
                                                               cateSelectIndex ==
                                                                       index
                                                                   ? KColor.white
-                                                                  : Color(
+                                                                  :const Color(
                                                                       0xFF697089),
                                                           fontWeight: FontWeight
                                                               .normal),
@@ -487,7 +488,7 @@ class _KFilterState extends State<KFilter> {
                         radius: 7,
                         textColor: KColor.black,
                         color: KColor.transparent,
-                        borderColor: Color(0xff697089).withOpacity(0.6),
+                        borderColor:const Color(0xff697089).withOpacity(0.6),
                         height: 34,
                         onPressedCallback: () {},
                         isOutlineButton: true,

@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:ecommerce_app/constant/logger.dart';
 import 'package:ecommerce_app/constant/navigation_service.dart';
-import 'package:ecommerce_app/constant/shared_preference_constant.dart';
 import 'package:ecommerce_app/features/view/screens/splash_screen/splash_screen.dart';
 import 'package:ecommerce_app/utils/colors/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -23,23 +22,8 @@ void main() async {
   runApp(ProviderScope(observers: [Logger()], child: const MyApp()));
 }
 
-class MyApp extends ConsumerStatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  @override
-  ConsumerState<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends ConsumerState<MyApp> {
-  bool checkLogin = getBoolAsync(isLoggedIn, defaultValue: false);
-
-  @override
-  void initState() {
-    super.initState();
-    initData();
-  }
-
-  initData() {}
 
   @override
   Widget build(BuildContext context) {

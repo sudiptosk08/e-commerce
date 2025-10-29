@@ -153,50 +153,48 @@ class _WriteReviewState extends State<WriteReview> {
                       ]),
                 ),
                 SizedBox(height: context.screenHeight * 0.05),
-                Container(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: KButton(
-                          onPressedCallback: () {
-                            ref.read(addReviewProvider.notifier).addReviews(
-                                id: widget.id,
-                                ratings: ratings.toInt(),
-                                message: message.text,
-                                image: image!.path);
-                          },
-                          title: 'Cancel',
-                          color: Color(0xffF25674).withOpacity(0.2),
-                          radius: 8,
-                          borderColor: Color(0xffF25674),
-                          isOutlineButton: true,
-                          height: 46,
-                          textStyle: TextStyles.bodyText1.copyWith(
-                              color: Color(0xffF25674),
-                              fontWeight: FontWeight.w500),
-                        ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: KButton(
+                        onPressedCallback: () {
+                          ref.read(addReviewProvider.notifier).addReviews(
+                              id: widget.id,
+                              ratings: ratings.toInt(),
+                              message: message.text,
+                              image: image!.path);
+                        },
+                        title: 'Cancel',
+                        color: const Color(0xffF25674).withOpacity(0.2),
+                        radius: 8,
+                        borderColor: const Color(0xffF25674),
+                        isOutlineButton: true,
+                        height: 46,
+                        textStyle: TextStyles.bodyText1.copyWith(
+                            color: const Color(0xffF25674),
+                            fontWeight: FontWeight.w500),
                       ),
-                      const SizedBox(
-                        width: 15,
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    Expanded(
+                      child: KButton(
+                        onPressedCallback: () {
+                          ref.read(addReviewProvider.notifier).addReviews(
+                              id: widget.id,
+                              ratings: ratings.toInt(),
+                              message: message.text,
+                              image: image!.path);
+                        },
+                        title: 'Submit Review',
+                        radius: 8,
+                        height: 46,
+                        textStyle: TextStyles.bodyText1.copyWith(
+                            color: KColor.white, fontWeight: FontWeight.w500),
                       ),
-                      Expanded(
-                        child: KButton(
-                          onPressedCallback: () {
-                            ref.read(addReviewProvider.notifier).addReviews(
-                                id: widget.id,
-                                ratings: ratings.toInt(),
-                                message: message.text,
-                                image: image!.path);
-                          },
-                          title: 'Submit Review',
-                          radius: 8,
-                          height: 46,
-                          textStyle: TextStyles.bodyText1.copyWith(
-                              color: KColor.white, fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 )
               ],
             ),

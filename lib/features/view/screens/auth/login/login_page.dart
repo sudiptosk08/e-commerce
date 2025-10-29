@@ -62,8 +62,8 @@ class _LoginPageState extends State<LoginPage> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       TextFieldContainer(
-                        hint: 'phone',
-                        label: 'phone',
+                        hint: '',
+                        label: '  Phone ',
                         keyboardType: TextInputType.phone,
                         suffixIcon: Icon(
                           Icons.phone,
@@ -76,8 +76,8 @@ class _LoginPageState extends State<LoginPage> {
                         height: 20,
                       ),
                       TextFieldContainer(
-                        hint: 'password',
-                        label: 'password',
+                        hint: '',
+                        label: '  Password ',
                         suffixIcon: IconButton(
                             onPressed: () {
                               setState(() {
@@ -116,9 +116,9 @@ class _LoginPageState extends State<LoginPage> {
                   return CustomButton(
                     textColor: KColor.white,
                     name:
-                        authState is LoadingState ? 'Please wait...' : 'Login',
+                        authState is! SuccessState ? 'Login' : 'Please wait...',
                     onTap: () {
-                      if (authState is! LoadingState) {
+                      if (authState is! SuccessState) {
                         if (_formKey.currentState!.validate()) {
                           ref.read(loginProvider.notifier).login(
                                 phone: phoneController.text,
@@ -209,8 +209,8 @@ forgotPasswordBottomSheet(
               },
               name: 'Continue',
               width: KSize.getWidth(context, 95),
-              height: KSize.getHeight(context, 45),
-              color: KColor.secondary,
+              height: KSize.getHeight(context, 40),
+              color: KColor.primary,
               textColor: KColor.white,
             ),
           ),
@@ -278,8 +278,8 @@ verificationBottomSheet(BuildContext context) {
               },
               name: 'Continue',
               width: KSize.getWidth(context, 100),
-              height: KSize.getHeight(context, 45),
-              color: KColor.secondary,
+              height: KSize.getHeight(context, 40),
+              color: KColor.primary,
               textColor: KColor.white,
             ),
           ),

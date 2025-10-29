@@ -35,7 +35,7 @@ class Data {
   int id;
   String orderId;
   String totalPrice;
-  String deliveryCharge;
+  int deliveryCharge;
   int subTotal;
   String status;
   BillingAddress billingAddress;
@@ -202,7 +202,7 @@ class Variant {
   int id;
   String name;
   String value;
-  String additionalPrice;
+  int additionalPrice;
 
   Variant({
     required this.id,

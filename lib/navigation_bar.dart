@@ -1,12 +1,13 @@
 // ignore_for_file: unrelated_type_equality_checks, library_private_types_in_public_api
 
 import 'package:ecommerce_app/constant/shared_preference_constant.dart';
-import 'package:ecommerce_app/features/view/screens/all_categories/all_categories_page.dart';
+import 'package:ecommerce_app/features/view/screens/all_categories/controller/category_list_controller.dart';
+import 'package:ecommerce_app/features/view/screens/all_categories/view/all_categories_page.dart';
 import 'package:ecommerce_app/features/view/screens/auth/login/login_page.dart';
 import 'package:ecommerce_app/features/view/screens/home/controller/banner_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/home/controller/brand_list_controller.dart';
-import 'package:ecommerce_app/features/view/screens/home/controller/category_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/my_order/controller/my_order_list_controller.dart';
+import 'package:ecommerce_app/features/view/screens/profile/controller/profile_controller.dart';
 import 'package:ecommerce_app/features/view/screens/shop/controller/product_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/wishlist/controller/wishlist_controller.dart';
 import 'package:ecommerce_app/utils/extension/extension.dart';
@@ -32,12 +33,13 @@ class NavigationBarScreen extends StatefulWidget {
 
 class _NavigationBarScreenState extends State<NavigationBarScreen> {
   bool? checkLogin;
+  String? accessToken;
   @override
   void initState() {
     currentScreen = widget.page == 2 ? const CartPage() : const HomePage();
     currentTab = widget.page == 2 ? 2 : 0;
     checkLogin = getBoolAsync(isLoggedIn, defaultValue: false);
-
+    accessToken = getStringAsync(token);
     super.initState();
   }
 
@@ -75,13 +77,12 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
             //     FloatingActionButtonLocation.centerDocked,
             bottomNavigationBar: BottomAppBar(
               color: KColor.white,
-              padding: const EdgeInsets.all(0),
-              height: 55,
+              padding: const EdgeInsets.only(top: 2),
+              height: 60,
               child: Container(
                   decoration: const BoxDecoration(
                     color: Colors.white,
                   ),
-                  height: 55,
                   width: context.screenWidth * 1,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -139,8 +140,8 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
                             currentScreen = const AllCategoryPage();
                             currentTab = 1;
                             ref
-                                .read(categoryProvider.notifier)
-                                .fetchCategoryDetails();
+                                .read(categorylistProvider.notifier)
+                                .fetchAllCategorylist();
                           });
                         },
                         child: Column(
@@ -236,12 +237,21 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
                                 : const LoginPage();
 
                             currentTab = 3;
-                            ref
-                                .read(wishlistProvider.notifier)
-                                .fetchWishlistProducts();
-                            ref
-                                .read(myOrderProvider.notifier)
-                                .fetchMyOrders("Pending");
+                            accessToken == ""
+                                ? null
+                                : ref
+                                    .read(wishlistProvider.notifier)
+                                    .fetchWishlistProducts();
+                            accessToken == ""
+                                ? null
+                                : ref
+                                    .read(myOrderProvider.notifier)
+                                    .fetchMyOrders("Pending");
+                            accessToken == ""
+                                ? null
+                                : ref
+                                    .read(profileProvider.notifier)
+                                    .getProfile();
                           });
                         },
                         child: Column(

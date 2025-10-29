@@ -10,6 +10,7 @@ import '../../../global_component/appBar/app_bar.dart';
 import '../../../global_component/buttons/Kdrop_down_field.dart';
 import '../../../global_component/text_field_container/k_text_field.dart';
 
+// ignore: must_be_immutable
 class AddShippingAddressPage extends StatefulWidget {
   String region;
   String city;
@@ -83,8 +84,7 @@ class AddShippingAddressPageState extends State<AddShippingAddressPage> {
                                     Radio(
                                       value: index,
                                       activeColor: KColor.primary,
-                                      groupValue: widget.selectedValue ??
-                                          _selectedValue,
+                                      groupValue: widget.selectedValue,
                                       onChanged: (int? value) {
                                         setState(() {
                                           _selectedValue = value!;
