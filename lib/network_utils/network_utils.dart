@@ -6,7 +6,6 @@ import 'dart:io';
 import 'package:http/http.dart';
 // ignore: depend_on_referenced_packages
 import 'package:http_parser/http_parser.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:mime_type/mime_type.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -89,7 +88,7 @@ class Network {
     if (await isNetworkAvailable()) {
       var request = MultipartRequest(
         methodName.toUpperCase(),
-        Uri.parse('${API.base}' + '$endPoint'),
+        Uri.parse('${API.base}$endPoint'),
       );
       print('URL: ${API.base}$endPoint');
 

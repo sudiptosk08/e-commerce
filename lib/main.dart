@@ -3,16 +3,12 @@ import 'dart:io';
 import 'package:ecommerce_app/constant/logger.dart';
 import 'package:ecommerce_app/constant/navigation_service.dart';
 import 'package:ecommerce_app/constant/shared_preference_constant.dart';
-import 'package:ecommerce_app/features/view/screens/home/controller/banner_list_controller.dart';
-import 'package:ecommerce_app/features/view/screens/home/controller/brand_list_controller.dart';
-import 'package:ecommerce_app/features/view/screens/shop/controller/product_list_controller.dart';
 import 'package:ecommerce_app/features/view/screens/splash_screen/splash_screen.dart';
 import 'package:ecommerce_app/utils/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nb_utils/nb_utils.dart';
-
 import 'network_utils/network_utils.dart';
 
 void main() async {
@@ -43,11 +39,7 @@ class _MyAppState extends ConsumerState<MyApp> {
     initData();
   }
 
-  initData() {
-    ref.read(productListProvider.notifier).fetchShopProductList();
-    ref.read(brandProvider.notifier).fetchBrand();
-    ref.read(sliderProvider.notifier).fetchSliderDetails();
-  }
+  initData() {}
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +55,7 @@ class _MyAppState extends ConsumerState<MyApp> {
           iconTheme: IconThemeData(color: KColor.black),
         ),
       ),
-      home: SplashScreen(), // 
+      home: const SplashScreen(), //
       //
     );
   }

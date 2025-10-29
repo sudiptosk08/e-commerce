@@ -75,7 +75,7 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
             //     FloatingActionButtonLocation.centerDocked,
             bottomNavigationBar: BottomAppBar(
               color: KColor.white,
-              padding: EdgeInsets.all(0),
+              padding: const EdgeInsets.all(0),
               height: 55,
               child: Container(
                   decoration: const BoxDecoration(
@@ -87,20 +87,12 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      MaterialButton(
-                        onPressed: () {
+                      InkWell(
+                        onTap: () {
                           setState(() {
                             currentScreen = const HomePage();
                             currentTab = 0;
                             // store.state.logoutUserData = null;
-                            ref
-                                .read(productListProvider.notifier)
-                                .fetchShopProductList();
-
-                            ref.read(brandProvider.notifier).fetchBrand();
-                            ref
-                                .read(sliderProvider.notifier)
-                                .fetchSliderDetails();
                           });
                         },
                         child: Column(
@@ -141,8 +133,8 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
                           ],
                         ),
                       ),
-                      MaterialButton(
-                        onPressed: () {
+                      InkWell(
+                        onTap: () {
                           setState(() {
                             currentScreen = const AllCategoryPage();
                             currentTab = 1;
@@ -190,8 +182,8 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
                           ],
                         ),
                       ),
-                      MaterialButton(
-                        onPressed: () {
+                      InkWell(
+                        onTap: () {
                           setState(() {
                             currentScreen = const CartPage();
                             currentTab = 2;
@@ -236,8 +228,8 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
                           ],
                         ),
                       ),
-                      MaterialButton(
-                        onPressed: () {
+                      InkWell(
+                        onTap: () {
                           setState(() {
                             currentScreen = checkLogin!
                                 ? const ProfilePage()

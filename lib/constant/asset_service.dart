@@ -1,5 +1,3 @@
-
-
 // ignore_for_file: avoid_print
 
 import 'package:ecommerce_app/constant/attachment_source_choice_dialog.dart';
@@ -20,11 +18,11 @@ class AssetService {
       // print(file.extension);
       // print(file.path);
       if (allowCrop) {
-        ImageCropper imageCropper =  ImageCropper();
-        
-         await imageCropper.cropImage(
+        ImageCropper imageCropper = ImageCropper();
+
+        await imageCropper.cropImage(
             sourcePath: file.path!,
-            aspectRatio:const CropAspectRatio(ratioX: 1, ratioY: 1),
+            aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
             compressQuality: 100,
             maxWidth: 700,
             maxHeight: 700,
@@ -62,7 +60,7 @@ class AssetService {
 
           await imageCropper.cropImage(
               sourcePath: image.path,
-              aspectRatio:const CropAspectRatio(ratioX: 1, ratioY: 1),
+              aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
               compressQuality: 100,
               maxWidth: 700,
               maxHeight: 700,
@@ -85,8 +83,6 @@ class AssetService {
     return null;
   }
 
-   
-
   static pickMedia(
       bool allowCrop, context, allowFiles, showChoiceDialog) async {
     final mediaSource = showChoiceDialog
@@ -104,7 +100,7 @@ class AssetService {
             type: FileType.custom,
             allowedExtensions: ['jpg', 'png', 'jpeg', 'webp', 'doc', 'pdf'],
             allowMultiple: false);
-        return pickFile(allowCrop, result!);
+        return pickFile(allowCrop, result);
       }
     }
   }

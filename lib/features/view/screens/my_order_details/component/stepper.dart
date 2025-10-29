@@ -379,14 +379,14 @@ class StepperComponent extends StatelessWidget {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           gradient: currentIndex >= index
-                              ? LinearGradient(
+                              ? const LinearGradient(
                                   begin: Alignment.topCenter,
                                   end: Alignment(0.9, 0.1),
                                   colors: [
                                       Color(0xffABE6C9),
                                       Color.fromARGB(255, 133, 227, 182)
                                     ])
-                              : LinearGradient(
+                              : const LinearGradient(
                                   begin: Alignment.topCenter,
                                   end: Alignment(0.9, 0.1),
                                   colors: [

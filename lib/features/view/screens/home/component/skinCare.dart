@@ -104,7 +104,7 @@ class _SkinCareState extends State<SkinCare> {
                             return ProductCard(
                               type: "New asd",
                               id: productListData[index].id.toString(),
-                              imagePath: "assets/product/product6.png",
+                              imagePath: productListData[index].thumbnail,
                               productName: productListData[index].name,
                               appDiscount:
                                   productListData[index].discount.toInt(),

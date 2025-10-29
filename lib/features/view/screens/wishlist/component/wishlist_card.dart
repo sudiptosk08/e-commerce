@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:ecommerce_app/utils/assets/app_assets.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.dart';
 
@@ -10,8 +9,6 @@ import 'package:ecommerce_app/utils/extension/extension.dart';
 import 'package:ecommerce_app/utils/size/k_size.dart';
 
 import '../../../../../utils/text_styles/text_styles.dart';
-import '../../../global_component/buttons/custom_button.dart';
-import '../../../global_component/dialog/k_confirm_dialog.dart';
 
 class WishListCard extends StatefulWidget {
   int? quantity;

@@ -1,6 +1,5 @@
 // ignore_for_file: file_names, library_private_types_in_public_api
 
-import 'package:ecommerce_app/constant/base_state.dart';
 import 'package:ecommerce_app/constant/navigation_service.dart';
 import 'package:ecommerce_app/features/view/global_component/shimmer/placeholder_shimmer.dart';
 import 'package:ecommerce_app/features/view/screens/product_details/controller/product_details_controller.dart';
@@ -104,7 +103,7 @@ class _NewArrivalState extends State<NewArrival> {
                             return ProductCard(
                               type: "New Arrival",
                               id: productListData[index].id.toString(),
-                              imagePath: "assets/product/product4.png",
+                              imagePath: productListData[index].thumbnail,
                               productName: productListData[index].name,
                               appDiscount:
                                   productListData[index].discount.toInt(),

@@ -2,12 +2,10 @@
 
 import 'package:ecommerce_app/utils/assets/app_assets.dart';
 import 'package:ecommerce_app/utils/extension/extension.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../utils/colors/app_colors.dart';
 import '../../../../../utils/text_styles/text_styles.dart';
-import '../../../global_component/dialog/k_confirm_dialog.dart';
 
 class NotificationCard extends StatefulWidget {
   final String? msg;
@@ -133,21 +131,21 @@ class _NotificationCardState extends State<NotificationCard> {
     );
   }
 
-  Container _endToStartBackground() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 4),
-      margin: const EdgeInsets.only(top: 4, bottom: 4, left: 2, right: 2),
-      decoration: BoxDecoration(
-        color: KColor.red,
-        borderRadius: const BorderRadius.only(
-          topRight: Radius.circular(4.0),
-          bottomRight: Radius.circular(4.0),
-        ),
-      ),
-      child: const Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [Icon(Icons.delete)],
-      ),
-    );
-  }
+  // Container _endToStartBackground() {
+  //   return Container(
+  //     padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 4),
+  //     margin: const EdgeInsets.only(top: 4, bottom: 4, left: 2, right: 2),
+  //     decoration: BoxDecoration(
+  //       color: KColor.red,
+  //       borderRadius: const BorderRadius.only(
+  //         topRight: Radius.circular(4.0),
+  //         bottomRight: Radius.circular(4.0),
+  //       ),
+  //     ),
+  //     child: const Row(
+  //       mainAxisAlignment: MainAxisAlignment.end,
+  //       children: [Icon(Icons.delete)],
+  //     ),
+  //   );
+  // }
 }

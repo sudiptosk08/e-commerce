@@ -1,5 +1,4 @@
 import 'package:ecommerce_app/constant/base_state.dart';
-import 'package:ecommerce_app/features/view/screens/auth/login/login_page.dart';
 import 'package:ecommerce_app/features/view/screens/auth/registration/controller/registration_controller.dart';
 import 'package:ecommerce_app/utils/text_styles/text_styles.dart';
 import 'package:flutter/material.dart';

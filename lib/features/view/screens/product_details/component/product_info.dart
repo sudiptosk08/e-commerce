@@ -40,6 +40,7 @@ class _ProductInfoState extends State<ProductInfo> {
   int selectType = -1;
   bool favorite = false;
   var totalPrice;
+  double value = 0.0;
 
   List<dynamic> item = ["About", "Reviews"];
   List<Map<String, dynamic>> attributeList = [];
@@ -174,7 +175,7 @@ class _ProductInfoState extends State<ProductInfo> {
                                       const Icon(
                                         Icons.memory_outlined,
                                         size: 17,
-                                        color: KColor.grey,
+                                        color: KColor.textgrey,
                                       ),
                                       const SizedBox(
                                         width: 5,
@@ -182,7 +183,7 @@ class _ProductInfoState extends State<ProductInfo> {
                                       Text.rich(
                                         TextSpan(
                                             text:
-                                                "${productDetails.stock.toString()}",
+                                                productDetails.stock.toString(),
                                             style: TextStyles.bodyText1
                                                 .copyWith(
                                                     color: KColor.textgrey),
@@ -203,7 +204,7 @@ class _ProductInfoState extends State<ProductInfo> {
                                       const Icon(
                                         Icons.delivery_dining_outlined,
                                         size: 17,
-                                        color: KColor.grey,
+                                        color: KColor.textgrey,
                                       ),
                                       const SizedBox(
                                         width: 5,
@@ -219,6 +220,159 @@ class _ProductInfoState extends State<ProductInfo> {
                               ),
                             ),
                           ],
+                        ),
+                        const Divider(
+                            thickness: 1,
+                            color: Color(
+                              0xffCBD4F0,
+                            )),
+                        Text(
+                          "Buy From",
+                          style: TextStyles.subTitle1,
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: const Color(
+                                0xffCBD4F0,
+                              )),
+                              // color: KColor.primary.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(8)),
+                          padding: const EdgeInsets.all(6),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Image.network(
+                                    "https://media.e-valy.com/cms/brands/logo/7f4646c1-6e94-43ef-98d3-7def922409bc?h=350&w=350",
+                                    width: 100,
+                                    height: 100,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 4.0),
+                                    child: SizedBox(
+                                      height: 100,
+                                      width: 200,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Opera ShoppingMall Lots of Brand Collection",
+                                            style: TextStyles.subTitle1,
+                                            maxLines: 2,
+                                          ),
+                                          Row(
+                                            children: [
+                                              Container(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 8,
+                                                          top: 5,
+                                                          right: 8,
+                                                          bottom: 5),
+                                                  decoration: BoxDecoration(
+                                                      color: KColor.persianBlue,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              15)),
+                                                  child: Text("19 Stock",
+                                                      style: TextStyles
+                                                          .bodyText2
+                                                          .copyWith(
+                                                              color: KColor
+                                                                  .white))),
+                                              const SizedBox(
+                                                width: 5,
+                                              ),
+                                              Container(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 8,
+                                                          top: 5,
+                                                          right: 8,
+                                                          bottom: 5),
+                                                  decoration: BoxDecoration(
+                                                      color: KColor.primary,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              15)),
+                                                  child: Text(
+                                                    "Sold 9",
+                                                    style: TextStyles.bodyText2
+                                                        .copyWith(
+                                                            color:
+                                                                KColor.white),
+                                                  ))
+                                            ],
+                                          ),
+                                          SmoothStarRating(
+                                            color: KColor.primary,
+                                            borderColor: KColor.yellow800,
+                                            size: 20,
+                                            rating: value,
+                                            onRatingChanged: (rating) {
+                                              setState(() {
+                                                value = rating;
+                                              });
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              Row(
+                                children: [
+                                  const Icon(
+                                    Icons.location_on,
+                                    color: KColor.textgrey,
+                                    size: 18,
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  SizedBox(
+                                    width: KSize.getWidth(context, 310),
+                                    child: Text(
+                                      "House No 652, Block k, Road 11, Mirpur Dosh (10), Dhaka , Bangladesh",
+                                      maxLines: 2,
+                                      style: TextStyles.bodyText1
+                                          .copyWith(color: KColor.textgrey),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  const Icon(
+                                    Icons.delivery_dining_outlined,
+                                    size: 17,
+                                    color: KColor.textgrey,
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    "70 BDT (120 BDT Out Side Dhaka)",
+                                    maxLines: 2,
+                                    style: TextStyles.bodyText1
+                                        .copyWith(color: KColor.textgrey),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                         const Divider(
                             thickness: 1,
@@ -283,7 +437,7 @@ class _ProductInfoState extends State<ProductInfo> {
                             Container(
                               alignment: Alignment.centerRight,
                               decoration: BoxDecoration(
-                                  color: Color(0xffE9E9FA),
+                                  color: const Color(0xffE9E9FA),
                                   borderRadius: BorderRadius.circular(19)),
                               width: KSize.getWidth(context, 120),
                               child: Row(
@@ -497,7 +651,7 @@ class _ProductInfoState extends State<ProductInfo> {
                                                   margin: const EdgeInsets.only(
                                                       bottom: 5),
                                                   padding: const EdgeInsets
-                                                          .symmetric(
+                                                      .symmetric(
                                                       vertical: 3,
                                                       horizontal: 10),
                                                   decoration: BoxDecoration(
@@ -611,7 +765,7 @@ class _ProductInfoState extends State<ProductInfo> {
                                                           const EdgeInsets.only(
                                                               bottom: 5),
                                                       padding: const EdgeInsets
-                                                              .symmetric(
+                                                          .symmetric(
                                                           vertical: 3,
                                                           horizontal: 10),
                                                       decoration: BoxDecoration(
@@ -710,7 +864,7 @@ class _ProductInfoState extends State<ProductInfo> {
                                                           const EdgeInsets.only(
                                                               bottom: 5),
                                                       padding: const EdgeInsets
-                                                              .symmetric(
+                                                          .symmetric(
                                                           vertical: 3,
                                                           horizontal: 10),
                                                       decoration: BoxDecoration(

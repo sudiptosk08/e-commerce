@@ -2,6 +2,7 @@ import 'package:ecommerce_app/features/view/global_component/drawer/drawer.dart'
 import 'package:ecommerce_app/features/view/screens/home/component/brand_list.dart';
 import 'package:ecommerce_app/features/view/screens/home/component/grocery_item.dart';
 import 'package:ecommerce_app/features/view/screens/home/component/new_arival.dart';
+import 'package:ecommerce_app/features/view/screens/home/component/shop_store_list.dart';
 import 'package:ecommerce_app/features/view/screens/home/component/skinCare.dart';
 import 'package:ecommerce_app/features/view/screens/notification/controller/notification_controller.dart';
 import 'package:ecommerce_app/utils/assets/app_assets.dart';
@@ -144,7 +145,9 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: 15,
               ),
+
               AllProduct(),
+              ShopStoreList(),
               BrandSection(),
               SizedBox(
                 height: 8,
@@ -152,11 +155,10 @@ class _HomePageState extends State<HomePage> {
               NewArrival(),
               GroceryItem(),
               SkinCare(),
-
               SizedBox(
                 height: 5,
               ),
-              // NewArrivalsProduct(),
+
               SizedBox(
                 height: 30,
               ),

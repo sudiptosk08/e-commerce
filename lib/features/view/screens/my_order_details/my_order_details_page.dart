@@ -19,8 +19,6 @@ class OrderDetailsPage extends StatefulWidget {
 }
 
 class _OrderDetailsPageState extends State<OrderDetailsPage> {
-  int _currentStep = 0;
-  List<String> _steps = ['Order Placed', 'In Progress', 'Shipped', 'Delivered'];
 
   @override
   Widget build(BuildContext context) {
